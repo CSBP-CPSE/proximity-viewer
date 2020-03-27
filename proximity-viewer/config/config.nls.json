@@ -1,0 +1,182 @@
+{
+    "Toc_Instruction": {
+        "en": "Turn layers on or off",
+        "fr": "Afficher ou cachers les couches"
+    },
+    "Toc_Legend": {
+        "en": "Legend",
+        "fr": "Légende"
+    },
+    "Toc_Opacity": {
+        "en": "Opacity",
+        "fr": "Opacité"
+    },
+    "Toc_Opacity_Title": {
+        "en": "Slide to adjust opacity",
+        "fr": "Faire glisser pour ajuster l'opacité"
+    },
+	"Splash_CloseContinue" : {
+		"en" : "Close and continue",
+		"fr" : "Fermer et continuer"
+	},
+    "Splash_LODE_Title": {
+        "en": "LODE Viewer",
+        "fr": "Visionneuse de l'ECDO"
+    },
+    "Splash_LODE_1": {
+        "en": "The Linkable Open Data Environment (LODE) is an exploratory initiative that aims at enhancing the use and harmonization of open micro data primarily from municipal, provincial and federal sources.",
+        "fr": "L'Environnement de couplage de données ouvertes (ECDO) est une initiative exploratoire qui vise à accroître l'utilisation et l'harmonisation de microdonnées ouvertes provenant principalement de sources municipales, provinciales et fédérales."
+    },
+    "Splash_LODE_2": {
+        "en": "The results are a collection of datasets released under a single open data license (Open Government Licence - Canada), as well as open source tools used to process the data, and collaborations in an open space.",
+        "fr": "Il en résulte une collection d'ensembles de données diffusés en vertu d'une même licence de données ouvertes (Licence du gouvernement ouvert – Canada), ainsi que des outils libres utilisés pour traiter les données et des collaborations dans un espace ouvert."
+    },
+    "Splash_LODE_3": {
+        "en": "The LODE is implemented by the Data Exploration and Integration Lab (DEIL). It is an ongoing and exploratory initiative, developed in an open space, as an open project.",
+        "fr": "L'ECDO est mis en œuvre par le Laboratoire d'exploration et d'intégration des données. Il s'agit par conséquent d'une initiative continue et exploratoire mise sur pied dans un espace ouvert à titre de projet ouvert."
+    },
+    "Splash_WIP": {
+        "en": "The LODE Viewer is a work in progress. There may be some issues with the data. All the data shown in the viewer are open sourced.",
+        "fr": "La visionneuse de l'ECDO est un travail en cours. Il peut y avoir des erreurs dans les données. Toutes les données présentées dans la visionneuse sont ouvertes."
+    },
+    "Splash_Warning": {
+        "en": "Warning: This web application consumes a large amount of data. It is advised not to use it on a mobile device with a limited data plan.",
+        "fr": "Attention : Cette application consomme un grand volume de données. Il est conseillé de ne pas l'utiliser sur une plateforme mobile avec un plan de données limité."
+    },
+    "Splash_Continue": {
+        "en": "CONTINUE",
+        "fr": "CONTINUER"
+    },
+    "Map_Not_Available": {
+        "en": "n/a",
+        "fr": "n.d."
+    },
+    "Maps_Title": {
+        "en": "Change map",
+        "fr": "Changer la carte"
+    },
+    "Maps_Header": {
+        "en": "Select a map",
+        "fr": "Sélectionnez une carte"
+    },
+    "Maps_Description": {
+        "en": "Move your cursor over an item in the list to show the description.",
+        "fr": "Déplacer votre curseur au dessus d'un élément de la liste pour afficher la description."
+    },
+	"Home_Title" : {
+		"en" : "Zoom to Canada",
+		"fr" : "Zoomer au Canada"
+	},
+    "Bookmarks_Title": {
+        "en": "Go to census metropolitan area",
+        "fr": "Aller à une région métropolitaine de recensement"
+    },
+    "Bookmarks_Header": {
+        "en": "Go to census metropolitan area",
+        "fr": "Aller à une région métropolitaine de recensement"
+    },
+    "Bookmarks_Description": {
+        "en": "Select an item from the list to go to the bookmark.",
+        "fr": "Sélectionner un élément de la liste pour aller à celui-ci."
+    },
+    "Download_Title": {
+        "en": "Download data (forthcoming)",
+        "fr": "Télécharger les données (à venir)"
+    },
+    "Search_Placeholder": {
+        "en": "Enter CSD name or ID ...",
+        "fr": "Saisir le nom ou l'identifiant du DSR..."
+    },
+    "Search_Title": {
+        "en": "Results will show after three characters are entered.",
+        "fr": "Les résultats apparaîtront après avoir entré trois caractères."
+    },
+	"FullScreen_Title" : {
+		"en" : "Show in fullscreen",
+		"fr" : "Afficher en plein écran"
+	},
+	"Navigation_ZoomIn_Title" : {
+		"en" : "Zoom in",
+		"fr" : "Zoom avant"
+	},
+	"Navigation_ZoomOut_Title" : {
+		"en" : "Zoom out",
+		"fr" : "Zoom arrière"
+	},
+	"Table_Title" : {
+		"en" : "Detailed table of DBs",
+		"fr" : "Tableau détaillé des BDs"
+	},
+	"Table_Summary" : {
+		"en" : "Dissemination blocks contained in the selected census subdivision",
+		"fr" : "Les blocs de diffusion contenus dans la sous-division de recensement sélectionnée."
+	},
+	"Table_Field_DBUID" : {
+		"en" : "DB ID",
+		"fr" : "ID BD"
+	},
+	"Table_Field_pharm.idx" : {
+		"en" : "Pharmacy",
+		"fr" : "Pharmacie"
+	},
+	"Table_Field_empl.idx" : {
+		"en" : "Employment",
+		"fr" : "Emploi"
+	},
+	"Table_Field_child.idx" : {
+		"en" : "Child care",
+		"fr" : "Service de garde"
+	},
+	"Table_Field_health.idx" : {
+		"en" : "Health care",
+		"fr" : "Soins de santé"
+	},
+	"Table_Field_edupri.idx" : {
+		"en" : "Primary Education",
+		"fr" : "Éducation primaire"
+	},
+	"Table_Field_edusec.idx" : {
+		"en" : "Secondary Education",
+		"fr" : "Éducation secondaire"
+	},
+	"Table_Field_lib.idx" : {
+		"en" : "Library",
+		"fr" : "Bibliothèque"
+	},
+	"Table_Field_groc.idx" : {
+		"en" : "Grocery Store",
+		"fr" : "Épicerie"
+	},
+	"Table_Field_parks.idx" : {
+		"en" : "Park",
+		"fr" : "Parc"
+	},
+	"Table_Field_trans.idx" : {
+		"en" : "Public Transit",
+		"fr" : "Transport en commun"
+	},
+	"Table_Field_close" : {
+		"en" : "Proximity level",
+		"fr" : "Niveau de proximité"
+	},
+	"Table_Field_suppressed" : {
+		"en" : "Suppressed",
+		"fr" : "Supprimé"
+	},
+	"Table_Next_Button" : {
+		"en" : "Next page",
+		"fr" : "Prochaine page"
+	},
+	"Table_Previous_Button" : {
+		"en" : "Previous page",
+		"fr" : "Page précédent"
+	},
+	"Table_Current_Page" : {
+		"en" : "Page {0} of {1}",
+		"fr" : "Page {0} de {1}"
+	},
+	"Table_Message" : {
+		"en" : "Please select a CSD using the search bar to show DB level data for that CSD.",
+		"fr" : "Veuillez sélectionner un CSD en utilisant la barre de recherche pour afficher les données au niveau des BD pour ce CSD."
+	}
+}

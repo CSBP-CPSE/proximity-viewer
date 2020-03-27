@@ -1,0 +1,11 @@
+["./config/maps/config.close.json",
+    "./config/maps/config.empl.json",
+    "./config/maps/config.groc.json",
+    "./config/maps/config.pharm.json",
+    "./config/maps/config.health.json",
+    "./config/maps/config.edupri.json",
+    "./config/maps/config.edusec.json",
+    "./config/maps/config.child.json",
+    "./config/maps/config.trans.json",
+    "./config/maps/config.library.json",
+    "./config/maps/config.parks.json"]

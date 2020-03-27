@@ -1,0 +1,59 @@
+{
+    "id": "close",
+    "style": "mapbox://styles/deil-leid/ck627c79p0sqh1iqnwbg53oug",
+    "layers": [{
+            "id": "db"
+        }
+    ],
+    "title": {
+        "en": "Amenity dense neighborhood",
+        "fr": "Quartier dense en commodités"
+    },
+    "banner": {
+        "en": "Experimental statistics",
+        "fr": "Statistiques expérimentales"
+    },
+    "description": {
+        "en": "An amenity dense neighborhood/locality is defined as one that has a grocery store (1km walking distance), a pharmacy (1km walking distance), a health facility (3km driving distance), a childcare facility (1.5km walking distance), a primary school (1.5km walking distance), a library (1.5km walking distance), a public transit stop (1km walking distance), to employment (10km driving distance).",
+        "fr": "Un quartier dense en commodités est défini comme ayant une épicerie (1km distance de marche), une pharmacie (1km distance de marche), un établissement de santé (3km distance en voiture), un service de garde (1.5km distance de marche), une école primaire (1.5km distance de marche), une bibliothèque (1.5km distance de marche), un arrêt de transport en commun (1km distance de marche), et un lieu de travail (10km distance en voiture)."
+    },
+    "legend": [{
+            "color": [84, 179, 10],
+            "label": {
+                "en": "High density",
+                "fr": "Haute densité"
+            },
+            "value": ["==", ["get", "close"], 2]
+        }, {
+            "color": [217, 239, 139],
+            "label": {
+                "en": "Medium density",
+                "fr": "Moyenne densité"
+            },
+            "value": ["==", ["get", "close"], 1]
+        }, {
+            "color": [255, 255, 255],
+            "label": {
+                "en": "Low density",
+                "fr": "Faible densité"
+            },
+            "value": ["==", ["get", "close"], 0]
+        }, {
+            "color": [255, 255, 255]
+        }
+    ],
+    "fields": [{
+            "id": "DBUID",
+            "label": {
+                "en": "Dissemination block",
+                "fr": "Bloc de diffusion"
+            }
+        }, {
+            "id": "CSDUID",
+            "label": {
+                "en": "Census Subdivision",
+                "fr": "Sous-division de recensement"
+            }
+        }
+    ]
+}

@@ -1,8 +1,10 @@
 {
     "id": "parks",
-    "style": "mapbox://styles/deil-leid/ck627fae20sqw1ip2utxy4bhn",
+    "style": "mapbox://styles/deil-leid/ck8rgxu7t06fq1imp45c3n6dv",
     "layers": [{
             "id": "db"
+        }, {
+            "id": "csd-search"
         }
     ],
     "title": {

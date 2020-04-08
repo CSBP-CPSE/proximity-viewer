@@ -1,8 +1,10 @@
 {
     "id": "edusec",
-    "style": "mapbox://styles/deil-leid/ck627cnso0dy51iryeypye9uh",
+    "style": "mapbox://styles/deil-leid/ck8rgw8l80dsr1isw1uoiv5o2",
     "layers": [{
             "id": "db"
+        }, {
+            "id": "csd-search"
         }
     ],
     "title": {

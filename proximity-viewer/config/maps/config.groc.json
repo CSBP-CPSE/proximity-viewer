@@ -1,8 +1,10 @@
 {
     "id": "groc",
-    "style": "mapbox://styles/deil-leid/ck627eo3c0sve1ir9q599go6n",
+    "style": "mapbox://styles/deil-leid/ck8rgwxfp0dti1iswhpkzdife",
     "layers": [{
             "id": "db"
+        }, {
+            "id": "csd-search"
         }
     ],
     "title": {

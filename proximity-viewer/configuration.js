@@ -27,42 +27,8 @@ export default class Configuration {
 	get Description() {
 		return this.description;
 	}
-	
-	get Layers() {
-		return this.layers;
-	}
-	
+		
 	// Get for transformed properties
-	get LayerIDs() {
-		var layers = this.Layers;
-		
-		return layers && layers.map(l => l.id);
-	}
-	
-	get VisibleLayers() {
-		var layers = this.Layers;
-		
-		return layers && layers.filter(l => (l.visible || l.visible === undefined));
-	}
-	
-	get VisibleLayerIDs() {	
-		var layers = this.VisibleLayers;
-		
-		return layers && layers.map(l => l.id);
-	}
-	
-	get SelectedLayers() {
-		var layers = this.Layers;
-		
-		return layers.filter(l => l.selected);
-	}
-	
-	get SelectedLayerIDs()  {
-		var layers = this.SelectedLayers;
-		
-		return layers && layers.map(l => l.id);
-	}
-	
 	get Legend() {		
 		return this.legend && this.legend.map(l => { 
 			return { 
@@ -95,7 +61,6 @@ export default class Configuration {
 	constructor() {
 		this.id = null;
 		this.style = null;
-		this.layers = null;
 		this.title = null;
 		this.banner = null;
 		this.subtitle = null;
@@ -103,14 +68,6 @@ export default class Configuration {
 		this.legend = null;
 		this.toc = null;
 		this.fields = null;
-	}
-	
-	HasLayer(layerId) {
-		for (var i=0; i < this.layers.length; i++) {
-			if (this.layers[i].id === layerId) return true;
-		}
-		
-		return false;
 	}
 	
 	static FromJSON(json) {
@@ -122,7 +79,6 @@ export default class Configuration {
 		c.banner = json.banner && json.banner[Core.locale] || null;
 		c.subtitle = json.subtitle && json.subtitle[Core.locale] || null;
 		c.description = json.description && json.description[Core.locale] || null;
-		c.layers = json.layers || null;
 		c.legend = json.legend || null;
 		c.toc = json.toc || null;
 		c.fields = json.fields || null;

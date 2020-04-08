@@ -1,4 +1,20 @@
 {
+	"Inv_Search_Instructions" : {
+		"en": "Enter a CSD id or name in the search bar below to select the DBs in that CSD. The DBs will appear in the table below.",
+		"fr": "Saisir un identifiant ou le nom d'une SDR pour sélectionner les IDs dans ce CSD. Les IDs apparaitront dans le tableau plus bas."
+	},
+	"Inv_Skip_Link" : {
+		"en": "Skip the interactive features and go directly to the data table.",
+		"fr": "Ignorez les fonctions interactives et allez directement à la table de données."
+	},
+	"App_Search_Label": {
+		"en": "Enter census subdivision (CSD) id or name:",
+		"fr": "Saisir l'identifiant ou le nom de la subdivision de recensement (SDR):"
+	},
+	"App_Instructions": {
+		"en": "This map shows the proximity measures by DB for the selected indicator. Use the <img src='assets/layers.png'> button to change indicator. The search bar can be used to find and select a CSD. You can click on a DB in the map to show more information.",
+		"fr": "Cette carte affiche les mesures de proximité par ID pour l'indicateur sélectionné. Utilisez le bouton <img src='assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une SDR. Vous pouvez cliquer sur un ID dans la carte pour obtenir plus d'information."
+	},
     "Toc_Instruction": {
         "en": "Turn layers on or off",
         "fr": "Afficher ou cachers les couches"
@@ -52,12 +68,12 @@
         "fr": "n.d."
     },
     "Maps_Title": {
-        "en": "Change map",
-        "fr": "Changer la carte"
+        "en": "Change indicator",
+        "fr": "Changer l'indicateur"
     },
     "Maps_Header": {
-        "en": "Select a map",
-        "fr": "Sélectionnez une carte"
+        "en": "Select an indicator",
+        "fr": "Sélectionnez un indicateur"
     },
     "Maps_Description": {
         "en": "Move your cursor over an item in the list to show the description.",
@@ -103,9 +119,13 @@
 		"en" : "Zoom out",
 		"fr" : "Zoom arrière"
 	},
-	"Table_Title" : {
+	"Table_Title_Temp" : {
 		"en" : "Detailed table of DBs",
-		"fr" : "Tableau détaillé des BDs"
+		"fr" : "Tableau détaillé des IDs"
+	},
+	"Table_Title" : {
+		"en" : "Detailed table of DBs in {0}",
+		"fr" : "Tableau détaillé des IDs dans {0}"
 	},
 	"Table_Summary" : {
 		"en" : "Dissemination blocks contained in the selected census subdivision",

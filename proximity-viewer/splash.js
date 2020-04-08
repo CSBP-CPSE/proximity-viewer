@@ -27,7 +27,7 @@ export default class Splash extends Popup {
 	}
 	
 	Template() {
-		return "<div handle='root' class='popup modal fixed'>" +
+		return "<div handle='root' class='prx popup modal fixed'>" +
 				  "<div class='popup-container'>" +
 					  "<button class='close' handle='close' title='nls(Splash_CloseContinue)'>×</button>" +
 					  "<div class='popup-body' handle='body'>" + 

@@ -1,8 +1,10 @@
 {
     "id": "edupri",
-    "style": "mapbox://styles/deil-leid/ck627cggt04rl1jo33ztkcurm",
+    "style": "mapbox://styles/deil-leid/ck8rgvua2022q1inxfxr3p6ni",
     "layers": [{
             "id": "db"
+        }, {
+            "id": "csd-search"
         }
     ],
     "title": {

@@ -1,8 +1,10 @@
 {
     "id": "empl",
-    "style": "mapbox://styles/deil-leid/ck627ecbh0stx1iltcgn88fgb",
+    "style": "mapbox://styles/deil-leid/ck8rgwm7h0bzu1ipecvv02lye",
     "layers": [{
             "id": "db"
+        }, {
+            "id": "csd-search"
         }
     ],
     "title": {

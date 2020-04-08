@@ -14,7 +14,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		this.summary = options.summary;
 		
 		this.current = {
-			id : null,
+			item : null,
 			page : 1,
 			max : null
 		}
@@ -25,7 +25,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 
 	Template() {
 		return "<div class='table-widget'>" +
-				  "<h2>nls(Table_Title)</h2>" +
+				  "<h2 handle='title'>nls(Table_Title_Temp)</h2>" +
 				  
 			      "<div handle='message' class='table-message'>nls(Table_Message)</div>"+
 				  
@@ -36,7 +36,8 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 					    "<button handle='next' title='nls(Table_Next_Button)' disabled><img src='assets/arrow-right.png'></button>"+
 				     "</div>" + 
 				  
-				     "<table summary='nls(Table_Summary)'>" +
+					 "<summary id='prx-table'>nls(Table_Summary)</summary>" +
+				     "<table>" +
 				        "<thead>" + 
 				           "<tr>" + 
 						      "<th>nls(Table_Field_DBUID)</th>" + 
@@ -69,7 +70,9 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 	}
 
 	//Update the table content with the correct data of the DBU
-	Populate(data) {
+	Populate(item, data) {
+		this.Node("title").innerHTML = Core.Nls("Table_Title", [item.label]);
+		
 		Dom.Empty(this.Node('body'));
 
 		data.shift();
@@ -89,28 +92,23 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 	* Update the table with the correct DBUID data 
 	*
 	* Parameters :
-	* id : the DBUID that was used in the search bar
+	* item : the item that was used in the search bar
 	* Return : none
 	*/
-	UpdateTable(id, page) {
-		//var active = document.activeElement;
-		// Disable buttons while data is being retrieved, prevent abusive clicking
-		// TODO : Probably not necessary
-		// this.DisableButtons();
-		
+	UpdateTable(item, page) {	
 		// Set current DB
 		this.current.page = page || 1;
-		this.current.id = id;
-		this.current.max = this.summary[id] || 1;
+		this.current.item = item;
+		this.current.max = this.summary[item.id] || 1;
 
-		// Get CSV file for selected DB
-		var file = `data/${this.current.id}_${this.current.page}.csv`;
+		// Get CSV file for selected DB. Extension is json because of weird server configuration. Content is csv.		
+		var file = `data/${this.current.item.id}_${this.current.page}.json`;
 		var url = this.GetDataFileUrl(file);	
 		
 		Net.Request(url).then(ev => {
 			var data = Util.ParseCsv(ev.result);
 			
-			this.Populate(data);
+			this.Populate(item, data);
 			
 			// Update table UI
 			this.Node('current').innerHTML = Core.Nls("Table_Current_Page", [this.current.page, this.current.max]);
@@ -120,17 +118,9 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 			Dom.ToggleCss(this.Node("message"), "hidden", true);
 			Dom.ToggleCss(this.Node("table"), "hidden", false);
 			
-			// active.focus();
 		}, this.OnAsyncFailure);
 	}
 
-	/*
-	DisableButtons() {
-		this.Node('prev').disabled = true;
-		this.Node('next').disabled = true;
-	}
-	*/
-	
 	ToggleButtons() {
 		this.Node('prev').disabled = (this.current.page <= 1);
 		this.Node('next').disabled = (this.current.page >= this.current.max);
@@ -139,13 +129,13 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 	OnButtonPrev_Handler(ev) {
 		this.current.page--;
 		
-		this.UpdateTable(this.current.id, this.current.page);
+		this.UpdateTable(this.current.item, this.current.page);
 	}
 
 	OnButtonNext_Handler(ev) {
 		this.current.page++;
 		
-		this.UpdateTable(this.current.id, this.current.page);
+		this.UpdateTable(this.current.item, this.current.page);
 	}
 	
 	OnAsyncFailure(ev) {

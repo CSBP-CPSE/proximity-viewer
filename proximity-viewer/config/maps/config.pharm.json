@@ -1,8 +1,10 @@
 {
     "id": "pharm",
-    "style": "mapbox://styles/deil-leid/ck627fjkw0cvh1imv49nriwwe",
+    "style": "mapbox://styles/deil-leid/ck8rgy3k416p81io4vay0fuq4",
     "layers": [{
             "id": "db"
+        }, {
+            "id": "csd-search"
         }
     ],
     "title": {

@@ -1,8 +1,10 @@
 {
     "id": "health",
-    "style": "mapbox://styles/deil-leid/ck627euqt0fq81imesj8rgvyr",
+    "style": "mapbox://styles/deil-leid/ck8rgx9im0e661im9qkfndjp6",
     "layers": [{
             "id": "db"
+        }, {
+            "id": "csd-search"
         }
     ],
     "title": {

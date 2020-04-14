@@ -12,8 +12,8 @@
 		"fr": "Saisir l'identifiant ou le nom de la subdivision de recensement (SDR):"
 	},
 	"App_Instructions": {
-		"en": "This map shows the proximity measures by DB for the selected indicator. Use the <img src='assets/layers.png'> button to change indicator. The search bar can be used to find and select a CSD. You can click on a DB in the map to show more information.",
-		"fr": "Cette carte affiche les mesures de proximité par ID pour l'indicateur sélectionné. Utilisez le bouton <img src='assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une SDR. Vous pouvez cliquer sur un ID dans la carte pour obtenir plus d'information."
+		"en": "This map shows the proximity measures by DB for the selected indicator. Use the <img alt='Change indicator' src='assets/layers.png'> button to change indicator. The search bar can be used to find and select a CSD. You can click on a DB in the map to show more information.",
+		"fr": "Cette carte affiche les mesures de proximité par ID pour l'indicateur sélectionné. Utilisez le bouton <img alt=\"Changer l'indicateur\" src='assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une SDR. Vous pouvez cliquer sur un ID dans la carte pour obtenir plus d'information."
 	},
     "Toc_Instruction": {
         "en": "Turn layers on or off",
@@ -176,8 +176,8 @@
 		"fr" : "Transport en commun"
 	},
 	"Table_Field_close" : {
-		"en" : "Proximity level",
-		"fr" : "Niveau de proximité"
+		"en": "Amenity density",
+		"fr": "Densité de commodités"
 	},
 	"Table_Field_suppressed" : {
 		"en" : "Suppressed",
@@ -198,5 +198,17 @@
 	"Table_Message" : {
 		"en" : "Please select a CSD using the search bar to show DB level data for that CSD.",
 		"fr" : "Veuillez sélectionner un CSD en utilisant la barre de recherche pour afficher les données au niveau des BD pour ce CSD."
+	},
+	"STS_Link" : {
+		"en" : "http://www.statcan.gc.ca/eng/concepts/definitions/guide-symbol",
+		"fr" : "https://www.statcan.gc.ca/fra/concepts/definitions/guide-signes"
+	},
+	"STS_Title" : { 
+		"en" : "Open link to standard table symbols in a new browser tab.",
+		"fr" : "Ouvrir le lien vers le tableau des signes conventionnels dans un nouvel onglet du navigateur."
+	},
+	"STS_Label" : { 
+		"en" : "Standard table symbols",
+		"fr" : "Signes conventionnels dans les tableaux"
 	}
 }

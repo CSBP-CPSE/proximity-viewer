@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset='utf-8' />
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		<title>Linkable Open Data Environment Demo</title>
+		<link rel='shortcut icon' type='image/x-icon' href='assets/favicon.ico' />
+		<script src="../basic-tools/polyfill/promise.min.js"></script>
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js'></script>
+		
+		<link href='./css/wet-boew.min.css' rel='stylesheet' />
+		<link href='./css/theme.min.css' rel='stylesheet' />
+		<link href='./css/tooltipster.css' rel='stylesheet' />
+		<link href='./css/pubs_wet4.css' rel='stylesheet' />
+		<link href='./css/font-awesome.min.css' rel='stylesheet' />
+		<link href='./css/datavis.css' rel='stylesheet' />
+		
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css' rel='stylesheet' />
+		<link href='index.css' rel='stylesheet' />
+	</head>
+	
+	<body>
+		<main class="prx">
+			<div id='map-container'>
+				<div id='map'></div> 
+			</div> 
+			<div id='table-container'>
+			   <div id='table'></div>
+		    </div>
+		</main>
+		<script src='main.js' type='module'></script>
+	</body>
+</html>

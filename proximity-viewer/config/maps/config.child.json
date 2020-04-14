@@ -24,47 +24,54 @@
         "fr": "La proximité aux services de garde indique l'accès aux services de garde en considérant la distance de marche du centroïde du bloc de dissémination aux services de garde (jusqu'à une distance de 1.5 km)."
     },
     "legend": [{
-            "color": [200, 200, 200],
+            "color": [240, 240, 240],
             "label": {
-                "en": "Beyond 1.5km walking distance",
-                "fr": "Plus de 1.5 km à pied"
+                "en": ".., Not available",
+                "fr": ".., Indisponible"
             },
-            "value": ["==", ["get", "child.idx"], null]
+            "value": ["==", ["get", "child.idx"], ".."]
+        }, {
+            "color": [100, 100, 100],
+            "label": {
+                "en": "F, Too unreliable",
+                "fr": "F, Trop peu fiable"
+            },
+            "value": ["==", ["get", "child.idx"], "F"]
         }, {
             "color": [215, 48, 39],
             "label": {
                 "en": "From 0.000 to 0.010",
                 "fr": "De 0.000 à 0.010"
             },
-            "value": ["<=", ["get", "child.idx"], 0.010]
+            "value": ["<=", ["to-number", ["get", "child.idx"]], 0.010]
         }, {
             "color": [252, 141, 89],
             "label": {
                 "en": "From 0.010 to 0.021",
                 "fr": "De 0.010 à 0.021"
             },
-            "value": ["<=", ["get", "child.idx"], 0.021]
+            "value": ["<=", ["to-number", ["get", "child.idx"]], 0.021]
         }, {
             "color": [254, 224, 139],
             "label": {
                 "en": "From 0.021 to 0.037",
                 "fr": "De 0.021 à 0.037"
             },
-            "value": ["<=", ["get", "child.idx"], 0.037]
+            "value": ["<=", ["to-number", ["get", "child.idx"]], 0.037]
         }, {
             "color": [217, 239, 139],
             "label": {
                 "en": "From 0.037 to 0.072",
                 "fr": "De 0.037 à 0.072"
             },
-            "value": ["<=", ["get", "child.idx"], 0.072]
+            "value": ["<=", ["to-number", ["get", "child.idx"]], 0.072]
         }, {
             "color": [145, 207, 96],
             "label": {
                 "en": "From 0.072 to 1.000",
                 "fr": "De 0.072 à 1.000"
             },
-            "value": ["<=", ["get", "child.idx"], 1.000]
+            "value": ["<=", ["to-number", ["get", "child.idx"]], 1.000]
         }, {
             "color": [200, 200, 200]
         }

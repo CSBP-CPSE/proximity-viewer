@@ -13,6 +13,9 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		
 		this.summary = options.summary;
 		
+		// For last column, replace by label. Super ugly.
+		this.field = options.field;
+		
 		this.current = {
 			item : null,
 			page : 1,
@@ -82,10 +85,26 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 			
 			var row = Dom.Create("tr", { className:"table-row" }, this.Node('body'));
 			
-			rData.forEach(cData => {
+			rData.forEach((cData, i) => {				
 				Dom.Create("td", { innerHTML:cData, className:"table-cell" }, row);
 			});
 		});
+		
+		this.RenderLastColumn()
+	}
+	
+	// TODO: This is a lazy workaround to a proper table. Only works for this application. Table is already application level anyway.
+	RenderLastColumn(idx, delegate) {
+		var rows = this.Node("body").children;
+		
+		for (var i = 0; i < rows.length; i++) {		
+			var cell = rows[i].children[11];
+			var value = cell.innerHTML;
+			
+			var look = this.field.lookup[value];
+			
+			cell.innerHTML = (look == undefined) ? value : look[Core.locale];
+		}
 	}
 	
 	/**
@@ -105,7 +124,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		var file = `data/${this.current.item.id}_${this.current.page}.json`;
 		var url = this.GetDataFileUrl(file);	
 		
-		Net.Request(url).then(ev => {
+		return Net.Request(url).then(ev => {
 			var data = Util.ParseCsv(ev.result);
 			
 			this.Populate(item, data);

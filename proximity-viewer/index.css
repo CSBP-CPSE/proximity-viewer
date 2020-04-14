@@ -110,6 +110,7 @@ body {
 
 .prx .toc .toc-item > *, 
 .prx .legend .legend-item > * {
+    position: relative;
 	display : inline-block;	
 	vertical-align : middle;
 	margin : 1px;
@@ -133,6 +134,7 @@ body {
 	width : 15px;
 	height : 15px;
 	margin-right : 5px;
+    top: -2px;
 }
 
 .prx .opacity .opacity-slider {
@@ -515,6 +517,12 @@ body {
 
 .prx .legend .legend-tickbox {
 	display:none;
+}
+
+.prx .link-symbols {
+    float: right;
+    margin-top: 8px;
+    font-size: 0.9em;
 }
 
 /* overwriting wet-boew css */

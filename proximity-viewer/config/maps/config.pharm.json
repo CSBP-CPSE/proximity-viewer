@@ -24,47 +24,54 @@
         "fr": "La proximité aux pharmacies indique l'accès aux pharmacies en considérant la distance de marche du centroïde du bloc de dissémination aux pharmacies (jusqu'à une distance de 1 km)."
     },
     "legend": [{
-            "color": [200, 200, 200],
+            "color": [240, 240, 240],
             "label": {
-                "en": "Beyond 1km walking distance",
-                "fr": "Plus de 1 km à pied"
+                "en": ".., Not available",
+                "fr": ".., Indisponible"
             },
-            "value": ["==", ["get", "pharm.idx"], null]
-        },  {
+            "value": ["==", ["get", "pharm.idx"], ".."]
+        }, {
+            "color": [100, 100, 100],
+            "label": {
+                "en": "F, Too unreliable",
+                "fr": "F, Trop peu fiable"
+            },
+            "value": ["==", ["get", "pharm.idx"], "F"]
+        }, {
             "color": [215, 48, 39],
             "label": {
                 "en": "From 0.000 to 0.018",
                 "fr": "De 0.000 à 0.018"
             },
-            "value": ["<=", ["get", "pharm.idx"], 0.018]
+            "value": ["<=", ["to-number", ["get", "pharm.idx"]], 0.018]
         }, {
             "color": [252, 141, 89],
             "label": {
                 "en": "From 0.018 to 0.030",
                 "fr": "De 0.018 à 0.030"
             },
-            "value": ["<=", ["get", "pharm.idx"], 0.030]
+            "value": ["<=", ["to-number", ["get", "pharm.idx"]], 0.030]
         }, {
             "color": [254, 224, 139],
             "label": {
                 "en": "From 0.030 to 0.048",
                 "fr": "De 0.030 à 0.048"
             },
-            "value": ["<=", ["get", "pharm.idx"], 0.048]
+            "value": ["<=", ["to-number", ["get", "pharm.idx"]], 0.048]
         }, {
             "color": [217, 239, 139],
             "label": {
                 "en": "From 0.048 to 0.086",
                 "fr": "De 0.048 à 0.086"
             },
-            "value": ["<=", ["get", "pharm.idx"], 0.086]
+            "value": ["<=", ["to-number", ["get", "pharm.idx"]], 0.086]
         }, {
             "color": [145, 207, 96],
             "label": {
                 "en": "From 0.086 to 1.000",
                 "fr": "De 0.086 à 1.000"
             },
-            "value": ["<=", ["get", "pharm.idx"], 1.000]
+            "value": ["<=", ["to-number", ["get", "pharm.idx"]], 1.000]
         }, {
             "color": [200, 200, 200]
         }

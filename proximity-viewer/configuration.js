@@ -53,7 +53,8 @@ export default class Configuration {
 			return { 
 				id : f.id,
 				label : f.label && f.label[Core.locale],
-				polish : f.polish || null
+				polish : f.polish || null,
+				lookup : f.lookup || null
 			} 
 		});
 	}

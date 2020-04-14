@@ -40,6 +40,7 @@ export default class ProxApp extends Templated {
                "<div class='map-container'>" +
                   "<div handle='map' class='map'></div>" +
                "</div>" +
+			   "<a href='nls(STS_Link)' class='link-symbols' target='_blank' title='nls(STS_Title)'>nls(STS_Label)</a>" + 
 			   "<div class='table-container'>" +
 				  "<div handle='table' class='table'></div>" +
 			   "</div>"
@@ -125,8 +126,8 @@ export default class ProxApp extends Templated {
 		bookmarks.On("BookmarkSelected", this.OnBookmarkSelected_Handler.bind(this));
 	}
 	
-	AddTable() {		
-		this.table = new Table(this.Node("table"), { summary:this.config.table, currId: 0, currFile: 0 });
+	AddTable() {
+		this.table = new Table(this.Node("table"), { summary:this.config.table, currId: 0, currFile: 0, field: this.config.maps.close.Fields[2] });
 	}
 	
 	OnLegend_OpacityChanged(ev) {		
@@ -193,7 +194,11 @@ export default class ProxApp extends Templated {
 		});
 		
 		if (!item) return;
-		var item = this.config.search.items.find(i => i.id === csd.properties.uid);
+		
+		// ie11 doesn't support find
+		var item = this.config.search.items.filter(function (i) {
+          return i.id === csd.properties.uid;
+        })[0];
 		
 		this.table.UpdateTable(item);
 		

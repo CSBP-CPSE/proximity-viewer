@@ -18,26 +18,40 @@
         "fr": "Un quartier dense en commodités est défini comme ayant une épicerie (1km distance de marche), une pharmacie (1km distance de marche), un établissement de santé (3km distance en voiture), un service de garde (1.5km distance de marche), une école primaire (1.5km distance de marche), une bibliothèque (1.5km distance de marche), un arrêt de transport en commun (1km distance de marche), et un lieu de travail (10km distance en voiture)."
     },
     "legend": [{
+            "color": [240, 240, 240],
+            "label": {
+                "en": ".., Not available",
+                "fr": ".., Indisponible"
+            },
+            "value": ["==", ["get", "close"], ".."]
+        }, {
+            "color": [100, 100, 100],
+            "label": {
+                "en": "F, Too unreliable",
+                "fr": "F, Trop peu fiable"
+            },
+            "value": ["==", ["get", "close"], "F"]
+        },{
             "color": [84, 179, 10],
             "label": {
                 "en": "High density",
                 "fr": "Haute densité"
             },
-            "value": ["==", ["get", "close"], 2]
+            "value": ["==", ["get", "close"], "2"]
         }, {
             "color": [217, 239, 139],
             "label": {
                 "en": "Medium density",
                 "fr": "Moyenne densité"
             },
-            "value": ["==", ["get", "close"], 1]
+            "value": ["==", ["get", "close"], "1"]
         }, {
             "color": [255, 255, 255],
             "label": {
                 "en": "Low density",
                 "fr": "Faible densité"
             },
-            "value": ["==", ["get", "close"], 0]
+            "value": ["==", ["get", "close"], "0"]
         }, {
             "color": [255, 255, 255]
         }
@@ -51,8 +65,28 @@
         }, {
             "id": "CSDUID",
             "label": {
-                "en": "Census Subdivision",
+                "en": "Census subdivision",
                 "fr": "Sous-division de recensement"
+            }
+        }, {
+            "id": "close",
+            "label": {
+                "en": "Amenity density",
+                "fr": "Densité de commodités"
+            },
+            "lookup": {
+                "0": {
+                    "en": "Low",
+                    "fr": "Basse"
+                },
+                "1": {
+                    "en": "Medium",
+                    "fr": "Moyenne"
+                },
+                "2": {
+                    "en": "High",
+                    "fr": "Haute"
+                }
             }
         }
     ]

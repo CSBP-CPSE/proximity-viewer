@@ -24,47 +24,54 @@
         "fr": "La proximité à l'éducation secondaire indique l'accès à l'éducation secondaire publique en considérant la distance de marche du centroïde du bloc de dissémination aux lieux d'éducation secondaire (jusqu'à une distance de 1.5 km)."
     },
     "legend": [{
-            "color": [200, 200, 200],
+            "color": [240, 240, 240],
             "label": {
-                "en": "Beyond 1.5km walking distance",
-                "fr": "Plus de 1.5 km à pied"
+                "en": ".., Not available",
+                "fr": ".., Indisponible"
             },
-            "value": ["==", ["get", "edusec.idx"], null]
+            "value": ["==", ["get", "edusec.idx"], ".."]
+        }, {
+            "color": [100, 100, 100],
+            "label": {
+                "en": "F, Too unreliable",
+                "fr": "F, Trop peu fiable"
+            },
+            "value": ["==", ["get", "edusec.idx"], "F"]
         }, {
             "color": [215, 48, 39],
             "label": {
                 "en": "From 0.000 to 0.013",
                 "fr": "De 0.000 à 0.013"
             },
-            "value": ["<", ["get", "edusec.idx"], 0.013]
+            "value": ["<", ["to-number", ["get", "edusec.idx"]], 0.013]
         }, {
             "color": [252, 141, 89],
             "label": {
                 "en": "From 0.013 to 0.023",
                 "fr": "De 0.013 à 0.023"
             },
-            "value": ["<", ["get", "edusec.idx"], 0.023]
+            "value": ["<", ["to-number", ["get", "edusec.idx"]], 0.023]
         }, {
             "color": [254, 224, 139],
             "label": {
                 "en": "From 0.023 to 0.038",
                 "fr": "De 0.023 à 0.038"
             },
-            "value": ["<", ["get", "edusec.idx"], 0.038]
+            "value": ["<", ["to-number", ["get", "edusec.idx"]], 0.038]
         }, {
             "color": [217, 239, 139],
             "label": {
                 "en": "From 0.038 to 0.064",
                 "fr": "De 0.038 à 0.064"
             },
-            "value": ["<", ["get", "edusec.idx"], 0.064]
+            "value": ["<", ["to-number", ["get", "edusec.idx"]], 0.064]
         }, {
             "color": [145, 207, 96],
             "label": {
                 "en": "From 0.064 to 1.000",
                 "fr": "De 0.064 à 1.000"
             },
-            "value": ["<", ["get", "edusec.idx"], 1.000]
+            "value": ["<", ["to-number", ["get", "edusec.idx"]], 1.000]
         }, {
             "color": [200, 200, 200]
         }

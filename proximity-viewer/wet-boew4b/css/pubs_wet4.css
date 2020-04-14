@@ -1,0 +1,899 @@
+
+/* Style sheet for pubs using WET4 */
+/* 
+
+1. WET 4 Styles - DO NOT TOUCH
+2. GOCPUB Conform-e styles
+3. Tables on SmartGraph long description pages
+4. Table footer for tables produced by SmartGraph
+5. Space list items
+6. Print CSS - DO NOT TOUCH
+
+*/
+
+/* 1. WET 4 Styles - DO NOT TOUCH */
+body {
+	font-family: Arial, sans-serif!important
+}
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+	font-family: Arial, sans-serif!important
+}
+.tooltip {
+	font-family: Arial, sans-serif!important
+}
+.popover {
+	font-family: Arial, sans-serif!important
+}
+details.alert {
+	font-family: Arial, sans-serif!important
+}
+
+/*removes the extra close button on the more lightbox overlay*/
+
+section#moreinfo > div.modal-body > a.popup-modal-dismiss, section#mi-rs > div.modal-body > a.popup-modal-dismiss, section#toc-tdm > div.modal-body > a.popup-modal-dismiss{display:none !important;}
+
+/*add padding to TOC button*/
+div.row.pstn-tp-sm.pstn-rght-sm.mrgn-tp-xl{padding-right:10px;}
+
+/*Code*/
+
+code {font-weight: bold; 
+      font-size: 16px; 
+      color: #a40000;
+	 }
+
+a.btn-primary{color: #FFF !important;}
+
+
+
+
+/*tool tip hover link color*/
+.tooltipster-content a:link{color: yellow !important;}
+.tooltipster-content a:visited{color: yellow !important;}
+.tooltipster-content a:hover{color: yellow !important;}
+.tooltipster-content a:active{color: yellow !important;}
+
+/*tool tip hover (using .hv-lnk) link color*/
+a.hv-lnk:link{color: yellow !important;}
+a.hv-lnk:visited{color: yellow !important;}
+a.hv-lnk:hover{color: yellow !important;}
+a.hv-lnk:active{color: yellow !important;}
+
+/* add overflow to containers or equations*/
+.ovfl{overflow:auto !important; padding: 5px 15px 5px 15px !important;}
+
+.fa-3-5x {
+	font-size: 3.5em !important;
+	}
+
+.panel-body {
+	text-align: justify;
+}
+
+/*adds space below data tables wrapped in the table-responsive div */
+div.table-responsive {
+                margin-bottom: 15px;
+			 }
+@media screen and (min-width: 768px) {
+div.table-responsive {              
+              
+					-ms-overflow-style: -ms-autohiding-scrollbar;
+					padding-bottom:15px;
+}
+}
+
+
+
+/*Pager padding top and bottom to match buttons*/
+.pager>li>a {
+    padding-top: 6px !important; 
+    padding-bottom: 6px !important;
+   
+}
+
+/* left hand menu */
+.mrgn-tp-lftsdbr{margin-top: 40px !important;}
+
+
+.nav-top {
+	background-color: #335075 !important;
+	color: #fff !important;
+}
+#top {
+	color: #fff !important;
+}
+.nav-pubtle {
+	background-color: #53647a !important;
+	color: #fff !important; 
+	border-radius: 0px !important;
+	border-top: 0px !important;
+}
+
+.pub-tle:hover {
+	color: #fff !important;
+}
+/*Right hand menu*/
+nav div.rgt-menu a {
+	border-radius: 0px !important;
+	color: #000;
+	text-decoration: none;
+	background-color: #fcfcfc;
+}
+nav div.rgt-menu a:hover {
+	background-color: #f5f5f5;
+}
+nav div.rgt-menu span.rgt-menu {
+	background-color: #53647a;
+	color: #FFF;
+	border-radius: 0px !important;
+}
+/*mobile right hand menu - bottom of page*/
+nav div.mob-rgt-menu a {
+	border-radius: 0px !important;
+	color: #000;
+	text-decoration: none;
+	background-color: #fcfcfc;
+}
+nav div.mob-rgt-menu a:hover {
+	background-color: #f5f5f5;
+}
+nav div.mob-rgt-menu span.rgt-menu {
+	background-color: #53647a;
+	color: #FFF;
+	border-radius: 0px !important;
+}
+
+
+/*active mobile nav button*/
+.act-nav {
+	background-color: #335075 !important;
+	border-color: #335075 !important;
+	color: white !important;
+}
+
+/* Mobile title in H1*/
+.sm-txt {
+	font-size: 85%;
+
+}
+.brdr-all{
+border:solid 1px #ccc;}
+
+/*changes the H1 "small" tag black in mobile*/
+small[class*="visible-sm visible-xs"] {
+	color:#000 !important;
+	}
+/*Grey (dark/light) related articles dropdown*/
+details.rel-article {
+	background-color: #e3e3e3 !important;
+	color: #000 !important;
+	padding-right:15px !important;
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+details.rel-article a {
+	color: #000 !important;
+	
+}
+summary.rel-article {
+	background-color: #555 !important;
+	color: #FFF !important;
+	padding: 8px 8px 8px 8px !important;
+	margin-right: -15px !important;
+	text-decoration:none !important;
+	border-radius: 0px !important;
+}
+
+.evenrtmenu{margin-left:15px;
+			margin-right:-15px;}
+details.col-md-9 > summary.rel-article{margin-left: -15px !important;
+									   margin-top: 1px !important;}
+
+/*Long description dropdown*/
+details.desc{border:solid 1px #ccc !important;
+padding-right:15px !important;
+             }
+summary.desc{background-color:#eaebed !important; 
+			 color:#335075 !important; 
+			 margin-right: -15px !important;
+             padding:5px 5px 5px 15px !important;
+			 text-decoration:none !important;}
+
+
+/* Mobile title in H2 h3 h4*/
+@media (max-width: 992px) {
+	h2 {font-size:120% !important;
+
+	}
+	h3 {font-size:115% !important;
+	
+	}
+	h4 {font-size:110% !important;
+	
+	}
+	h5 {font-size:105% !important;
+	
+	}
+	h6 {font-size:100% !important;
+	
+	}	
+}
+
+.pub-table th, table.smartgraph thead th {
+  font-weight: bold;
+}
+
+.brdr-rd-0 {
+	border-radius: 0px !important;
+}
+/*table*/
+.wb-fnote {
+	border: none !important;
+	margin-top: 0px !important;
+	text-align:left !important;
+	padding-left: -5px !important;
+	/*margin-left: -5px !important;*/
+}
+
+ 
+.wb-fnote h2{
+	margin-top: 38px !important;	
+}
+
+
+/*background of default - greyish*/
+.bg-default {
+	background-color: #eaebed !important;
+	color: #335075 !important;
+}
+/*same as .row from wet*/
+.even {
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+/* used for WES to overwrite .even class */
+#popup div.modal-body {
+        padding-left: 30px;
+        padding-right: 30px;
+}
+
+/* just left*/
+.evenlt {
+	margin-left: -15px;
+}
+/*just right*/
+.evenrt {
+	margin-right: -15px;
+}
+
+/*correction box*/
+.alert-correction, .label-correction[href]:active, .label-correction[href]:focus, .label-correction[href]:hover{
+	background: #f9f4d4;
+	border-color: #f90;
+}
+.alert-correction h2:first-child{
+	margin-left: 0px !important;
+	padding-top: 2px;
+}
+
+/*grey panel*/
+.panel-grey {
+	border-color: #555;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	}
+.panel-grey>.panel-heading {
+	color: #fff;
+	background-color: #555;
+	border-color: #555;
+}
+.panel-grey>.panel-heading+.panel-collapse>.panel-body {
+	border-top-color: #555;
+	background-color: #555;
+	
+}
+
+/* Blue panel */
+.panel-blue {
+	border-color: #3f577c;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+.panel-blue>.panel-heading {
+	color: #fff;
+	background-color: #3f577c;
+	border-color: #3f577c;
+}
+.panel-blue>.panel-body {
+	border-top-color: #ebeef1;
+	background-color: #ebeef1;
+}
+
+/* Green panel */
+.panel-green {
+	border-color: #418541;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+.panel-green>.panel-heading {
+	color: #fff;
+	background-color: #418541;
+	border-color: #418541;
+}
+.panel-green>.panel-body {
+	border-top-color: #ecf2ec;
+	background-color: #ecf2ec;
+}
+
+/* Fixes spacing issues */
+p.wb-inv+section, table.pub-table+p, details+p, details+ul {
+	margin-top: 11.5px !important;
+}
+
+.menu-tp-margin{margin-top: 42px !important;}
+
+
+/*glyphicon sizing*/
+.gi-2x {
+	font-size: 2em;
+}
+.gi-3x {
+	font-size: 3em;
+}
+.gi-4x {
+	font-size: 4em;
+}
+.gi-5x {
+	font-size: 5em;
+}
+/*Padding to match margins from WET*/
+
+.pddng-all-none {
+	padding: 0px;
+}
+.pddng-all-sm {
+	padding: 5px;
+}
+.pddng-all-md {
+	padding: 15px;
+}
+.pddng-all-lg {
+	padding: 30px;
+}
+.pddng-all-xl {
+	padding: 50px;
+}
+.pddng-lft-0 {
+	padding-left: 0px;
+}
+.pddng-lft-sm {
+	padding-left: 5px;
+}
+.pddng-lft-md {
+	padding-left: 15px;
+}
+.pddng-lft-lg {
+	padding-left: 30px;
+}
+.pddng-lft-xl {
+	padding-left: 50px;
+}
+.pddng-bttm-0 {
+	padding-bottom: 0px;
+}
+.pddng-bttm-sm {
+	padding-bottom: 5px;
+}
+.pddng-bttm-md {
+	padding-bottom: 15px;
+}
+.pddng-bttm-lg {
+	padding-bottom: 30px;
+}
+.pddng-bttm-xl {
+	padding-bottom: 50px;
+}
+.pddng-tp-0 {
+	padding-top: 0px;
+}
+.pddng-tp-sm {
+	padding-top: 5px;
+}
+.pddng-tp-md {
+	padding-top: 15px;
+}
+.pddng-tp-lg {
+	padding-top: 30px;
+}
+.pddng-tp-xl {
+	padding-top: 50px;
+}
+.pddng-rght-0 {
+	padding-right: 0px;
+}
+.pddng-rght-sm {
+	padding-right: 5px;
+}
+.pddng-rght-md {
+	padding-right: 15px;
+}
+.pddng-rght-lg {
+	padding-right: 30px;
+}
+.pddng-rght-xl {
+	padding-right: 50px;
+}
+
+
+/*Table testing*/
+
+td.table-footer div.wb-fnote{
+	 
+	 white-space:normal !important;
+	}
+/*Table testing*/
+
+
+
+
+
+
+
+
+
+
+/* 2. GOCPUB Conform-e styles */
+table.pub-table {
+	background-color: #fff;
+	border: 1px #d4d4d4 solid;
+	border-collapse: collapse;
+	border-spacing: 0px;
+
+}
+table.pub-table caption {
+	font-size: 110%;
+	font-weight: bold;
+	text-align: left;
+}
+table.pub-table td, table.pub-table th {
+	border: 1px #d4d4d4 solid;
+	color: #000;
+	padding: 5px;
+	vertical-align: top;
+}
+table.pub-table td {
+	background-color: #fff;
+	text-align: right;
+}
+table.pub-table th {
+	background-color: #eee;
+	text-align: right;
+}
+table.pub-table th.col-left, table.pub-table td.col-left {
+	background-color: #eee;
+	color: #000;
+	text-align: left;
+}
+table.pub-table th.col-group {
+	text-align: center;
+}
+table.pub-table th.uom {
+	font-weight: normal;
+}
+table.pub-table th.uom-left {
+	font-weight: normal;
+	text-align: left;
+}
+table.pub-table th.uom-center {
+	font-weight: normal;
+	text-align: center;
+}
+table.pub-table td.data-left {
+	text-align: left;
+}
+table.pub-table td.data-center {
+	text-align: center;
+}
+table.pub-table th.row-heading, table.pub-table td.row-heading {
+	background-color: #eee;
+	text-align: left;
+}
+table.pub-table th.row-stub {
+	background-color: #fff;
+	font-weight: normal;
+	text-align: left;
+}
+table.pub-table th.heading-indent1, table.pub-table th.heading-indent2, table.pub-table th.heading-indent3 {
+	background-color: #eee;
+	text-align: left;
+}
+table.pub-table th.heading-indent1 {
+	padding-left: 10px;
+}
+table.pub-table th.heading-indent2 {
+	padding-left: 25px;
+}
+
+table.pub-table th.heading-indent3 {
+	padding-left: 35px;
+}
+
+table.pub-table th.stub-indent1, table.pub-table th.stub-indent2, table.pub-table th.stub-indent3, table.pub-table th.stub-indent4, table.pub-table th.stub-indent5, table.pub-table th.stub-indent6, table.pub-table th.stub-indent7 {
+	background-color: #fff;
+	font-weight: normal;
+	text-align: left;
+}
+table.pub-table th.stub-indent1 {
+	padding-left: 15px;
+}
+table.pub-table th.stub-indent2 {
+	padding-left: 25px;
+}
+table.pub-table th.stub-indent3 {
+	padding-left: 35px;
+}
+table.pub-table th.stub-indent4 {
+	padding-left: 45px;
+}
+table.pub-table th.stub-indent5 {
+	padding-left: 55px;
+}
+table.pub-table th.stub-indent6 {
+	padding-left: 65px;
+}
+table.pub-table th.stub-indent7 {
+	padding-left: 75px;
+}
+
+table.pub-table th.stub-center{
+	padding-left: 0px;
+	text-align: center;
+}	
+	
+table.pub-table td.table-footer {
+	font-size: 85%;
+	text-align: left;
+	white-space: normal;
+}
+tr.highlight-row:hover th, tr.highlight-row:hover td {
+	background-color: #eee;
+}
+
+
+
+/* Modified WET footnotes styles */
+
+/* WET footnote styles */
+
+/* end of GOCPUB Conform-e styles */
+
+/* 3. Tables on SmartGraph long description pages */
+table.smartgraph {
+	min-width: 20%;
+	max-width: 100%;
+	background-color: #fff;
+	border: 1px #000 solid;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+table.smartgraph caption {
+	font-weight: bold;
+	font-size: 110%;
+	text-align: left;
+}
+table.smartgraph thead th, table.smartgraph tbody th, table.smartgraph tbody td {
+	border: 1px #d4d4d4 solid;
+	color: #000;
+	padding: 0 4px 0 4px;
+	vertical-align: top;
+}
+table.smartgraph th.non_merging_cell {
+	background-color: #eee;
+	text-align: right;
+}
+table.smartgraph thead th.stub1 {
+	background-color: #eee;
+	text-align: left;
+}
+table.smartgraph tbody th.stub1 {
+	background-color: #fff;
+	font-weight: normal;
+	text-align: left;
+}
+table.smartgraph tbody td.data {
+	text-align: right;
+}
+table.smartgraph tbody tr:hover th, table.smartgraph tbody tr:hover td {
+	background-color: #eee;
+}
+/* End of SmartGraph long desc tables */
+
+/* 4. Table footer for tables produced by SmartGraph */
+div.tableft-end {
+	margin-left: 10px;
+	margin-right: 10px;
+	max-width: 77%;
+}
+div.tableft-hdr {
+	margin-left: 0px;
+	float: left;
+}
+div.tableft-fn {
+	margin: 0px 20px 0px 30px;
+}
+div.tableft-hdr-note, div.tableft-hdr-source {
+	margin-left: 0px;
+	float: left;
+	font-weight: bold;
+}
+div.tableft-otherft, div.tableft-note, div.tableft-source {
+	margin: 0px 30px 0px 70px;
+}
+/* End of SmartGraph table footer */
+
+/* 5. Space list items */
+
+.ListSpacing {
+	padding-bottom: .5em;
+}
+/* End of Space list items */
+
+
+
+
+/* 5.1 List type */
+
+.list-disc {
+	list-style-type:disc;
+	
+	
+}
+/* End of List type */
+
+
+
+
+/*6. Print CSS - DO NOT TOUCH*/
+
+/* Print styling */
+@media print {
+
+@page {size: 8.5in 11in portrait;} 	
+	
+@page{margin: 1cm !important;}
+
+
+		
+			
+/*table.pub-table tr td, table.pub-table tr th {
+     page-break-inside: avoid !important;
+}*/
+
+math, img{
+	page-break-inside:avoid !important;
+}
+
+section.panel {
+     page-break-inside: avoid !important;
+}
+
+ol.breadcrumb li:last-of-type {display: none;}
+
+abbr{ border-bottom:none !important;}
+
+
+/*URL display - add-remove*/  
+a[href^="/"]::after {
+	content: " (www.statcan.gc.ca" attr(href) " ) ";
+}
+
+a[href^="../"]::after {
+	content: none;
+}
+
+a[href^="http://www5"]::after {
+	content: none;
+}
+
+ol.breadcrumb li a:not([href^=""])::after {
+	content: none;
+	}
+		
+ a[id]:after {
+	content: none;
+	}	
+
+ a[href^="#"]:after {
+	content: none;
+	}
+	
+/*END URL display - add-remove*/                   
+
+/*Footnotes*/
+.wb-fnote p{margin-left:18px;}				            
+							
+sup.tooltipstered a {margin-left: 2px;}		
+/*sup.tooltipstered a:before { content: ","}	*/
+
+/*END Footnotes*/							
+[class*="col-xs-"] {
+	float: left;
+}
+
+.col-sm-12, .col-xs-12 { 
+	width:100% !important;
+}
+
+.col-sm-11, .col-xs-11 { 
+	width:91.66666667% !important;
+}
+
+.col-sm-10, .col-xs-10 { 
+	width:83.33333333% !important;
+}
+
+.col-sm-9, .col-xs-9 { 
+	width:75% !important;
+}
+
+.col-sm-8, .col-xs-8 { 
+	width:66.66666667% !important;
+}
+
+.col-sm-7, .col-xs-7 { 
+	width:58.33333333% !important;
+}
+
+.col-sm-6, .col-xs-6 { 
+	width:50% !important;
+}
+
+.col-sm-5, .col-xs-5 { 
+	width:41.66666667% !important;
+}
+
+.col-sm-4, .col-xs-4 { 
+	width:33.33333333% !important;
+}
+
+.col-sm-3, .col-xs-3 { 
+	width:25% !important;
+}
+
+.col-sm-2, .col-xs-2 { 
+	width:16.66666667% !important;
+}
+
+.col-sm-1, .col-xs-1 { 
+	width:8.33333333% !important;
+}
+[class*="col-sm-"] {
+	float: left;
+}
+
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12 {
+float: left !important;
+}
+
+body {
+	margin: 0;
+	padding 0 !important;
+	min-width: 768px;
+	font-size:10pt !important;
+}
+
+.container {
+	width: auto;
+	min-width: 750px;
+}
+
+/*Add items you don't want displayed*/
+.noprint, 
+div.alert, 
+.group-media, 
+.btn, 
+.footer, 
+form, 
+#comments, 
+.nav,  
+ul.links.list-inline,
+ul.action-links, 
+div.rgt-menu, 
+div.mob-rgt-menu, 
+details.desc, 
+.datemod,
+abbr[title]:after{
+	display:none !important;
+}
+
+/*remove link underline*/
+a {text-decoration:none !important;}
+
+/*justifies text*/
+p {text-align: justify !important;
+}
+
+div.panel-body{text-align:left !important;}
+
+/*keeps images on page*/
+img{max-width:75% !important;
+    }
+
+
+
+div.col-md-2>img[src$=".jpg"], div.col-md-2>img[src$=".gif"], div.col-md-2>img[src$=".png"] {
+							   display:block !important;
+							   width:20% !important;
+							   margin-top: -100px !important;
+							   float:right;
+							   }
+							   
+div.col-md-10 h1{ 
+	width:75% !important;
+}							   
+							   
+/*
+.col-md-2{width:16% !important;}
+
+.col-md-10{ 
+	width:83% !important;
+}
+
+*/
+
+/*if this class is added - it forces a page break*/
+.page-break{display:block; page-break-before:always;}
+
+/*removes border from list groups*/
+.list-group-item{border: none;}
+
+h1, h2, h3, h4, h5, h6{margin-top: 11.5px !important;}
+
+
+/*Tables*/
+.table-responsive{overflow-x: visible;}
+table{font-size: 9px !important;}
+.table-footer{font-size:100% !important;}
+}
+
+/* END OF Print styling */
+
+/*NDM Correction*/
+.ndm-correction:before {
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    margin-right: 0;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGNQTFRF//IAQD0Av7+/7+MAEA8AIB4AMC0A7+/vgHkA39QAf39/EBAQ39/fj4gAQEBAn5cAAAAAn5+fr6YAICAgcGoAYFsAv7YAj4+PUFBQr6+vMDAwUEwAz8/PYGBgcHBwz8UA////toi65QAAACF0Uk5T//////////////////////////////////////////8An8HQIQAAANFJREFUeNrE00kSgyAQBdCPAqLGeR6T+58yOJOAZpWkFxRVvK7uvwCPD4WfA6dqrsHAaXMFLGqnmXMBQgEQ7xwkDMA9vp0Bx08lQF6fAY9M77CpZQa32J0BgtYM6hxrscQEZETYBScsQuk7BtAGsFkg++UgMuqgkhEDvs5wj6jYI5ayUWxbiPAdjB1UcESFGlFsI4AoewWhWPqK6ZwFr1QwRZyXKxgh0Xzdoi4gi6BVNxzA4/o7XNrvIEwNALm3g1pO1osmypKm6v/0cb4BngIMABM3XYhRJwJ4AAAAAElFTkSuQmCC);
+    background-position: 25%;
+    content: " ";
+    }
+
+
+
+
+

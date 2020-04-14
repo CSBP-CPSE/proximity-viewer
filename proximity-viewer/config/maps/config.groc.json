@@ -24,47 +24,54 @@
         "fr": "La proximité aux épiceries indique l'accès aux épiceries en considérant la distance de marche du centroïde du bloc de dissémination aux épiceries (jusqu'à une distance de 1 km)."
     },
     "legend": [{
-            "color": [200, 200, 200],
+            "color": [240, 240, 240],
             "label": {
-                "en": "Beyond 1km walking distance",
-                "fr": "Plus de 1 km à pied"
+                "en": ".., Not available",
+                "fr": ".., Indisponible"
             },
-            "value": ["==", ["get", "groc.idx"], null]
+            "value": ["==", ["get", "groc.idx"], ".."]
+        }, {
+            "color": [100, 100, 100],
+            "label": {
+                "en": "F, Too unreliable",
+                "fr": "F, Trop peu fiable"
+            },
+            "value": ["==", ["get", "groc.idx"], "F"]
         }, {
             "color": [215, 48, 39],
             "label": {
                 "en": "From 0.000 to 0.012",
                 "fr": "De 0.000 à 0.012"
             },
-            "value": ["<=", ["get", "groc.idx"], 0.012]
+            "value": ["<=", ["to-number", ["get", "groc.idx"]], 0.012]
         }, {
             "color": [252, 141, 89],
             "label": {
                 "en": "From 0.012 to 0.021",
                 "fr": "De 0.012 à 0.021"
             },
-            "value": ["<=", ["get", "groc.idx"], 0.021]
+            "value": ["<=", ["to-number", ["get", "groc.idx"]], 0.021]
         }, {
             "color": [254, 224, 139],
             "label": {
                 "en": "From 0.021 to 0.036",
                 "fr": "De 0.021 à 0.036"
             },
-            "value": ["<=", ["get", "groc.idx"], 0.036]
+            "value": ["<=", ["to-number", ["get", "groc.idx"]], 0.036]
         }, {
             "color": [217, 239, 139],
             "label": {
                 "en": "From 0.036 to 0.069",
                 "fr": "De 0.036 à 0.069"
             },
-            "value": ["<=", ["get", "groc.idx"], 0.069]
+            "value": ["<=", ["to-number", ["get", "groc.idx"]], 0.069]
         }, {
             "color": [145, 207, 96],
             "label": {
                 "en": "From 0.069 to 1.000",
                 "fr": "De 0.069 à 1.000"
             },
-            "value": ["<=", ["get", "groc.idx"], 1.000]
+            "value": ["<=", ["to-number", ["get", "groc.idx"]], 1.000]
         }, {
             "color": [200, 200, 200]
         }

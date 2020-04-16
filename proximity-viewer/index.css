@@ -2,10 +2,6 @@ html, html .mapboxgl-map {
 	font: 13px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
-.prx .mapboxgl-popup {
-    max-width: 325px !important;
-}
-
 body {
     font-size: 1.1em;
 	margin: 0;
@@ -14,6 +10,17 @@ body {
 
 .prx .instructions {
 	margin : 10px 0px;
+}
+
+.prx .mapboxgl-popup {
+    max-width: 325px !important;
+	z-index : 1000;
+}
+
+.mapboxgl-popup-content {
+	box-shadow: 0.5px 0.5px 1px 1px rgba(0, 0, 0, 0.2) !important;
+    -moz-box-shadow: 0.5px 0.5px 1px 1px rgba(0, 0, 0, 0.2) !important;
+    -webkit-box-shadow: 0.5px 0.5px 1px 1px rgba(0, 0, 0, 0.2) !important;
 }
 
 .prx .instructions > img {
@@ -141,9 +148,13 @@ body {
 	text-align:center;
 }
 
-.prx .opacity .opacity-slider > input {
+.prx .opacity input {
 	width:90%;
 	cursor : pointer;
+}
+
+.prx .opacity .control-label {
+	width:100%;
 }
 
 /*** tooltip ***/
@@ -188,7 +199,7 @@ body {
 }
 
 .prx.modal.popup.fixed {
-	display:initial;
+	display:block;
 	position: fixed;
     left: 0px;
     top: 0px;
@@ -443,6 +454,15 @@ body {
     border-collapse: collapse;
 }
 
+.prx .table-widget summary {
+	cursor: initial;
+    margin-bottom: 8px;
+}
+
+.prx .table-widget summary:hover {
+	background : initial;
+}
+
 .prx .table-widget table thead tr {
 
 }
@@ -470,6 +490,7 @@ body {
 
 .prx .table-widget table thead tr th:not(:last-child) {
 	border-right:solid thin white;
+	text-align: right;
 }
 
 .prx .table-widget table td,
@@ -501,11 +522,11 @@ body {
 }
 
 .prx .table-widget .navigation  {
-	margin-bottom : 10px;
+	margin-top : 10px;
+    text-align: right;
 }
 
 .prx .table-widget .current {
-  background: white;  
   color: black;
   border-radius: 4px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -519,15 +540,18 @@ body {
 	display:none;
 }
 
+.prx .link-symbols-container {
+	text-align: right;
+}
+
 .prx .link-symbols {
-    float: right;
     margin-top: 8px;
     font-size: 0.9em;
 }
 
 /* overwriting wet-boew css */
 .prx.popup-maps, .prx.popup-bookmarks  {
-	display:initial;
+	display:block;
 }
 
 .prx.popup h1 {
@@ -548,4 +572,26 @@ body {
 
 .prx .inv-container {
     text-align: center;
+}
+
+#htu .menu {
+    margin-left: 10px;
+}
+
+#htu img {
+    padding: 3px;
+}
+
+#htu img, #htu .mapboxgl-ctrl-icon {
+	width : 30px;
+	height : 30px;
+}
+
+#htu .menu .htu-row {
+	margin-top : 4px;
+}
+
+#htu .menu .htu-row > *{
+	display:inline-block;
+    vertical-align: middle;
 }

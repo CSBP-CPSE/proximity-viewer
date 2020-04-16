@@ -40,10 +40,12 @@ export default class ProxApp extends Templated {
                "<div class='map-container'>" +
                   "<div handle='map' class='map'></div>" +
                "</div>" +
-			   "<a href='nls(STS_Link)' class='link-symbols' target='_blank' title='nls(STS_Title)'>nls(STS_Label)</a>" + 
 			   "<div class='table-container'>" +
 				  "<div handle='table' class='table'></div>" +
-			   "</div>"
+			   "</div>" +
+			   "<div class='link-symbols-container'>" +
+				  "<a href='nls(STS_Link)' class='link-symbols' target='_blank' title='nls(STS_Title)'>nls(STS_Label)</a>" +
+			   "</div>";
 	}
 
 	AddMap() {
@@ -86,17 +88,13 @@ export default class ProxApp extends Templated {
 		search.Place(this.Node("search"));
 		
 		search.On("Change", this.OnSearchChange_Handler.bind(this));
-		
-		search.Node("typeahead").Node("input").focus();
 	}
 
 	AddGroup() {
 		// Top-right group for legend, etc.		
 		this.group = {
 			legend : Factory.LegendControl(this.current.Legend, this.current.Title, this.current.Subtitle),
-			opacity : Factory.OpacityControl(Store.Opacity),
-			// download : Factory.DownloadControl(Net.FilePath("/assets/proximity-measures.csv"))
-			download : Factory.DownloadControl(null)
+			opacity : Factory.OpacityControl(Store.Opacity)
 		}
 						
 		this.map.AddControl(Factory.Group(this.group));

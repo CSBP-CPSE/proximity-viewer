@@ -30,16 +30,10 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		return "<div class='table-widget'>" +
 				  "<h2 handle='title'>nls(Table_Title_Temp)</h2>" +
 				  
-			      "<div handle='message' class='table-message'>nls(Table_Message)</div>"+
+			      "<div id='prx-table' handle='message' class='table-message'>nls(Table_Message)</div>"+
 				  
 			      "<div handle='table' class='table-container hidden'>" + 
-				     "<div class='navigation'>" + 
-					    "<button handle='prev' title='nls(Table_Previous_Button)' disabled><img src='assets/arrow-left.png'></button>"+
-					    "<span handle='current' class='current'></span>"+ 
-					    "<button handle='next' title='nls(Table_Next_Button)' disabled><img src='assets/arrow-right.png'></button>"+
-				     "</div>" + 
-				  
-					 "<summary id='prx-table'>nls(Table_Summary)</summary>" +
+					 "<summary>nls(Table_Summary)</summary>" +
 				     "<table>" +
 				        "<thead>" + 
 				           "<tr>" + 
@@ -59,6 +53,11 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 				        "</thead>" +
 				        "<tbody handle='body'></tbody>" + 
 				     "</table>" + 
+				     "<div class='navigation'>" + 
+					    "<button handle='prev' title='nls(Table_Previous_Button)' disabled><img src='assets/arrow-left.png'></button>"+
+					    "<span handle='current' class='current'></span>"+ 
+					    "<button handle='next' title='nls(Table_Next_Button)' disabled><img src='assets/arrow-right.png'></button>"+
+				     "</div>" + 
 			      "</div>" + 
 			   "</div>"
 	}
@@ -85,26 +84,16 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 			
 			var row = Dom.Create("tr", { className:"table-row" }, this.Node('body'));
 			
-			rData.forEach((cData, i) => {				
-				Dom.Create("td", { innerHTML:cData, className:"table-cell" }, row);
+			rData.forEach((cData, i) => {
+				var value = cData;
+				
+				if (i == 11) value = this.field.lookup[value][Core.locale];
+				
+				else if (i == 0) value = `${value.substr(0, 2)} ${value.substr(2, 2)} ${value.substr(4, 4)} ${value.substr(8, 3)}`;
+				
+				Dom.Create("td", { innerHTML:value, className:"table-cell" }, row);
 			});
 		});
-		
-		this.RenderLastColumn()
-	}
-	
-	// TODO: This is a lazy workaround to a proper table. Only works for this application. Table is already application level anyway.
-	RenderLastColumn(idx, delegate) {
-		var rows = this.Node("body").children;
-		
-		for (var i = 0; i < rows.length; i++) {		
-			var cell = rows[i].children[11];
-			var value = cell.innerHTML;
-			
-			var look = this.field.lookup[value];
-			
-			cell.innerHTML = (look == undefined) ? value : look[Core.locale];
-		}
 	}
 	
 	/**

@@ -1,7 +1,7 @@
 {
 	"Inv_Search_Instructions" : {
-		"en": "Enter a CSD id or name in the search bar below to select the DBs in that CSD. The DBs will appear in the table below.",
-		"fr": "Saisir un identifiant ou le nom d'une SDR pour sélectionner les IDs dans ce CSD. Les IDs apparaitront dans le tableau plus bas."
+		"en": "Enter a CSD id or name in the search bar below to select the dissemination blocks in that CSD. The dissemination blocks will appear in the table below. Results will show after three characters are entered.",
+		"fr": "Saisir un identifiant ou le nom d'une SDR pour sélectionner les îlots de diffusion dans ce CSD. Les îlots de diffusion apparaitront dans le tableau plus bas. Les résultats apparaîtront après avoir entré trois caractères."
 	},
 	"Inv_Skip_Link" : {
 		"en": "Skip the interactive features and go directly to the data table.",
@@ -12,8 +12,8 @@
 		"fr": "Saisir l'identifiant ou le nom de la subdivision de recensement (SDR):"
 	},
 	"App_Instructions": {
-		"en": "This map shows the proximity measures by DB for the selected indicator. Use the <img alt='Change indicator' src='assets/layers.png'> button to change indicator. The search bar can be used to find and select a CSD. You can click on a DB in the map to show more information.",
-		"fr": "Cette carte affiche les mesures de proximité par ID pour l'indicateur sélectionné. Utilisez le bouton <img alt=\"Changer l'indicateur\" src='assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une SDR. Vous pouvez cliquer sur un ID dans la carte pour obtenir plus d'information."
+		"en": "This map shows the proximity measures by dissemination block (DB) for the selected indicator. Use the <img alt='Change indicator' title='Change indicator' src='assets/layers.png'> button to change indicator. The search bar can be used to find and select a census subdivision (CSD). You can click on a dissemination block (DB) in the map to show more information.",
+		"fr": "Cette carte affiche les mesures de proximité par îlot de diffusion (ID) pour l'indicateur sélectionné. Utilisez le bouton <img alt=\"Changer d'indicateur\" title=\"Changer d'indicateur\" src='assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une sous-division de recensement (SDR). Vous pouvez cliquer sur un îlot de diffusion (ID) dans la carte pour obtenir plus d'information."
 	},
     "Toc_Instruction": {
         "en": "Turn layers on or off",
@@ -120,20 +120,20 @@
 		"fr" : "Zoom arrière"
 	},
 	"Table_Title_Temp" : {
-		"en" : "Detailed table of DBs",
-		"fr" : "Tableau détaillé des IDs"
+		"en" : "Detailed table of dissemination blocks (DB)",
+		"fr" : "Tableau détaillé des îlots de diffusion (ID)"
 	},
 	"Table_Title" : {
-		"en" : "Detailed table of DBs in {0}",
-		"fr" : "Tableau détaillé des IDs dans {0}"
+		"en" : "Detailed table of dissemination blocks (DB) in {0}",
+		"fr" : "Tableau détaillé des îlot de diffusion (ID) dans {0}"
 	},
 	"Table_Summary" : {
 		"en" : "Dissemination blocks contained in the selected census subdivision",
 		"fr" : "Les blocs de diffusion contenus dans la sous-division de recensement sélectionnée."
 	},
 	"Table_Field_DBUID" : {
-		"en" : "DB ID",
-		"fr" : "ID BD"
+		"en" : "Dissemination block ID",
+		"fr" : "ïlot de diffusion ID"
 	},
 	"Table_Field_pharm.idx" : {
 		"en" : "Pharmacy",
@@ -152,11 +152,11 @@
 		"fr" : "Soins de santé"
 	},
 	"Table_Field_edupri.idx" : {
-		"en" : "Primary Education",
+		"en" : "Primary education",
 		"fr" : "Éducation primaire"
 	},
 	"Table_Field_edusec.idx" : {
-		"en" : "Secondary Education",
+		"en" : "Secondary education",
 		"fr" : "Éducation secondaire"
 	},
 	"Table_Field_lib.idx" : {
@@ -164,7 +164,7 @@
 		"fr" : "Bibliothèque"
 	},
 	"Table_Field_groc.idx" : {
-		"en" : "Grocery Store",
+		"en" : "Grocery store",
 		"fr" : "Épicerie"
 	},
 	"Table_Field_parks.idx" : {
@@ -172,7 +172,7 @@
 		"fr" : "Parc"
 	},
 	"Table_Field_trans.idx" : {
-		"en" : "Public Transit",
+		"en" : "Public transit",
 		"fr" : "Transport en commun"
 	},
 	"Table_Field_close" : {
@@ -196,8 +196,8 @@
 		"fr" : "Page {0} de {1}"
 	},
 	"Table_Message" : {
-		"en" : "Please select a CSD using the search bar to show DB level data for that CSD.",
-		"fr" : "Veuillez sélectionner un CSD en utilisant la barre de recherche pour afficher les données au niveau des BD pour ce CSD."
+		"en" : "Please select a census subdivision (CSD) using the search bar to show dissemination block (DB) level data for that census subdivision (CSD).",
+		"fr" : "Veuillez sélectionner une sous-division de recensement (SDR) en utilisant la barre de recherche pour afficher les données au niveau des îlots de diffusion (ID) pour cette sous-division de recensement (SDR)."
 	},
 	"STS_Link" : {
 		"en" : "http://www.statcan.gc.ca/eng/concepts/definitions/guide-symbol",

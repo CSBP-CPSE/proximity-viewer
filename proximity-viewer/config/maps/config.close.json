@@ -20,15 +20,15 @@
     "legend": [{
             "color": [240, 240, 240],
             "label": {
-                "en": ".., Not available",
-                "fr": ".., Indisponible"
+                "en": ".. not available for a specific reference period",
+                "fr": ".. indisponible pour une période de référence précise"
             },
             "value": ["==", ["get", "close"], ".."]
         }, {
             "color": [100, 100, 100],
             "label": {
-                "en": "F, Too unreliable",
-                "fr": "F, Trop peu fiable"
+                "en": "F too unreliable to be published",
+                "fr": "F trop peu fiable pour être publié"
             },
             "value": ["==", ["get", "close"], "F"]
         },{

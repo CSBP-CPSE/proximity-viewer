@@ -9,7 +9,7 @@ export default class Store {
 	}
 	
 	static get Lat() {
-		return localStorage.getItem("lode-center-lat") || 45.4215;
+		return localStorage.getItem("lode-center-lat") || 60.847;
 	}
 	
 	static set Lat(value) {
@@ -17,7 +17,7 @@ export default class Store {
 	}
 	
 	static get Lng() {
-		return localStorage.getItem("lode-center-lng") || -75.6972;
+		return localStorage.getItem("lode-center-lng") || -105.3905;
 	}
 	
 	static set Lng(value) {
@@ -25,7 +25,7 @@ export default class Store {
 	}
 	
 	static get Zoom() {
-		return localStorage.getItem("lode-zoom") || 11;
+		return localStorage.getItem("lode-zoom") || 3;
 	}
 	
 	static set Zoom(value) {

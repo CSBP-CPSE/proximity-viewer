@@ -1,0 +1,34 @@
+{
+	"name": "mapbox-viewer",
+	"version": "1.0.0",
+	"description": "A mapbox wrapper",
+	"main": "rollup.config.js",
+	"dependencies": {
+		"install": "^0.13.0",
+		"npm": "^6.11.1",
+		"rollup-plugin-node-resolve": "^5.2.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.11.6",
+		"@babel/preset-env": "^7.11.5",
+		"rollup": "^1.32.1",
+		"rollup-plugin-babel": "^4.4.0"
+	},
+	"scripts": {
+		"build": "rollup -c",
+		"proximity": "rollup -c ./config/proximity-viewer-prd.rollup.js",
+		"population": "rollup -c ./config/population-viewer-prd.rollup.js",
+		"lode-viewer": "rollup -c ./config/lode-viewer-prd.rollup.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CSBP-CPSE/web-mapping-dev.git"
+	},
+	"keywords": [
+		"mapbox"
+	],
+	"bugs": {
+		"url": "https://github.com/CSBP-CPSE/web-mapping-dev/issues"
+	},
+	"homepage": "https://github.com/CSBP-CPSE/web-mapping-dev"
+}

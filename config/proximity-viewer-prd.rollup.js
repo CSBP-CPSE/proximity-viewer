@@ -3,7 +3,7 @@ import babel from 'rollup-plugin-babel';
 export default {
     input: '../web-mapping-dev/proximity-viewer/main.js',
     output: {
-        file: '../../web-mapping-prd/proximity-viewer/main.min.js',
+        file: '../web-mapping-prd/proximity-viewer/main.min.js',
         format: 'iife',
         name: 'bundle'
     },

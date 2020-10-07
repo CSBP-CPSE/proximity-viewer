@@ -1,7 +1,7 @@
 import babel from 'rollup-plugin-babel';
 
 export default {
-    input: '../proximity-viewer/main.js',
+    input: '../web-mapping-dev/proximity-viewer/main.js',
     output: {
         file: '../../web-mapping-prd/proximity-viewer/main.min.js',
         format: 'iife',

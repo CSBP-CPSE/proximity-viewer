@@ -210,5 +210,9 @@
 	"STS_Label" : { 
 		"en" : "Standard table symbols",
 		"fr" : "Signes conventionnels dans les tableaux"
+	},
+	"Mapbox_Improve" : {
+		"en" : "Improve this map",
+		"fr" : "Améliorer cette carte"
 	}
 }

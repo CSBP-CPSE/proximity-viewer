@@ -15,20 +15,17 @@
 		"rollup-plugin-babel": "^4.4.0"
 	},
 	"scripts": {
-		"build": "rollup -c",
-		"proximity": "rollup -c ./config/proximity-viewer-prd.rollup.js",
-		"population": "rollup -c ./config/population-viewer-prd.rollup.js",
-		"lode-viewer": "rollup -c ./config/lode-viewer-prd.rollup.js"
+		"build": "rollup -c ./config/proximity-viewer.rollup.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/CSBP-CPSE/web-mapping-dev.git"
+		"url": "git+https://github.com/CSBP-CPSE/proximity-viewer.git"
 	},
 	"keywords": [
-		"mapbox"
+		"Proximity Viewer", "Proximity", "Viewer"
 	],
 	"bugs": {
-		"url": "https://github.com/CSBP-CPSE/web-mapping-dev/issues"
+		"url": "https://github.com/CSBP-CPSE/proximity-viewer/issues"
 	},
-	"homepage": "https://github.com/CSBP-CPSE/web-mapping-dev"
+	"homepage": "https://github.com/CSBP-CPSE/proximity-viewer"
 }

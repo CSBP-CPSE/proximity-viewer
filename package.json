@@ -1,7 +1,7 @@
 {
-	"name": "mapbox-viewer",
+	"name": "proximity-viewer",
 	"version": "1.0.0",
-	"description": "A mapbox wrapper",
+	"description": "Proximity Viewer application",
 	"main": "rollup.config.js",
 	"dependencies": {
 		"install": "^0.13.0",

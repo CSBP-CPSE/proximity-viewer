@@ -22,7 +22,9 @@
 		"url": "git+https://github.com/CSBP-CPSE/proximity-viewer.git"
 	},
 	"keywords": [
-		"Proximity Viewer", "Proximity", "Viewer"
+		"Proximity Viewer",
+		"Proximity",
+		"Viewer"
 	],
 	"bugs": {
 		"url": "https://github.com/CSBP-CPSE/proximity-viewer/issues"

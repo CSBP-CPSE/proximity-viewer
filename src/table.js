@@ -1,8 +1,4 @@
-import Templated from '../basic-tools/components/templated.js';
-import Core from '../basic-tools/tools/core.js';
-import Dom from '../basic-tools/tools/dom.js';
-import Net from "../basic-tools/tools/net.js";
-import Util from "../basic-tools/tools/util.js";
+import { Templated, Core, Dom, Net, Util } from './web-mapping-components/web-mapping-components.min.js';
 
 export default Core.Templatable("Basic.Components.Table", class Table extends Templated {
 

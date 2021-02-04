@@ -1,6 +1,4 @@
-import Core from "../basic-tools/tools/core.js";
-import Net from "../basic-tools/tools/net.js";
-import Dom from "../basic-tools/tools/dom.js";
+import { Core, Net, Dom } from './web-mapping-components/web-mapping-components.min.js';
 
 import Configuration from "./configuration.js";
 import Application from "./application.js";

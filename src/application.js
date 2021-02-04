@@ -1,10 +1,4 @@
-import Other from "../mapbox-tools/tools/other.js";	// TODO : yiich that name sucks
-import Factory from "../mapbox-tools/tools/factory.js";
-import Templated from "../basic-tools/components/templated.js";
-import Core from "../basic-tools/tools/core.js";
-import Net from "../basic-tools/tools/net.js";
-import Util from "../basic-tools/tools/util.js";
-import Dom from "../basic-tools/tools/dom.js";
+import { Other, Factory, Templated, Core, Util, Dom } from './web-mapping-components/web-mapping-components.min.js';
 import Table from "./table.js";
 import Store from "./store.js";
 

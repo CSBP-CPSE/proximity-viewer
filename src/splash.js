@@ -1,6 +1,4 @@
-import Dom from '../basic-tools/tools/dom.js';
-import Core from '../basic-tools/tools/core.js';
-import Popup from '../basic-tools/components/popup.js';
+import { Core, Popup } from './web-mapping-components/web-mapping-components.min.js';
 
 export default class Splash extends Popup { 
 	

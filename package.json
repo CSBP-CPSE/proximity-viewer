@@ -2,6 +2,7 @@
 	"name": "proximity-viewer",
 	"version": "1.0.0",
 	"description": "Proximity Viewer application",
+	"type": "module",
 	"main": "rollup.config.js",
 	"dependencies": {
 		"install": "^0.13.0",

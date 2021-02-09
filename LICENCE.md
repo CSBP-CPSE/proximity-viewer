@@ -1,4 +1,4 @@
-## Linkable Open Data Environment (LODE) Viewer - Terms and Conditions of Use
+## Proximity Measures Data Viewer - Terms and Conditions of Use
 
 Unless otherwise noted, the files listed in Linkable Open Data Environment (LODE) 
 is covered under Crown Copyright, Government of Canada, and is distributed under 
@@ -38,7 +38,7 @@ DEALINGS IN THE SOFTWARE.
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
-##  Visionneuse de l'Environnement de couplage de données ouvertes (ECDO) — Conditions d’utilisation
+## Visualiseur de données sur les mesures de proximité — Conditions d’utilisation
 
 Sauf indication contraire, le code source du programme informatique de "Environnement de couplage de données ouvertes (ECDO" est protégé par le droit d’auteur de la Couronne du gouvernement du Canada et distribué sous la licence MIT.
 

@@ -119,8 +119,8 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 			
 			this.ToggleButtons();
 			
-			Dom.ToggleCss(this.Node("message"), "hidden", true);
-			Dom.ToggleCss(this.Node("table"), "hidden", false);
+			Dom.ToggleClass(this.Node("message"), "hidden", true);
+			Dom.ToggleClass(this.Node("table"), "hidden", false);
 			
 		}, this.OnAsyncFailure);
 	}

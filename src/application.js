@@ -1,4 +1,4 @@
-import { Other, Factory, Templated, Core, Util, Dom } from './web-mapping-components/web-mapping-components.min.js';
+import { Other, Factory, Templated, Core, Util, Dom } from './web-mapping-components/web-mapping-components.js';
 import Table from "./table.js";
 import Store from "./store.js";
 

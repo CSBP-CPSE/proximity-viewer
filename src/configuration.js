@@ -1,4 +1,4 @@
-import { Core } from './web-mapping-components/web-mapping-components.min.js';
+import { Core } from './web-mapping-components/web-mapping-components.js';
 
 export default class Configuration {
 	

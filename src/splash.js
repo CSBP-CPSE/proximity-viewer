@@ -1,4 +1,4 @@
-import { Core, Popup } from './web-mapping-components/web-mapping-components.min.js';
+import { Core, Popup } from './web-mapping-components/web-mapping-components.js';
 
 export default class Splash extends Popup { 
 	

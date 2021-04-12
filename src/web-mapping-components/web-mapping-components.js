@@ -1953,7 +1953,7 @@ class Map extends Evented {
 		const layer = this.map.getLayer(layerId);
 		let layerType;
 
-		if (layer.type) {
+		if (layer && layer.type) {
 			layerType = layer.type;
 		}
 

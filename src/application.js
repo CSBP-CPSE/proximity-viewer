@@ -93,7 +93,7 @@ export default class ProxApp extends Templated {
 						
 		this.map.AddControl(Factory.Group(this.group));
 				
-		this.group.opacity.On("OpacityChanged", this.OnLegend_OpacityChanged.bind(this));
+		this.group.opacity.On("OpacitySliderChanged", this.OnOpacitySlider_Changed.bind(this));
 	}
 	
 	AddMenu() {
@@ -122,7 +122,7 @@ export default class ProxApp extends Templated {
 		this.table = new Table(this.Node("table"), { summary:this.config.table, currId: 0, currFile: 0, field: this.config.maps.close.Fields[2] });
 	}
 	
-	OnLegend_OpacityChanged(ev) {		
+	OnOpacitySlider_Changed(ev) {		
 		Store.Opacity = ev.opacity;
 		
 		this.map.Choropleth(["db"], 'fill-color', this.current.Legend, this.group.opacity.opacity);

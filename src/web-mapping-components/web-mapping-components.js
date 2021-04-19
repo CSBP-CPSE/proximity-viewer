@@ -1629,7 +1629,7 @@ class Opacity extends Control {
 	onSliderChange_Handler(ev) {
 		this.opacity = this.Node("slider").value / 100;
 		
-		this.Emit("OpacityChanged", { opacity:this.opacity });
+		this.Emit("OpacitySliderChanged", { opacity:this.opacity });
 	}
 	
 	Template() {        

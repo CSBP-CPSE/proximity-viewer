@@ -1,4 +1,8 @@
 {
+	"Gen_Label_Field" : {
+		"en": "{0}: {1}",
+		"fr": "{0} : {1}"
+	},
 	"Inv_Search_Instructions" : {
 		"en": "Enter a CSD id or name in the search bar below to select the dissemination blocks in that CSD. The dissemination blocks will appear in the table below. Results will show after three characters are entered.",
 		"fr": "Saisir un identifiant ou le nom d'une SDR pour sélectionner les îlots de diffusion dans ce CSD. Les îlots de diffusion apparaitront dans le tableau plus bas. Les résultats apparaîtront après avoir entré trois caractères."
@@ -214,5 +218,9 @@
 	"Mapbox_Improve" : {
 		"en" : "Improve this map",
 		"fr" : "Améliorer cette carte"
-	}
+	},
+	"Mapbox_Close_Popup" : {
+		"en" : "Close popup",
+		"fr" : "Fermer l'infobulle"
+	} 
 }

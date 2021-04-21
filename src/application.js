@@ -112,7 +112,8 @@ export default class ProxApp extends Templated {
 		Dom.AddClasses(this.menu.Button("maps").popup.Node("root"), "prx");
 		Dom.AddClasses(this.menu.Button("bookmarks").popup.Node("root"), "prx");
 		
-		Dom.AddClasses(list.tooltip.Node("root"), "prx");
+		// Commented out to prevent an error occuring that prevents selecting map datasets.
+		// Dom.AddClasses(list.tooltip.Node("root"), "prx");
 		
 		list.On("MapSelected", this.OnListSelected_Handler.bind(this));
 		bookmarks.On("BookmarkSelected", this.OnBookmarkSelected_Handler.bind(this));
@@ -124,8 +125,7 @@ export default class ProxApp extends Templated {
 	
 	OnOpacitySlider_Changed(ev) {		
 		Store.Opacity = ev.opacity;
-		
-		this.map.Choropleth(["db"], 'fill-color', this.current.Legend, this.group.opacity.opacity);
+		this.map.UpdateMapLayers(["db"], this.group.legend, Store.Opacity);
 	}
 	
 	OnHomeClick_Handler(ev) {
@@ -154,7 +154,7 @@ export default class ProxApp extends Templated {
 		
 	OnMapStyleChanged_Handler(ev) {		
 		this.map.SetClickableMap();
-		this.map.Choropleth(["db"], 'fill-color', this.current.Legend, this.group.opacity.opacity)
+		this.map.UpdateMapLayers(["db"], this.group.legend, Store.Opacity)
 	}
 	
 	OnMapMoveEnd_Handler(ev) {		
@@ -205,17 +205,22 @@ export default class ProxApp extends Templated {
 	}
 	
 	OnSearchChange_Handler(ev) {
-		var legend = [{
-			color : this.config.search.color,
-			value : ["==", ["get", this.config.search.field], ev.item.id]
-		}, {
-			color : [255, 255, 255, 0]
-		}];
+		var legend = {
+			config: [
+				{
+					color : this.config.search.color,
+					value : ["==", ["get", this.config.search.field], ev.item.id]
+				}, 
+				{
+					color : [255, 255, 255, 0]
+				}
+			]
+		};
 
 		this.table.UpdateTable(ev.item);
-		
-		this.map.Choropleth(["csd-search"], 'fill-outline-color', legend, this.group.opacity.opacity);
-		
+
+		// Note: map layer csd-search should be of type line to ensure it only shows an outline
+		this.map.UpdateMapLayers(["csd-search"], legend, Store.Opacity);
 		this.map.FitBounds(ev.item.extent, { padding:30, animate:false });
 	}
 	

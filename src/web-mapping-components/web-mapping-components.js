@@ -1349,24 +1349,42 @@ class Legend extends Control {
 		
 		this._container = this.Node('root');
 
+		this.config = options.config;
+		this.title = options.title;
+		this.subtitle = options.subtitle;
+		this.banner = options.banner;
 		this.chkBoxes = null;
 		this.chkBoxesState = null;
 		
 		this.Reload(options.legend, options.title, options.banner, options.subtitle);
 	}
 	
-	Reload(legend, title, banner, subtitle) {
-		this.LoadLegend(legend);
-						
-		if (banner) this.Node('banner').innerHTML = banner;
-		if (title) this.Node('title').innerHTML = title;
-		if (subtitle) this.Node('subtitle').innerHTML = subtitle;
+	Reload(config, title, banner, subtitle) {
 		
-		Dom.ToggleClass(this.Node("banner"), "hidden", !banner);
-		Dom.ToggleClass(this.Node("title"), "hidden", !title);
-		Dom.ToggleClass(this.Node("subtitle"), "hidden", !subtitle);
+		// Update legend properties
+		this.config = config;
+		this.banner = banner || null;
+		this.title = title || null;
+		this.subtitle = subtitle || null;
+
+		/// Load legend items into legend
+		this.LoadLegend(config);
+						
+		// Update legend labels with the current legend properties
+		if (this.banner) this.Node('banner').innerHTML = this.banner;
+		if (this.title) this.Node('title').innerHTML = this.title;
+		if (this.subtitle) this.Node('subtitle').innerHTML = this.subtitle;
+		
+		// Hide portions on legend which aren't defined.
+		Dom.ToggleClass(this.Node("banner"), "hidden", !this.banner);
+		Dom.ToggleClass(this.Node("title"), "hidden", !this.title);
+		Dom.ToggleClass(this.Node("subtitle"), "hidden", !this.subtitle);
 	}
 	
+	/**
+	 * Load legend as defined in map config file
+	 * @param {object} config - legend object in map config file
+	 */
 	LoadLegend(config) {
 		let i, legendItem;
 		this.chkBoxes = [];
@@ -1374,6 +1392,7 @@ class Legend extends Control {
 
 		Dom.Empty(this.Node("legend"));
 		
+		// Add each legend item
 		if (Array.isArray(config)) {
 			for (i = 0; i < config.length; i += 1) {
 				legendItem = config[i];
@@ -1424,10 +1443,60 @@ class Legend extends Control {
 		}
 	}
 
+	/**
+	 * Gets the style data from provided legend item
+	 * @param {object} legendItem - Object containing the style information 
+	 * @retruns - An object containing the legendItem color and value if available
+	 */
+	static GetStylingFromLegendItem(legendItem) {
+		let style = {};
+
+		if (legendItem.color) {
+			style.color = legendItem.color;
+
+			if (legendItem.value) {
+				style.value = legendItem.value;
+			}
+		}
+
+		return style;
+	}
+
+	/**
+	 * Get list of legend style rules (colours and expression values) defined
+	 * in the legend config.
+	 * @param {array} legendConfig A list of config items defining the legend
+	 * @returns A list of style objects containing colours and conditions
+	 * needed to paint layers with that colour.
+	 */
+	static GetListOfStyles(legendConfig) {
+		let i, j, legendItem, groupItems;
+		let styleCollection = [];
+
+		// Iterate through legendConfig and get styling from each
+		if (Array.isArray(legendConfig)) {
+			for (i = 0; i < legendConfig.length; i += 1) {
+				legendItem = legendConfig[i];
+				if (legendItem.group && legendItem.group.items) {
+					// If item is a group of items, get styling from all items in group
+					groupItems = legendItem.group.items;
+					for (j = 0; j < groupItems.length; j += 1) {
+						styleCollection.push(this.GetStylingFromLegendItem(groupItems[j]));
+					}
+				} else {
+					styleCollection.push(this.GetStylingFromLegendItem(legendItem));
+				}
+			}
+		}
+
+		return styleCollection;
+	}	
+
 	OnCheckbox_Checked(ev) {
 		this.Emit("LegendChange", { state:this.chkBoxesState });
 	}
 
+	// Template for legend widget
 	Template() {        
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
 					"<div handle='banner' class='control-label legend-banner'></div>" +
@@ -1751,6 +1820,239 @@ class Toc extends Control {
 }
 
 /**
+ * Layer class - Defines logic for interacting with map layers
+ * @class
+ */
+class Layer {
+	/**
+	 * Retrieves the layer type 
+	 * @param {object} map - reference to map 
+	 * @param {string} layerId - id of the map layer
+	 */
+	static GetLayerType(map, layerId) {
+		const layer = map.getLayer(layerId);
+		let layerType;
+
+		if (layer && layer.type) {
+			layerType = layer.type;
+		}
+
+		return layerType;
+	}
+
+	/**
+	 * Method to update a paint property for a layer
+	 * @param {object} map - Reference to map
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} paintProperty - Paint Property of the map layer
+	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
+	 */
+	static SetPaintProperty(map, layerId, paintProperty, styleRules) {
+		// Check that layer exists in map
+		if (map.getLayer(layerId)) {
+			map.setPaintProperty(layerId, paintProperty, styleRules);
+		}
+	}
+
+	/**
+	 * Method to update a layout property for a layer
+	 * @param {object} map - Reference to map
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} layoutProperty - Paint Property of the map layer
+	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
+	 */
+	static SetLayoutProperty(map, layerId, layoutProperty, styleRules) {
+		// Check that layer exists in map and update it
+		if (map.getLayer(layerId)) {
+			map.setLayoutProperty(layerId, layoutProperty, styleRules);
+		}
+	}
+
+	ReorderLayers(map, layers) {
+		layers.forEach(l => map.moveLayer(l));
+	}
+	
+	static GetLayer(map, layer) {
+		return map.getLayer(layer) || null;
+	}
+	
+	static ShowLayer(map, layer) {
+		map.setLayoutProperty(layer, 'visibility', 'visible');
+	}
+	
+	static HideLayer(map, layer) {
+		map.setLayoutProperty(layer, 'visibility', 'none');
+	}
+}
+
+/**
+ * expression.js
+ * 
+ * A collection of functions for generating mapbox expressions used for styling.
+ */
+
+/**
+ * Generate mapbox expression for fill colours defined in the map config file.
+ * @param {object} legend - object containing the legend details stored in
+ * the map config file.
+ * @retruns A style expression using legend style data.
+ * 
+ * Example: 
+ * ["case", 
+ * ["==", ["get","type"],"Hospital"], 
+ * "rgba(255,25,167,1)", 
+ * ["==", ["get","type"],"School"], 
+ * "rgba(50,128,229,1)",
+ * "rgba(255,214,10,1)"] 
+ */
+function generateColourExpression(legend) {
+	var styleColor, i, styleItem, defaultColour, legendStyles, expression;
+
+	// Get styling from legend config
+	if (legend && legend.config) {
+		legendStyles = Legend.GetListOfStyles(legend.config);
+	}
+	
+	// Check that legend items length equals opacity length
+	if (Array.isArray(legendStyles) && legendStyles.length > 0) {
+		expression = ['case'];
+		for (i = 0; i < legendStyles.length; i += 1) {
+			styleItem = legendStyles[i];
+
+			if (styleItem) {
+				// Define style color
+				if (styleItem.color) {
+					if (styleItem.color.length === 3) {
+						styleColor = 'rgb(' + styleItem.color.join(',') + ')';
+
+					} else if (styleItem.color.length === 4) {
+						styleColor = 'rgba(' + styleItem.color.join(',') + ')';
+					}
+				}
+
+				// Add style case and color
+				if (styleItem.value && styleColor) {
+					// Add mapbox expression value is defined, add it to cases list
+					expression.push(styleItem.value);						
+
+					// Add colour to cases list
+					expression.push(styleColor);
+				} else {
+					defaultColour = styleColor;
+				}
+			}
+		}
+
+		// Add default colour as last item in colour cases
+		// This is required by mapbox to in sure errors 
+		// don't occur when the last item in the legend config
+		// is not the default colour (i.e. the one without a 
+		// a defined mapbox expression value)
+		expression.push(defaultColour);
+	}
+
+	return expression;
+}
+
+/**
+ * Generate style expression for opacity based on legend status
+ * @param {object} legend object containing the legend details stored in
+ * the map config file.
+ * @param {number} opacity an opacity value between 0 and 1
+ * @retruns An style expression using opacity values.
+ * 
+ * Example: 
+ * ["case", 
+ * ["==", ["get","type"],"Hospital"], 
+ * 0, 
+ * ["==", ["get","type"],"School"], 
+ * 1,
+ * 1] 
+ */
+function generateOpacityExpression(legend, opacity) {
+	var styleOpacity, i, styleItem, defaultOpacity, legendStyles, chkBox, expression;
+	var legendOpacities = [];
+
+	// Get styling from legend config
+	if (legend && legend.config) {
+		legendStyles = Legend.GetListOfStyles(legend.config);
+	}
+
+	// Generate a list of opacity values for each legend item based on;
+	// the checkbox state, and if the legend item has the property binary_opacity
+	// set in the map config file.
+	if (legend && legend.chkBoxesState) {
+		for (i = 0; i < legend.chkBoxesState.length; i += 1) {
+			chkBox = legend.chkBoxesState[i];
+
+			if (chkBox && chkBox.checkbox && !chkBox.checkbox.checked) {
+				legendOpacities.push(0);
+			} else if (chkBox && chkBox.item && chkBox.item.binary_opacity) {
+				legendOpacities.push(1);
+			} else {
+				legendOpacities.push(opacity);
+			}
+		}
+	}
+	
+	if (Array.isArray(legendStyles) && legendStyles.length > 0 && legendOpacities.length > 0) {
+		expression = ['case'];
+		for (i = 0; i < legendStyles.length; i += 1) {
+			styleItem = legendStyles[i];
+			styleOpacity = legendOpacities[i];
+
+			// Add style case and color
+			if (styleItem.value && styleOpacity >= 0 && styleOpacity <= 1) {
+				// Add mapbox expression value is defined, add it to cases list
+				expression.push(styleItem.value);						
+
+				// Add opacity to cases list
+				expression.push(styleOpacity);
+			} else {
+				if (styleOpacity >= 0 && styleOpacity <= 1) {
+					defaultOpacity = styleOpacity;
+				} else {
+					defaultOpacity = opacity;
+				}
+			}
+		}
+
+		// Add default colour as last item in expression 
+		// This is required by mapbox to in sure errors 
+		// don't occur when the last item in the legend config
+		// is not the default colour (i.e. the one without a 
+		// a defined mapbox expression value)
+		expression.push(defaultOpacity);
+	}
+	return expression;
+}
+
+/**
+ * Convert opacity expression into an expression for symbol opacities
+ * @param {array} opacityExpression expression containing cases for styling opacities.
+ */
+function generateSymbolOpacityExpression(opacityExpression) {
+	let expression;
+
+	if (opacityExpression) {
+		expression = [];
+		for (var i = 0; i < opacityExpression.length; i += 1) {
+			if (typeof opacityExpression[i] === 'number') {
+				if (opacityExpression[i] > 0) {
+					expression.push(1);
+				} else {
+					expression.push(0);
+				}
+			} else {
+				expression.push(opacityExpression[i]);
+			}
+		}
+	}
+
+	return expression;
+}
+
+/**
  * Map class
  * @class
  */
@@ -1843,7 +2145,7 @@ class Map extends Evented {
 	/**
 	 * Add layer to the map
 	 * @param {object} layer - object containing the details of the layer
-	 * - Layer Example:
+	 *  Layer Example:
 	 * 	{
 	 * 		id: 'mylayer',
 	 * 		source: 'mydatasource',
@@ -1944,242 +2246,91 @@ class Map extends Evented {
 		
 		this.original = {};
 	}
-	
-	/**
-	 * Retrieves the layer type 
-	 * @param {string} layerId - id of the map layer
-	 */
-	GetLayerType(layerId) {
-		const layer = this.map.getLayer(layerId);
-		let layerType;
-
-		if (layer && layer.type) {
-			layerType = layer.type;
-		}
-
-		return layerType;
-	}
 
 	/**
-	 * Get the layer color paint property name based on layer type
-	 * @param {string} layerType - The layer type 
+	 * Toggle the visibility of a map layer
+	 * @param {string} layerID map layer to be hidden/shown
 	 */
-	GetLayerColorPropertyByType(layerType) {
-		let layerPaintProperty;
-
-		switch (layerType) {
-			case 'circle':
-				layerPaintProperty = 'circle-color';
-				break;
-			case 'line':
-				layerPaintProperty = 'line-color';
-				break;
-			case 'fill':
-				layerPaintProperty = 'fill-color';
-				break;
-			case 'symbol':
-				layerPaintProperty = 'icon-color';
-				break;
-			case 'background':
-				layerPaintProperty = 'background-color';
-				break;
-			case 'heatmap':
-				layerPaintProperty = 'heatmap-color';
-				break;
-			case 'fill-extrusion':
-				layerPaintProperty = 'fill-extrusion-color';
-				break;
-			default:
-				layerPaintProperty = 'circle-color';
-		}		
-
-		return layerPaintProperty;
-	}
-
-	/**
-	 * Method to update a style property for a layer
-	 * @param {string} layerId - Name of the map layer
-	 * @param {string} paintProperty - Paint Property of the map layer
-	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
-	 */
-	SetPaintProperty(layerId, paintProperty, styleRules) {
-		// Check that layer exists in map
-		if (this.map.getLayer(layerId)) {
-			this.map.setPaintProperty(layerId, paintProperty, styleRules);
+	ToggleMapLayerVisibility(layerID) {
+		if (this.map.getLayoutProperty(layerID, 'visibility') === 'visible'){
+			Layer.HideLayer(this.map, layerID);
+		} else {
+			Layer.ShowLayer(this.map, layerID);
 		}
 	}
 
 	/**
-	 * Gets the style data from provided legend item
-	 * @param {object} legendItem - Object containing the style information 
-	 * @retruns - An object containing the legendItem color and value if available
+	 * Update Map Layers based on current status of legend
+	 * @param {array} layerIDs - a list of layer id
+	 * @param {object} legend - reference to the current legend object
+	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
 	 */
-	GetStylingFromLegendItem(legendItem) {
-		let style = {};
+	UpdateMapLayers(layerIDs, legend, storedOpacity) {
+		let opacity;
 
-		if (legendItem.color) {
-			style.color = legendItem.color;
-
-			if (legendItem.value) {
-				style.value = legendItem.value;
-			}
+		// Define opacity based on provided storedOpacity value; 
+		if (storedOpacity >= 0 && storedOpacity <= 1) {
+			opacity = storedOpacity;
+		} else {
+			opacity = 1;
 		}
 
-		return style;
-	}
+		// Generate colour mapbox expression
+		let colourExpression = generateColourExpression(legend);
 
-	/**
-	 * Gets a list of style colours and values defined in the map config legend.
-	 * @param {array} legendItems - List of legend items containing style rules
-	 * @returns - A list of style objects containing colours and conditions
-	 * needed to paint layers with that colour.
-	 */
-	GetListOfStyles(legendItems) {
-		let i, j, legendItem, groupItems;
-		let styleCollection = [];
+		// Loop through layers and update colour classes
+		if (colourExpression) {
+			for (let i = 0; i < layerIDs.length; i += 1) {
+				// Get Layer Colour Property
+				let currentLayerID = layerIDs[i];
+				let layerType = Layer.GetLayerType(this.map, currentLayerID);
+				if (layerType !== 'symbol') {
+					let layerProperty = layerType + '-color';
 
-		// Iterate through legendItems and get styling from each
-		if (Array.isArray(legendItems)) {
-			for (i = 0; i < legendItems.length; i += 1) {
-				legendItem = legendItems[i];
-				if (legendItem.group && legendItem.group.items) {
-					// If item is a group of items, get styling from all items in group
-					groupItems = legendItem.group.items;
-					for (j = 0; j < groupItems.length; j += 1) {
-						styleCollection.push(this.GetStylingFromLegendItem(groupItems[j]));
+					// Update layer colour properties
+					if (layerProperty && this.map.getPaintProperty(currentLayerID, layerProperty)) {
+						this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
+						Layer.SetPaintProperty(this.map, currentLayerID, layerProperty, colourExpression);
 					}
-				} else {
-					styleCollection.push(this.GetStylingFromLegendItem(legendItem));
 				}
 			}
 		}
 
-		return styleCollection;
-	}	
+		// Generate opacity expressions
+		// All legend layers based on legend input checkbox state
+		// if the items has the property binary_opacity it can be either 1 or 0. When unchecked it's 0, 
+		// otherwise it's 1. When it doesn't have a binary_opacity, it's based on opacity controls and checkbox state.
+		var opacityExpression = generateOpacityExpression(legend, opacity);
+		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
 
-	/**
-	 * Generate all style classes defined in the map config file.
-	 * @param {object} styles - object containing the legend details stored in
-	 * the map config file.
-	 * @param {array} opacities - list of opacity values
-	 * @retruns - A list of colour classes using style data and opacity values.
-	 */
-	GenerateColourClasses(styles, opacities) {
-		var updatedColor, i, styleItem, defaultColour;
-		var styleOpacities = opacities || 1;
-		var classes = ['case'];
-		var legendStyles = this.GetListOfStyles(styles);
-		
-		// Check that legend items length equals opacity length
-		if (legendStyles.length) {
-			for (i = 0; i < legendStyles.length; i += 1) {
-				styleItem = legendStyles[i];
+		if (opacityExpression && symbolOpacityExpression) {
+			for (var i = 0; i < layerIDs.length; i += 1) {
+				// Get Layer Colour Property
+				let currentLayerID = layerIDs[i];
+				let layerType = Layer.GetLayerType(this.map, currentLayerID);
+				let layerFillProperty = layerType + '-opacity';
 
-				// Get color for style 
-				if (Array.isArray(styleOpacities) && styleOpacities.length) {
-					updatedColor = styleItem.color.length == 3 ? `rgba(${styleItem.color.join(',')},${styleOpacities[i]})` : `rgba(${styleItem.color.join(',')})`;
+				if (layerType !== 'symbol') {
+					// Update layer opacity properties
+					if (layerFillProperty) {
+						// TODO: original styling should be stored as an object containing layer objects, which 
+						// contain original style properties. 
+						// this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
+						Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
+
+						// If layer type is a circle, update circle stroke opacity to match circle-opacity
+						if (layerType === 'circle') {
+							Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
+						}
+					}
+
 				} else {
-					updatedColor = styleItem.color.length == 3 ? `rgba(${styleItem.color.join(',')},${styleOpacities})` : `rgba(${styleItem.color.join(',')})`;
-				}
-
-				if (styleItem.value && updatedColor) {
-					// Add mapbox expression value is defined, add it to classes list
-					classes.push(styleItem.value);						
-
-					// Add colour to classes list
-					classes.push(updatedColor);
-				} else {
-					defaultColour = updatedColor;
+					// Set opacity of feature labels based on opacity values. 
+					// if opacity = 0 for a layer, then the labels are also set to 0.
+					Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
 				}
 			}
-
-			// Add default colour as last item in colour classes
-			// This is required by mapbox to in sure errors 
-			// don't occur when the last item in the legend config
-			// is not the default colour (i.e. the one without a 
-			// a defined mapbox expression value)
-			classes.push(defaultColour);
 		}
-
-		return classes;
-	}
-
-	/*This is used with an array of colors and (single opacity or array of opacity values)*/
-	Choropleth(layers, property, legend, opacity) {
-		var classes = this.GenerateColourClasses(legend, opacity);
-		layers.forEach(l => {
-			if (property && this.map.getPaintProperty(l, property)) {
-				this.original[l] = this.map.getPaintProperty(l, property);
-				this.SetPaintProperty(l, property, classes);
-			}
-		});
-	}
-
-	/*This is used with a single color value and an array of opacity values)*/
-	ChoroplethVarOpac(layers, property, legend, opacity) {
-		let color, defaultColour, updatedColor, legendStyles;
-		var classes = this.GenerateColourClasses(legend, opacity);
-
-		// Over-ride classes if the property is 'text-halo-color, text-color,
-		// or a circle-stroke-color
-		if (property === 'text-halo-color') {
-			color = [255,255,255];
-		} else if (property === 'text-color' || property === 'circle-stroke-color') {
-			color = [0,0,0];
-		}
-
-		// If an over-ride colour exists, than regenerate style classes
-		if (color) {
-			classes = ['case'];
-			legendStyles = this.GetListOfStyles(legend);
-			legendStyles.forEach(function(l, index) {
-			
-				updatedColor = `rgba(${color.join(',')},${opacity[index]})`;
-			
-				if (l.value) {
-					classes.push(l.value);
-					classes.push(updatedColor);
-				} else {
-					defaultColour = updatedColor;
-				}
-
-			});
-
-			// Make sure catch-all/default color is at end of mapbox expression
-			// represnting the colour classes.
-			classes.push(defaultColour);
-		}
-
-		layers.forEach(l => {
-			if (property && this.map.getPaintProperty(l, property)) {
-				this.original[l] = this.map.getPaintProperty(l, property);
-				this.SetPaintProperty(l, property, classes);
-			}
-		});
-	}
-
-	ReorderLayers(layers) {
-		layers.forEach(l => this.map.moveLayer(l));
-	}
-	
-	GetLayer(layer) {
-		return this.map.getLayer(layer) || null;
-	}
-	
-	ShowLayer(layer) {
-		this.map.setLayoutProperty(layer, 'visibility', 'visible');
-	}
-	
-	HideLayer(layer) {
-		this.map.setLayoutProperty(layer, 'visibility', 'none');
-	}
-	
-	HideLayers(layers) {
-		layers.forEach(l => this.HideLayer(l));
-	}
-	
-	ShowLayers(layers) {
-		layers.forEach(l => this.ShowLayer(l));
 	}
 	
 	/**

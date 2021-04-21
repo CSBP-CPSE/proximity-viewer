@@ -23,6 +23,15 @@ body {
     -webkit-box-shadow: 0.5px 0.5px 1px 1px rgba(0, 0, 0, 0.2) !important;
 }
 
+.prx .mapboxgl-popup ul.popup-inner {
+    list-style-type: none;
+    padding: 0;
+}
+
+.prx .mapboxgl-popup ul.popup-inner label {
+	font-weight: normal;
+}
+
 .prx .instructions > img {
 	height : 20px;
 }

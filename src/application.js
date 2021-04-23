@@ -1,6 +1,5 @@
-import { Other, Factory, Templated, Core, Util, Dom } from './web-mapping-components/web-mapping-components.js';
+import { Other, Factory, Templated, Core, Util, Dom, Store } from './web-mapping-components/web-mapping-components.js';
 import Table from "./table.js";
-import Store from "./store.js";
 
 export default class ProxApp extends Templated { 
 	

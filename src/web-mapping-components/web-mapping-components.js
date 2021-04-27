@@ -1376,7 +1376,7 @@ class Fullscreen extends Evented {
 	constructor(options) {	
 		super();
 		
-		this._fs = new mapboxgl.FullscreenControl();
+		this._fs = new maplibregl.FullscreenControl();
 		
 		this.options = options;
 	}
@@ -1740,7 +1740,7 @@ class Navigation extends Evented {
 	constructor(options) {	
 		super();
 		
-		this._n = new mapboxgl.NavigationControl({ showCompass:options.showCompass, showZoom:options.showZoom });
+		this._n = new maplibregl.NavigationControl({ showCompass:options.showCompass, showZoom:options.showZoom });
 		
 		this.options = options;
 	}
@@ -2167,12 +2167,12 @@ class Map extends Evented {
 	 * @param {string} value - map box access token
 	 */
 	static set Token(value) { 
-		mapboxgl.accessToken = value; 
+		maplibregl.accessToken = value; 
 	}
 	
 	// Get the access token
 	static get Token() { 
-		return mapboxgl.accessToken; 
+		return maplibregl.accessToken; 
 	}
 	
 	// Get the map container
@@ -2213,7 +2213,7 @@ class Map extends Evented {
 		
 		this.click = this.OnLayerClick_Handler.bind(this);
 		
-		this.map = new mapboxgl.Map(options); 
+		this.map = new maplibregl.Map(options); 
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
@@ -2333,7 +2333,7 @@ class Map extends Evented {
 	}
 	
 	InfoPopup(lngLat, html) {	
-		var popup = new mapboxgl.Popup({ closeOnClick: true })
+		var popup = new maplibregl.Popup({ closeOnClick: true })
 			.setLngLat(lngLat)
 			.setHTML(html)
 			.addTo(this.map);
@@ -2511,7 +2511,7 @@ class Factory {
 	}
 	/*
 	static NavigationControl(showCompass, showZoom) {
-		return new mapboxgl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
+		return new maplibregl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
 	}
 	*/
 	static NavigationControl(showCompass, showZoom, titleIn, titleOut) {
@@ -2523,21 +2523,21 @@ class Factory {
 	}
 	
 	static GeolocateControl() {
-		return new mapboxgl.GeolocateControl({
+		return new maplibregl.GeolocateControl({
 			positionOptions: { enableHighAccuracy: true },
 			trackUserLocation: true
 		});
 	} 
 	
 	static ScaleControl(units) {
-		return new mapboxgl.ScaleControl({
+		return new maplibregl.ScaleControl({
 			maxWidth: 80,
 			unit: units
 		});
 	}
 	
 	static AttributionControl() {
-		return new mapboxgl.AttributionControl({ compact: true });
+		return new maplibregl.AttributionControl({ compact: true });
 	}
 	
 	// TODO : LegendControl requires too many parameters

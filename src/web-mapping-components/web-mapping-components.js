@@ -562,6 +562,11 @@ class Net {
 		return d.promise;
 	}
 	
+	/**
+	 * Request a JSON file 
+	 * @param {string} url reference to a json file
+	 * @returns a promise to the json file being requested
+	 */
 	static JSON(url) {
 		var d = Core.Defer();
 		
@@ -2156,43 +2161,67 @@ function generateSymbolOpacityExpression(opacityExpression) {
 class Map extends Evented {
 				
 	/**
-	 * Set the map box access token
-	 * @param {string} value - map box access token
+	 * Set the mapbox access token
+	 * @param {string} value map box access token
 	 */
 	static set Token(value) { 
 		maplibregl.accessToken = value; 
 	}
 	
-	// Get the access token
+	/**
+	 * Get the access token
+	 * @returns {string} mapbox access token
+	 */
 	static get Token() { 
 		return maplibregl.accessToken; 
 	}
 	
-	// Get the map container
+	/**
+	 * Get the Dom element that is the map container
+	 * @return {object} the html element used to contain the map
+	 */
 	get Container() {
 		return this.map._container;
 	}
 	
-	// Get the center of the map
-	// e.g. {lat: 50, lng: -100}
+	/**
+	 * Get the center of the map
+	 * @returns {object} the center coordinates of the map
+	 * e.g. {lat: 50, lng: -100}
+	 */
 	get Center() {
 		return this.map.getCenter();
 	}
 	
-	set Center(value) {
-		this.map.setCenter(value);
+	/**
+	 * Set the center of the map
+	 * @param {object} coords The coordinates for the center of the map
+	 * E.g. {lat: 50, lng: -100}
+	 */
+	set Center(coords) {
+		this.map.setCenter(coords);
 	}
 	
-	// Get the current map zoom level (numeric value)
+	/**
+	 * Get the current map zoom level
+	 * @returns {number} map zoom level (between 0-22)
+	 */ 
 	get Zoom() {
 		return this.map.getZoom();
 	}
 	
+	/**
+	 * Set the map zoom level
+	 * @param {number} value map zoom value
+	 */
 	set Zoom(value) {
 		this.map.setZoom(value);
 	}
 	
-	// Get the current map style URL
+	/**
+	 * Get the current map style URL
+	 * @returns {string} URL to the map style document
+	 */
 	get Style() {
 		return this.style;
 	}
@@ -2201,7 +2230,6 @@ class Map extends Evented {
 		super();
 		
 		this.layers = [];
-		this.original = {};
 		this.style = options.style;
 		
 		this.click = this.OnLayerClick_Handler.bind(this);
@@ -2217,8 +2245,11 @@ class Map extends Evented {
 		this.WrapEvent('load', 'Load');
 		
 		this.map.once('load', ev => {
+			let mapContainer = this.map.getContainer();
 			// Fix for improve this map in french
-			this.map.getContainer().querySelector('.mapbox-improve-map').innerHTML = Core.Nls("Mapbox_Improve");
+			if (mapContainer && mapContainer.querySelector('.mapbox-improve-map')) {
+				mapContainer.querySelector('.mapbox-improve-map').innerHTML = Core.Nls("Mapbox_Improve");
+			}
 		});
 	}
 	
@@ -2336,14 +2367,6 @@ class Map extends Evented {
 		popup._closeButton.title = Core.Nls('Mapbox_Close_Popup');
 	}
 	
-	Reset(layers) {
-		layers.forEach(l => {
-			this.map.setPaintProperty(l, 'fill-color', this.original[l]);
-		});
-		
-		this.original = {};
-	}
-
 	/**
 	 * Toggle the visibility of a map layer
 	 * @param {string} layerID map layer to be hidden/shown
@@ -2381,12 +2404,11 @@ class Map extends Evented {
 				// Get Layer Colour Property
 				let currentLayerID = layerIDs[i];
 				let layerType = Layer.GetLayerType(this.map, currentLayerID);
-				if (layerType !== 'symbol') {
+				if (layerType && layerType !== 'symbol') {
 					let layerProperty = layerType + '-color';
 
 					// Update layer colour properties
 					if (layerProperty && this.map.getPaintProperty(currentLayerID, layerProperty)) {
-						this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
 						Layer.SetPaintProperty(this.map, currentLayerID, layerProperty, colourExpression);
 					}
 				}
@@ -2407,24 +2429,23 @@ class Map extends Evented {
 				let layerType = Layer.GetLayerType(this.map, currentLayerID);
 				let layerFillProperty = layerType + '-opacity';
 
-				if (layerType !== 'symbol') {
-					// Update layer opacity properties
-					if (layerFillProperty) {
-						// TODO: original styling should be stored as an object containing layer objects, which 
-						// contain original style properties. 
-						// this.original[currentLayerID] = this.map.getPaintProperty(currentLayerID, layerProperty);
-						Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
+				if (layerType) {
+					if (layerType !== 'symbol') {
+						// Update layer opacity properties
+						if (layerFillProperty) {
+							Layer.SetPaintProperty(this.map, currentLayerID, layerFillProperty, opacityExpression);
 
-						// If layer type is a circle, update circle stroke opacity to match circle-opacity
-						if (layerType === 'circle') {
-							Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
+							// If layer type is a circle, update circle stroke opacity to match circle-opacity
+							if (layerType === 'circle') {
+								Layer.SetPaintProperty(this.map, currentLayerID, 'circle-stroke-opacity', opacityExpression);
+							}
 						}
-					}
 
-				} else {
-					// Set opacity of feature labels based on opacity values. 
-					// if opacity = 0 for a layer, then the labels are also set to 0.
-					Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
+					} else {
+						// Set opacity of feature labels based on opacity values. 
+						// if opacity = 0 for a layer, then the labels are also set to 0.
+						Layer.SetPaintProperty(this.map, currentLayerID, 'text-opacity', symbolOpacityExpression);
+					}
 				}
 			}
 		}
@@ -2448,6 +2469,10 @@ class Map extends Evented {
 		this.map.setMaxBounds(bounds);
 	}
 
+	/**
+	 * Set the map style of the map.
+	 * @param {string} style URL of the mapbox map style document
+	 */
 	SetStyle(style) {
 		this.style = style;
 		
@@ -2484,6 +2509,11 @@ class Map extends Evented {
 		this.Emit('Click', ev);
 	}
 	
+	/**
+	 * Wraps original mapbox event with a new event
+	 * @param {string} oEv original mapbox event
+	 * @param {string} nEv new event
+	 */
 	WrapEvent(oEv, nEv) {
 		var f = (ev) => this.Emit(nEv, ev);
 		
@@ -2497,24 +2527,48 @@ class Map extends Evented {
  */
 class Factory {
 
+	/**
+	 * A factory method used to create new Map components
+	 * @param {object} container DOM reference to the HTML containing the map
+	 * @param {string} token mapbox access token (provided by Mapbox)
+	 * @param {string} style url to the mapbox map style document
+	 * @param {object} center object containing the lat/long coordinates for the center of the map.
+	 * @param {number} zoom the map zoom level (between 0-22).
+	 * @returns {object} A Map object
+	 */
 	static Map(container, token, style, center, zoom) {
 		Map.Token = token;
 		
 		return new Map({ container: container, style: style, center: center, zoom: zoom });
 	}
-	/*
-	static NavigationControl(showCompass, showZoom) {
-		return new maplibregl.NavigationControl({ showCompass:showCompass, showZoom:showZoom });
-	}
-	*/
+
+	/**
+	 * Create map navigation control buttons for zooming in and out of the map, and for
+	 * resetting the bearing North
+	 * @param {boolean} showCompass indicate if the compass button should be shown (true) or not (false)
+	 * @param {boolean} showZoom indicate if zoom buttons should be shown (true) or not (false)
+	 * @param {string} titleIn tooltip text that appears when hovering over the zoom in button
+	 * @param {string} titleOut tooltip text that appears when hovering over the zoom out button
+	 * @returns {object} Navigation control object
+	 */
 	static NavigationControl(showCompass, showZoom, titleIn, titleOut) {
 		return new Navigation({ showCompass:showCompass, showZoom:showZoom, titleIn:titleIn, titleOut:titleOut });
 	}
 	
+	/**
+	 * Create a full screen control button that makes the map take up the full screen resolution
+	 * @param {string} title tooltip text that appears when hovering over the button
+	 * @returns {object} Fullscreen control object
+	 */
 	static FullscreenControl(title) {
 		return new Fullscreen({ title:title });
 	}
 	
+	/**
+	 * Creates a geolocate control that when clicked attempts to geo-locate your real world position
+	 * and update the map extent to your current location.
+	 * @returns {object} a maplibre GeolocateControl object
+	 */
 	static GeolocateControl() {
 		return new maplibregl.GeolocateControl({
 			positionOptions: { enableHighAccuracy: true },
@@ -2522,6 +2576,11 @@ class Factory {
 		});
 	} 
 	
+	/**
+	 * Create a new scale control that's added to the map component
+	 * @param {string} units the unit of measurement used by the scale bar; 'imperial', 'metric', or 'nautical'.
+	 * @returns {object} mablibre scalecontrol object
+	 */
 	static ScaleControl(units) {
 		return new maplibregl.ScaleControl({
 			maxWidth: 80,

@@ -137,7 +137,7 @@ export default class ProxApp extends Templated {
 	
 	OnOpacitySlider_Changed(ev) {		
 		Store.Opacity = ev.opacity;
-		this.map.UpdateMapLayers(["db"], this.group.legend, Store.Opacity);
+		this.map.UpdateMapLayersWithLegendState(["db"], this.group.legend, Store.Opacity);
 	}
 	
 	OnHomeClick_Handler(ev) {
@@ -166,7 +166,7 @@ export default class ProxApp extends Templated {
 		
 	OnMapStyleChanged_Handler(ev) {		
 		this.map.SetClickableMap();
-		this.map.UpdateMapLayers(["db"], this.group.legend, Store.Opacity)
+		this.map.UpdateMapLayersWithLegendState(["db"], this.group.legend, Store.Opacity)
 	}
 	
 	OnMapMoveEnd_Handler(ev) {		
@@ -233,7 +233,7 @@ export default class ProxApp extends Templated {
 
 		// Temporary workaround to handle updating a polygon boundary layer. 
 		// Note: In the future the csd-search layer should be switched from type fill to line 
-		// and the commented-out this.map.UpdateMapLayers method below should be used, instead
+		// and the commented-out this.map.UpdateMapLayersWithLegendState method below should be used, instead
 		// of the code block below.
 		let styleExpression = [
 			"case",
@@ -244,7 +244,7 @@ export default class ProxApp extends Templated {
 		this.map.SetPaintProperty('csd-search', 'fill-outline-color', styleExpression);
 
 		// Note: map layer csd-search should be of type line to ensure it only shows an outline
-		//this.map.UpdateMapLayers(["csd-search"], legend, Store.Opacity);
+		//this.map.UpdateMapLayersWithLegendState(["csd-search"], legend, Store.Opacity);
 
 		this.map.FitBounds(ev.item.extent, { padding:30, animate:false });
 	}

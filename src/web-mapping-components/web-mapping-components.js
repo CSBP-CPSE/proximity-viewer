@@ -1922,6 +1922,40 @@ class Toc extends Control {
 }
 
 /**
+ * The OSM style object represents a predefined map style using OpenStreetMap 
+ * Raster Tile layers and the Open Font Glyphs which packages free fonts 
+ * (required for symbol labelling). 
+ * 
+ * OSM: https://www.openstreetmap.org/
+ * OSM Licence: OpenStreetMap® is open data, licensed under the Open Data 
+ * Commons Open Database License (ODbL) by the OpenStreetMap Foundation (OSMF). 
+ * https://www.openstreetmap.org/copyright
+ * 
+ * Open Font Glyphs: https://github.com/openmaptiles/fonts
+ * Open Font Glyphs Licence: All fonts packaged in Open Font Glyphs is licensed
+ * under Open File Licence (OFL) or Apache.
+ */
+const OSM = {
+	version: 8,
+	glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
+	sources: {
+		osm: {
+			type: 'raster',
+			tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+			tileSize: 256,
+			attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}
+	},
+	layers: [
+		{
+			id: 'osm',
+			type: 'raster',
+			source: 'osm'
+		}
+	]
+};
+
+/**
  * expression.js
  * 
  * A collection of functions for generating mapbox expressions used for styling.
@@ -2221,8 +2255,13 @@ class Map extends Evented {
 		super();
 		
 		this.layers = [];
-		this.style = options.style;
 		
+		if (options.style === "osm") {
+			options.style = OSM;
+		}
+
+		this.style = options.style;
+
 		this.click = this.OnLayerClick_Handler.bind(this);
 		
 		this.map = new maplibregl.Map(options); 
@@ -2271,7 +2310,11 @@ class Map extends Evented {
 	 * @param {string} style URL of the mapbox map style document
 	 */
 	SetStyle(style) {
-		this.style = style;
+		if (style === "osm") {
+			this.style = OSM;
+		} else {
+			this.style = style;
+		}
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
@@ -2442,12 +2485,14 @@ class Map extends Evented {
 	}
 
 	/**
-	 * Update Map Layers based on current status of legend
+	 * Update Map Layers based on current legend state. Layer styling is
+	 * updated by the current state of the legend which updates layer
+	 * paint properties for colour and opacity.
 	 * @param {array} layerIDs - a list of layer id
 	 * @param {object} legend - reference to the current legend object
 	 * @param {number} storedOpacity - Locally stored opacity value between 0 - 1.
 	 */
-	UpdateMapLayers(layerIDs, legend, storedOpacity) {
+	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
 		let opacity;
 
 		// Define opacity based on provided storedOpacity value; 

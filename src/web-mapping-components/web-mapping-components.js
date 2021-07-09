@@ -1825,6 +1825,7 @@ class Search extends Control {
 		this.layer = options.layer;
 		this.field = options.field;
 		this.color = options.color;
+		this.items = options.items;
 		
 		// TODO : This should probably happen outside of the widget.
 		this.Node('typeahead').items = this.Itemize(options.items);
@@ -1833,11 +1834,53 @@ class Search extends Control {
 	
 		this.Node('typeahead').On('Change', this.onTypeaheadChange_Handler.bind(this));
 	}
+
+	/**
+	 * Set the search items associated with the current search control
+	 * @param {array} items List of search items
+	 * Example of required format for search items:
+	 * [
+	 * 		{
+	 * 			'id':'1001'
+	 * 			'name':'Foo Bar'
+	 * 			'label':'Foo Bar (1001)'
+	 * 			'extent':[[54, 45], [55, 46]]
+	 * 		},
+	 * 		...
+	 * ]
+	 */
+	set searchItems(items) {
+		this.items = items;
+	}
+
+	/**
+	 * Get search items associated with the current search control
+	 * @returns {array} List of search items
+	 */
+	get searchItems() {
+		return this.items;
+	}
 	
+	/**
+	 * Update the available items for the typeahead element
+	 */
+	UpdateSearchItems() {
+		this.Node('typeahead').items = this.Itemize(this.items);
+	}
+
+	/**
+	 * Itemize the search items for the search control
+	 * @param {array} items 
+	 * @returns {array} list of sorted items
+	 */
 	Itemize(items) {		
 		return items.sort((a, b) => { return a.label > b.label ? 1 : -1 });
 	}
 	
+	/**
+	 * Event handler for typeahead changes
+	 * @param {object} ev typeahead change event
+	 */
 	onTypeaheadChange_Handler(ev) {
 		var data = {
 			layer : this.layer,
@@ -1849,6 +1892,10 @@ class Search extends Control {
 		this.Emit('Change', data);
 	}
 	
+	/**
+	 * Create a template for the search control
+	 * @returns {string} html template for search control
+	 */
 	Template() {        
 		return "<div handle='root' class='search-control mapboxgl-ctrl'>" +
 				  "<div handle='typeahead' widget='Basic.Components.Typeahead'></div>" +
@@ -1989,8 +2036,8 @@ function colourListToRGBString(colourList) {
 /**
  * 
  * Generate a list of opacity values for each legend item based on;
- * the checkbox state, and if the legend item has the property binary_opacity
- * set in the map config file.
+ * the checkbox state, and if the legend item has the property opacity
+ * set to a predefined opacity value in the map config file.
  * @param {object} legend current legend object
  * @param {number} storedOpacity the stored opacity value
  */
@@ -2004,8 +2051,15 @@ function generateLegendOpacityValues(legend, storedOpacity) {
 
 			if (chkBox && chkBox.checkbox && !chkBox.checkbox.checked) {
 				legendOpacities.push(0);
-			} else if (chkBox && chkBox.item && chkBox.item.binary_opacity) {
-				legendOpacities.push(1);
+			} else if (chkBox && chkBox.item && chkBox.item.opacity && typeof(chkBox.item.opacity) === 'number') {
+				// Ensure that opacity value is between 1 and 0. 
+				if (chkBox.item.opacity > 1) {
+					chkBox.item.opacity = 1;
+				} else if (chkBox.item.opacity < 0) {
+					chkBox.item.opacity = 0;
+				}
+
+				legendOpacities.push(chkBox.item.opacity);
 			} else {
 				legendOpacities.push(storedOpacity);
 			}
@@ -2306,6 +2360,15 @@ class Map extends Evented {
 	}
 
 	/**
+	 * Set the maximum zoom level for the map. If the value is null/undefined,
+	 * the max zoom level is reset to 22. 
+	 * @param {number} zoomLevel A numeric value between 0 and 22. 
+	 */
+	SetMaxZoom(zoomLevel) {
+		this.map.setMaxZoom(zoomLevel);
+	}
+
+	/**
 	 * Set the map style of the map.
 	 * @param {string} style URL of the mapbox map style document
 	 */
@@ -2419,6 +2482,23 @@ class Map extends Evented {
 	}
 
 	/**
+	 * Filter layer content by filter expression
+	 * @param {string} layerId - Name of the map layer
+	 * @param {array | null | undefined} filter - Expression containing rules to
+	 * include/exclude filter. If null/undefined, existing filters is removed.
+	 * @param {object} options - Object containing filter options
+	 */
+	SetFilter(layerId, filter, options) {
+		if (!options) {
+			options = {};
+		}
+
+		if (this.GetLayer(layerId)) {
+			this.map.setFilter(layerId, filter, options);
+		}
+	}
+
+	/**
 	 * Method to update a paint property for a layer
 	 * @param {string} layerId - Name of the map layer
 	 * @param {string} paintProperty - Paint Property of the map layer
@@ -2523,9 +2603,10 @@ class Map extends Evented {
 		}
 
 		// Generate opacity expressions
-		// All legend layers based on legend input checkbox state
-		// if the items has the property binary_opacity it can be either 1 or 0. When unchecked it's 0, 
-		// otherwise it's 1. When it doesn't have a binary_opacity, it's based on opacity controls and checkbox state.
+		// All legend layers are based on the legend input checkbox state. If the
+		// item has a pre-defined opacity value defined with the opacity property,
+		// the opacity is set to that value. Otherwise the opacity is based on the
+		// locally stored opacity value. When the legend item is unchecked it's 0,
 		var opacityExpression = generateOpacityExpression(legend, opacity);
 		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
 

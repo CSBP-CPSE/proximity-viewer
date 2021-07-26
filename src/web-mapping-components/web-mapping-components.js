@@ -1458,7 +1458,7 @@ class Legend extends Control {
 		this.chkBoxes = null;
 		this.chkBoxesState = null;
 		
-		this.Reload(options.legend, options.title, options.banner, options.subtitle);
+		this.Reload(options.config, options.title, options.banner, options.subtitle);
 	}
 	
 	Reload(config, title, banner, subtitle) {
@@ -2798,9 +2798,8 @@ class Factory {
 		return new maplibregl.AttributionControl({ compact: true });
 	}
 	
-	// TODO : LegendControl requires too many parameters
-	static LegendControl(legend, title, banner, subtitle, hasCheckbox) {
-		return new Legend({ legend:legend, title:title, banner:banner, subtitle:subtitle, hasCheckbox:hasCheckbox});
+	static LegendControl(config, title, banner, subtitle) {
+		return new Legend({ config:config, title:title, banner:banner, subtitle:subtitle});
 	}	
 	
 	static TocControl(toc) {

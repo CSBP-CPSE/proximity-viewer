@@ -104,7 +104,7 @@ export default class ProxApp extends Templated {
 		}
 						
 		this.map.AddControl(Factory.Group(this.group));
-				
+		this.group.opacity.label = Core.Nls("Toc_Opacity");
 		this.group.opacity.On("OpacitySliderChanged", this.OnOpacitySlider_Changed.bind(this));
 	}
 	

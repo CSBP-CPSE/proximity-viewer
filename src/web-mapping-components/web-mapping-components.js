@@ -1805,7 +1805,7 @@ class Opacity extends Control {
 	
 	Template() {        
 		return "<div handle='root' class='opacity mapboxgl-ctrl'>" +
-				  "<label class='control-label'>nls(Toc_Opacity)</label>" +
+				  "<label class='control-label'>Opacity</label>" +
 				  "<input handle='slider' type='range' min='0' max='100' value='100' class='slider'>" +
 			   "</div>";
 	}
@@ -2369,6 +2369,14 @@ class Map extends Evented {
 	}
 
 	/**
+	 * Get the map style specification
+	 * @returns {object} Style JSON representing the map's style specification
+	 */
+	GetStyle() {
+		return this.map.getStyle();
+	}
+
+	/**
 	 * Set the map style of the map.
 	 * @param {string} style URL of the mapbox map style document
 	 */
@@ -2465,6 +2473,14 @@ class Map extends Evented {
 			this.map.addLayer(layer);
 		}
 	}
+	
+	/**
+	 * Get a specified layer
+	 * @param {string} layerId map layer id. 
+	 */
+	GetLayer(layerId) {
+		return this.map.getLayer(layerId) || null;
+	}
 
 	/**
 	 * Retrieves the layer type 
@@ -2512,9 +2528,22 @@ class Map extends Evented {
 	}
 
 	/**
-	 * Method to update a layout property for a layer
+	 * Get layout property for a layer
 	 * @param {string} layerId - Name of the map layer
-	 * @param {string} layoutProperty - Paint Property of the map layer
+	 * @param {string} layoutProperty - Layout property name
+	 * @returns The layout property value
+	 */
+	GetLayoutProperty(layerId, layoutProperty) {
+		// Check that layer exists in map and update it
+		if (this.GetLayer(layerId)) {
+			return this.map.getLayoutProperty(layerId, layoutProperty);
+		}
+	}
+
+	/**
+	 * Set a layout property for a layer
+	 * @param {string} layerId - Name of the map layer
+	 * @param {string} layoutProperty - Layout property name
 	 * @param {array || string} styleRules - Mapbox expression of style rules or a rgba string value.
 	 */
 	SetLayoutProperty(layerId, layoutProperty, styleRules) {
@@ -2526,14 +2555,6 @@ class Map extends Evented {
 
 	ReorderLayers(layers) {
 		layers.forEach(l => this.map.moveLayer(l));
-	}
-	
-	/**
-	 * Get a specified layer
-	 * @param {string} layerId map layer id. 
-	 */
-	GetLayer(layerId) {
-		return this.map.getLayer(layerId) || null;
 	}
 	
 	/**

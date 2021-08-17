@@ -166,7 +166,10 @@ export default class ProxApp extends Templated {
 		
 	OnMapStyleChanged_Handler(ev) {		
 		this.map.SetClickableMap();
-		this.map.UpdateMapLayersWithLegendState(["db"], this.group.legend, Store.Opacity)
+
+		// Update styling colour and opacity of layers
+		this.map.ApplyLegendStylesToMapLayers(["db"], this.group.legend);
+		this.map.UpdateMapLayersWithLegendState(["db"], this.group.legend, Store.Opacity);
 	}
 	
 	OnMapMoveEnd_Handler(ev) {		
@@ -243,8 +246,10 @@ export default class ProxApp extends Templated {
 		];
 		this.map.SetPaintProperty('csd-search', 'fill-outline-color', styleExpression);
 
-		// Note: map layer csd-search should be of type line to ensure it only shows an outline
-		//this.map.UpdateMapLayersWithLegendState(["csd-search"], legend, Store.Opacity);
+		// Note: map layer csd-search should be of type line to ensure it only
+		// shows an outline. When this type change is made, the Map 
+		// ApplyLegendStylesToMapLayers method should be used, see below.
+		//this.map.ApplyLegendStylesToMapLayers(["csd-search"], legend);
 
 		this.map.FitBounds(ev.item.extent, { padding:30, animate:false });
 	}

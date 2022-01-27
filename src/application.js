@@ -110,8 +110,8 @@ export default class ProxApp extends Templated {
 	
 	AddMenu() {
 		// Top-left menu below navigation
-		var list = Factory.MapsListControl(this.config.maps);
-		var bookmarks = Factory.BookmarksControl(this.config.bookmarks);
+		var list = Factory.MapsListControl(this.config.maps, Core.Nls("Maps_Header"));
+		var bookmarks = Factory.BookmarksControl(this.config.bookmarks, Core.Nls("Bookmarks_Header"), Core.Nls("Bookmarks_Description"));
 		
 		this.menu = Factory.MenuControl();
 		
@@ -166,6 +166,7 @@ export default class ProxApp extends Templated {
 		
 	OnMapStyleChanged_Handler(ev) {		
 		this.map.SetClickableMap();
+		this.map.ApplyLegendStylesToMapLayers(["db"], this.group.legend);
 		this.map.UpdateMapLayersWithLegendState(["db"], this.group.legend, Store.Opacity)
 	}
 	
@@ -244,7 +245,7 @@ export default class ProxApp extends Templated {
 		this.map.SetPaintProperty('csd-search', 'fill-outline-color', styleExpression);
 
 		// Note: map layer csd-search should be of type line to ensure it only shows an outline
-		//this.map.UpdateMapLayersWithLegendState(["csd-search"], legend, Store.Opacity);
+		//this.map.ApplyLegendStylesToMapLayers(["csd-search"], legend);
 
 		this.map.FitBounds(ev.item.extent, { padding:30, animate:false });
 	}

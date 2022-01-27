@@ -145,6 +145,285 @@ datalist {
 	height: 2px;
 }
 
+/*
+-------------------------------------------------------------------------------
+controls.css style rules
+-------------------------------------------------------------------------------
+*/
+.control-label {
+	font-weight: bold;
+}
+
+.mapboxgl-ctrl {
+	transform: initial;
+}
+
+/* Map logo and attribution */
+.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl-attrib-inner {
+	background-color: white;
+}
+
+/* Map Scale bar control */
+.mapboxgl-ctrl-scale {
+	font-size: 1.15em;
+}
+
+/* Map Fullscreen control */
+.mapboxgl-ctrl-icon.mapboxgl-ctrl-fullscreen {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M 5 4 C 4.5 4 4 4.5 4 5 L 4 6 L 4 9 L 4.5 9 L 5.7773438 7.296875 C 6.7771319 8.0602131 7.835765 8.9565728 8.890625 10 C 7.8257121 11.0633 6.7761791 11.951675 5.78125 12.707031 L 4.5 11 L 4 11 L 4 15 C 4 15.5 4.5 16 5 16 L 9 16 L 9 15.5 L 7.2734375 14.205078 C 8.0428931 13.187886 8.9395441 12.133481 9.9609375 11.068359 C 11.042371 12.14699 11.942093 13.2112 12.707031 14.21875 L 11 15.5 L 11 16 L 14 16 L 15 16 C 15.5 16 16 15.5 16 15 L 16 14 L 16 11 L 15.5 11 L 14.205078 12.726562 C 13.177985 11.949617 12.112718 11.043577 11.037109 10.009766 C 12.151856 8.981061 13.224345 8.0798624 14.228516 7.3046875 L 15.5 9 L 16 9 L 16 5 C 16 4.5 15.5 4 15 4 L 11 4 L 11 4.5 L 12.703125 5.7773438 C 11.932647 6.7864834 11.026693 7.8554712 9.9707031 8.9199219 C 8.9584739 7.8204943 8.0698767 6.7627188 7.3046875 5.7714844 L 9 4.5 L 9 4 L 6 4 L 5 4 z '/%3E %3C/svg%3E")
+}
+
+/* Maps Control container */
+.maps-control button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Groups Control container */
+.mapboxgl-ctrl-group {
+    overflow-y: auto;
+    max-width: 350px;
+	max-height: 600px;
+}
+
+.mapboxgl-ctrl-group .mapboxgl-ctrl.legend {
+	margin: 0px;
+}
+
+.mapboxgl-ctrl-group .mapboxgl-ctrl.legend > *,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.opacity,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.maps-menu,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.labels-toggle,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.toc,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.download {
+    margin: 5px 10px;
+}
+
+.mapboxgl-ctrl-group .mapboxgl-ctrl.legend .legend-banner {
+    padding: 6px 10px 6px 10px;
+    border-radius: 4px 4px 0px 0px;
+	background: #26374a;
+	color: white;
+    margin: 0;
+    font: 13px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.mapboxgl-ctrl-group .mapboxgl-ctrl.legend .legend-subtitle {
+    font-size: 0.85em;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.mapboxgl-ctrl-group .mapboxgl-ctrl {
+	float: none;
+}
+
+.mapboxgl-ctrl-group .mapboxgl-ctrl.maps-menu select, 
+.mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector select, 
+.mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector input {
+	max-width: 100%;
+    width: 100%;
+}
+
+/* Collapsable Group Control */
+details.mapboxgl-ctrl-collapsable-group {
+    border: 0px;
+    padding-bottom: 5px;
+}
+
+details.mapboxgl-ctrl-collapsable-group:focus {
+    box-shadow: none !important;
+}
+
+details.mapboxgl-ctrl-collapsable-group summary {
+    border: 0px;
+    border-radius: 0;
+    color: #000000;
+    padding-bottom: 0px;
+}
+
+details.mapboxgl-ctrl-collapsable-group summary:hover {
+    background-color: transparent;
+    background: #ffffff; 
+    color: #000000;
+    text-decoration: none;
+    box-shadow: none !important;
+}
+
+/* Legend Control */
+.legend .legend-item {
+    display: -ms-flexbox;
+    display: flex;
+    align-items: flex-start;
+}
+
+.legend .legend-item svg {
+	border: solid thin silver;
+    min-width: 15px;
+    max-width: 15px;
+}
+
+.legend .legend-item .legend-icon {
+	width : 15px;
+	height : 15px;
+	margin-right : 5px;
+    top: -2px;
+}
+
+.legend .legend-item label {
+	margin-left: 6px;
+}
+
+.legend .legend-item > * {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 1px;
+	font-weight: normal;
+}
+
+.legend .legend-item .legend-heading {
+	display: block;
+	font-weight: bold;
+	margin-left: -9px;
+}
+
+.legend .legend-container > * {
+	margin-left: 8px;
+}
+
+.legend .legend-tickbox {
+	margin-right: 6px;
+	cursor: pointer;
+}
+
+/* TOC Control */
+.toc .toc-item label {
+    display: inline;
+}
+
+.toc .toc-item > * {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 1px;
+	font-weight: normal;
+}
+
+.toc .toc-container {
+	margin-top: 5px;
+}
+
+.toc .toc-container > * {
+	margin-left: 8px;
+	display: block;	
+	cursor: pointer;
+}
+
+/* Opacity Slider Control */
+.opacity .opacity-slider {
+	text-align: center;
+}
+
+.opacity input {
+	width: 90%;
+	cursor: pointer;
+}
+
+.opacity .control-label {
+	width: 100%;
+}
+
+/* Theme Selector Control */
+.theme-selector #theme-control-popup {
+    border: 1px solid #cccccc;
+    border-radius: 32px;
+    font-weight: bolder;
+    font-size: 12px;
+    width: 15px;
+    height: 15px;
+    float: right;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 2px;
+    background-color: #3575fe;
+    color: white;
+    line-height: 15px;
+}
+
+.theme-selector .themes-menu-container {
+    margin-top: 5px;
+}
+
+/* Labels Toggle Control */
+.labels-toggle .labels-toggle-label {
+    margin-right: 5px;
+}
+
+/*  Bookmarks Lists, Maps Lists */
+.bookmarks .bookmarks-header-container > *,
+.maps .maps-header-container > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.bookmarks .bookmarks-header,
+.maps .maps-header {
+    margin: 0;
+	font-size: 18px;
+    padding-right: 30px;
+}
+
+.bookmarks .bookmarks-header-icon,
+.maps .maps-header-icon {
+	width: 24px;
+    height: 24px;
+    padding: 4px;
+	margin-right: 10px;
+}
+
+.bookmarks .bookmarks-list,
+.maps .maps-list {
+    list-style: none;
+    padding: 0;
+    border: dotted 1px silver;
+}
+
+.bookmarks .bookmarks-list .bookmarks-list-item,
+.maps .maps-list .maps-list-item {
+	cursor: pointer;
+    font-size: 1.1em;
+    padding: 4px;
+}
+
+.bookmarks .bookmarks-list .bookmarks-list-item:focus,
+.maps .maps-list .maps-list-item:focus {
+	background-color: rgba(70,137,194,1);
+	color: #fff;
+	font-weight: bold;
+}
+
+.bookmarks .bookmarks-list .bookmarks-list-item:nth-child(odd),
+.maps .maps-list .maps-list-item:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+.bookmarks .bookmarks-list .bookmarks-list-item:nth-child(even),
+.maps .maps-list .maps-list-item:nth-child(even) {
+	background-color: #efefef;
+}
+
+.bookmarks .bookmarks-list .bookmarks-list-item:hover,
+.maps .maps-list .maps-list-item:hover { 
+	background-color: #edf3ff;
+}
+
+.bookmarks .bookmarks-description,
+.maps .maps-description {
+	margin: 0px 10px 0px 10px;
+}
+
 /* 
 -------------------------------------------------------------------------------
 popup.css style rules
@@ -480,279 +759,4 @@ table.css style rules
   cursor: auto;
   text-decoration: none;
   color: rgb(51,51,51);
-}
-
-/*
--------------------------------------------------------------------------------
-controls.css style rules
--------------------------------------------------------------------------------
-*/
-.control-label {
-	font-weight: bold;
-}
-
-.mapboxgl-ctrl {
-	transform: initial;
-}
-
-/* Map logo and attribution */
-.mapboxgl-ctrl-logo,
-.mapboxgl-ctrl-attrib-inner {
-	background-color: white;
-}
-
-/* Map Scale bar control */
-.mapboxgl-ctrl-scale {
-	font-size: 1.15em;
-}
-
-/* Map Fullscreen control */
-.mapboxgl-ctrl-icon.mapboxgl-ctrl-fullscreen {
-	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M 5 4 C 4.5 4 4 4.5 4 5 L 4 6 L 4 9 L 4.5 9 L 5.7773438 7.296875 C 6.7771319 8.0602131 7.835765 8.9565728 8.890625 10 C 7.8257121 11.0633 6.7761791 11.951675 5.78125 12.707031 L 4.5 11 L 4 11 L 4 15 C 4 15.5 4.5 16 5 16 L 9 16 L 9 15.5 L 7.2734375 14.205078 C 8.0428931 13.187886 8.9395441 12.133481 9.9609375 11.068359 C 11.042371 12.14699 11.942093 13.2112 12.707031 14.21875 L 11 15.5 L 11 16 L 14 16 L 15 16 C 15.5 16 16 15.5 16 15 L 16 14 L 16 11 L 15.5 11 L 14.205078 12.726562 C 13.177985 11.949617 12.112718 11.043577 11.037109 10.009766 C 12.151856 8.981061 13.224345 8.0798624 14.228516 7.3046875 L 15.5 9 L 16 9 L 16 5 C 16 4.5 15.5 4 15 4 L 11 4 L 11 4.5 L 12.703125 5.7773438 C 11.932647 6.7864834 11.026693 7.8554712 9.9707031 8.9199219 C 8.9584739 7.8204943 8.0698767 6.7627188 7.3046875 5.7714844 L 9 4.5 L 9 4 L 6 4 L 5 4 z '/%3E %3C/svg%3E")
-}
-
-/* Maps Control container */
-.maps-control button img {
-    width: 20px;
-    height: 20px;
-}
-
-/* Groups Control container */
-.mapboxgl-ctrl-group {
-    overflow-y: auto;
-    max-width: 350px;
-	max-height: 600px;
-}
-
-.mapboxgl-ctrl-group .mapboxgl-ctrl.legend {
-	margin: 0px;
-}
-
-.mapboxgl-ctrl-group .mapboxgl-ctrl.legend > *,
-.mapboxgl-ctrl-group .mapboxgl-ctrl.opacity,
-.mapboxgl-ctrl-group .mapboxgl-ctrl.maps-menu,
-.mapboxgl-ctrl-group .mapboxgl-ctrl.labels-toggle,
-.mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector,
-.mapboxgl-ctrl-group .mapboxgl-ctrl.toc,
-.mapboxgl-ctrl-group .mapboxgl-ctrl.download {
-    margin: 5px 10px;
-}
-
-.mapboxgl-ctrl-group .mapboxgl-ctrl.legend .legend-banner {
-    padding: 6px 10px 6px 10px;
-    border-radius: 4px 4px 0px 0px;
-	background: #26374a;
-	color: white;
-    margin: 0;
-    font: 13px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    font-weight: bold;
-}
-
-.mapboxgl-ctrl-group .mapboxgl-ctrl.legend .legend-subtitle {
-    font-size: 0.85em;
-    font-weight: normal;
-    font-style: italic;
-}
-
-.mapboxgl-ctrl-group .mapboxgl-ctrl {
-	float: none;
-}
-
-.mapboxgl-ctrl-group .mapboxgl-ctrl.maps-menu select, 
-.mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector select, 
-.mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector input {
-	max-width: 100%;
-    width: 100%;
-}
-
-/* Collapsable Group Control */
-details.mapboxgl-ctrl-collapsable-group {
-    border: 0px;
-    padding-bottom: 5px;
-}
-
-details.mapboxgl-ctrl-collapsable-group:focus {
-    box-shadow: none !important;
-}
-
-details.mapboxgl-ctrl-collapsable-group summary {
-    border: 0px;
-    border-radius: 0;
-    color: #000000;
-    padding-bottom: 0px;
-}
-
-details.mapboxgl-ctrl-collapsable-group summary:hover {
-    background-color: transparent;
-    background: #ffffff; 
-    color: #000000;
-    text-decoration: none;
-    box-shadow: none !important;
-}
-
-/* Legend Control */
-.legend .legend-item {
-    display: -ms-flexbox;
-    display: flex;
-    align-items: flex-start;
-}
-
-.legend .legend-item svg {
-	border: solid thin silver;
-    min-width: 15px;
-    max-width: 15px;
-}
-
-.legend .legend-item .legend-icon {
-	width : 15px;
-	height : 15px;
-	margin-right : 5px;
-    top: -2px;
-}
-
-.legend .legend-item label {
-	margin-left: 6px;
-}
-
-.legend .legend-item > * {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 1px;
-	font-weight: normal;
-}
-
-.legend .legend-item .legend-heading {
-	display: block;
-	font-weight: bold;
-	margin-left: -9px;
-}
-
-.legend .legend-container > * {
-	margin-left: 8px;
-}
-
-.legend .legend-tickbox {
-	margin-right: 6px;
-	cursor: pointer;
-}
-
-/* TOC Control */
-.toc .toc-item > * {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 1px;
-	font-weight: normal;
-}
-
-.toc .toc-container {
-	margin-top: 5px;
-}
-
-.toc .toc-container > * {
-	margin-left: 8px;
-	display: block;	
-	cursor: pointer;
-}
-
-/* Opacity Slider Control */
-.opacity .opacity-slider {
-	text-align: center;
-}
-
-.opacity input {
-	width: 90%;
-	cursor: pointer;
-}
-
-.opacity .control-label {
-	width: 100%;
-}
-
-/* Theme Selector Control */
-.theme-selector #theme-control-popup {
-    border: 1px solid #cccccc;
-    border-radius: 32px;
-    font-weight: bolder;
-    font-size: 12px;
-    width: 15px;
-    height: 15px;
-    float: right;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 2px;
-    background-color: #3575fe;
-    color: white;
-    line-height: 15px;
-}
-
-.theme-selector .themes-menu-container {
-    margin-top: 5px;
-}
-
-/* Labels Toggle Control */
-.labels-toggle .labels-toggle-label {
-    margin-right: 5px;
-}
-
-/*  Bookmarks Lists, Maps Lists */
-.bookmarks .bookmarks-header-container > *,
-.maps .maps-header-container > * {
-	display: inline-block;
-	vertical-align: middle;
-}
-
-.bookmarks .bookmarks-header,
-.maps .maps-header {
-    margin: 0;
-	font-size: 18px;
-    padding-right: 30px;
-}
-
-.bookmarks .bookmarks-header-icon,
-.maps .maps-header-icon {
-	width: 24px;
-    height: 24px;
-    padding: 4px;
-	margin-right: 10px;
-}
-
-.bookmarks .bookmarks-list,
-.maps .maps-list {
-    list-style: none;
-    padding: 0;
-    border: dotted 1px silver;
-}
-
-.bookmarks .bookmarks-list .bookmarks-list-item,
-.maps .maps-list .maps-list-item {
-	cursor: pointer;
-    font-size: 1.1em;
-    padding: 4px;
-}
-
-.bookmarks .bookmarks-list .bookmarks-list-item:focus,
-.maps .maps-list .maps-list-item:focus {
-	background-color: rgba(70,137,194,1);
-	color: #fff;
-	font-weight: bold;
-}
-
-.bookmarks .bookmarks-list .bookmarks-list-item:nth-child(odd),
-.maps .maps-list .maps-list-item:nth-child(odd) {
-	background-color: #ffffff;
-}
-
-.bookmarks .bookmarks-list .bookmarks-list-item:nth-child(even),
-.maps .maps-list .maps-list-item:nth-child(even) {
-	background-color: #efefef;
-}
-
-.bookmarks .bookmarks-list .bookmarks-list-item:hover,
-.maps .maps-list .maps-list-item:hover { 
-	background-color: #edf3ff;
-}
-
-.bookmarks .bookmarks-description,
-.maps .maps-description {
-	margin: 0px 10px 0px 10px;
 }

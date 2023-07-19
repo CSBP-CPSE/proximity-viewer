@@ -1,8 +1,15 @@
 {
     "id": "close",
-    "style": "mapbox://styles/deil-leid/ck8rgvauc0drm1iswrxucb4lh",
-    "layers": [{
-            "id": "db"
+    "style": "mapbox://styles/deil-leid/clk8gqtqh034401no769y34p8",
+    "layers": [
+        {
+            "id": "pmd-2021-pt1"
+        },
+        {
+            "id": "pmd-2021-pt2"
+        },
+        {
+            "id": "csd-search-2021"
         }
     ],
     "title": {
@@ -17,59 +24,68 @@
         "en": "An amenity dense neighborhood/locality is defined as one that has a grocery store (1km walking distance), a pharmacy (1km walking distance), a health facility (3km driving distance), a childcare facility (1.5km walking distance), a primary school (1.5km walking distance), a library (1.5km walking distance), a public transit stop (1km walking distance), to employment (10km driving distance).",
         "fr": "Un quartier dense en commodités est défini comme ayant une épicerie (1km distance de marche), une pharmacie (1km distance de marche), un établissement de santé (3km distance en voiture), un service de garde (1.5km distance de marche), une école primaire (1.5km distance de marche), une bibliothèque (1.5km distance de marche), un arrêt de transport en commun (1km distance de marche), et un lieu de travail (10km distance en voiture)."
     },
-    "legend": [{
+    "legend": [
+        {
             "color": [240, 240, 240],
             "label": {
                 "en": ".. not available for a specific reference period",
                 "fr": ".. indisponible pour une période de référence précise"
             },
-            "value": ["==", ["get", "close"], ".."]
-        }, {
+            "value": ["==", ["get", "amenity_dense"], ".."]
+        },
+        {
             "color": [100, 100, 100],
             "label": {
                 "en": "F too unreliable to be published",
                 "fr": "F trop peu fiable pour être publié"
             },
-            "value": ["==", ["get", "close"], "F"]
-        },{
+            "value": ["==", ["get", "amenity_dense"], "F"]
+        },
+        {
             "color": [84, 179, 10],
             "label": {
                 "en": "High density",
                 "fr": "Haute densité"
             },
-            "value": ["==", ["get", "close"], "2"]
-        }, {
+            "value": ["==", ["get", "amenity_dense"], "2"]
+        },
+        {
             "color": [217, 239, 139],
             "label": {
                 "en": "Medium density",
                 "fr": "Moyenne densité"
             },
-            "value": ["==", ["get", "close"], "1"]
-        }, {
+            "value": ["==", ["get", "amenity_dense"], "1"]
+        },
+        {
             "color": [255, 255, 255],
             "label": {
                 "en": "Low density",
                 "fr": "Faible densité"
             },
-            "value": ["==", ["get", "close"], "0"]
-        }, {
+            "value": ["==", ["get", "amenity_dense"], "0"]
+        },
+        {
             "color": [255, 255, 255]
         }
     ],
-    "fields": [{
+    "fields": [
+        {
             "id": "DBUID",
             "label": {
                 "en": "Dissemination block",
                 "fr": "Bloc de diffusion"
             }
-        }, {
+        },
+        {
             "id": "CSDUID",
             "label": {
                 "en": "Census subdivision",
                 "fr": "Sous-division de recensement"
             }
-        }, {
-            "id": "close",
+        },
+        {
+            "id": "amenity_dense",
             "label": {
                 "en": "Amenity density",
                 "fr": "Densité de commodités"

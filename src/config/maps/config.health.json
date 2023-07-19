@@ -1,10 +1,15 @@
 {
     "id": "health",
-    "style": "mapbox://styles/deil-leid/ck8rgx9im0e661im9qkfndjp6",
-    "layers": [{
-            "id": "db"
-        }, {
-            "id": "csd-search"
+    "style": "mapbox://styles/deil-leid/clk8gqtqh034401no769y34p8",
+    "layers": [
+        {
+            "id": "pmd-2021-pt1"
+        },
+        {
+            "id": "pmd-2021-pt2"
+        },
+        {
+            "id": "csd-search-2021"
         }
     ],
     "title": {
@@ -23,73 +28,84 @@
         "en": "Proximity to health care measures access to health care by considering driving distance from dissemination block centroids to health care (up to a maximum distance of 3 km).",
         "fr": "La proximité aux établissements de santé indique l'accès aux établissements de santé en considérant la distance en voiture du centroïde du bloc de dissémination aux établissements de santé (jusqu'à une distance de 3 km)."
     },
-    "legend": [{
+    "legend": [
+        {
             "color": [240, 240, 240],
             "label": {
                 "en": ".. not available for a specific reference period",
                 "fr": ".. indisponible pour une période de référence précise"
             },
-            "value": ["==", ["get", "health.idx"], ".."]
-        }, {
+            "value": ["==", ["get", "prox_idx_health"], ".."]
+        },
+        {
             "color": [100, 100, 100],
             "label": {
                 "en": "F too unreliable to be published",
                 "fr": "F trop peu fiable pour être publié"
             },
-            "value": ["==", ["get", "health.idx"], "F"]
-        }, {
+            "value": ["==", ["get", "prox_idx_health"], "F"]
+        },
+        {
             "color": [215, 48, 39],
             "label": {
                 "en": "From 0.000 to 0.005",
                 "fr": "De 0.000 à 0.005"
             },
-            "value": ["<=", ["to-number", ["get", "health.idx"]], 0.005]
-        }, {
+            "value": ["<=", ["to-number", ["get", "prox_idx_health"]], 0.005]
+        },
+        {
             "color": [252, 141, 89],
             "label": {
                 "en": "From 0.005 to 0.023",
                 "fr": "De 0.005 à 0.023"
             },
-            "value": ["<=", ["to-number", ["get", "health.idx"]], 0.023]
-        }, {
+            "value": ["<=", ["to-number", ["get", "prox_idx_health"]], 0.023]
+        },
+        {
             "color": [254, 224, 139],
             "label": {
                 "en": "From 0.023 to 0.048",
                 "fr": "De 0.023 à 0.048"
             },
-            "value": ["<=", ["to-number", ["get", "health.idx"]], 0.048]
-        }, {
+            "value": ["<=", ["to-number", ["get", "prox_idx_health"]], 0.048]
+        },
+        {
             "color": [217, 239, 139],
             "label": {
                 "en": "From 0.048 to 0.089",
                 "fr": "De 0.048 à 0.089"
             },
-            "value": ["<=", ["to-number", ["get", "health.idx"]], 0.089]
-        }, {
+            "value": ["<=", ["to-number", ["get", "prox_idx_health"]], 0.089]
+        },
+        {
             "color": [145, 207, 96],
             "label": {
                 "en": "From 0.089 to 1.000",
                 "fr": "De 0.089 à 1.000"
             },
-            "value": ["<=", ["to-number", ["get", "health.idx"]], 1.000]
-        }, {
+            "value": ["<=", ["to-number", ["get", "prox_idx_health"]], 1.000]
+        },
+        {
             "color": [200, 200, 200]
         }
     ],
-    "fields": [{
+    "fields": [
+        {
             "id": "DBUID",
             "label": {
                 "en": "Dissemination block",
                 "fr": "Bloc de diffusion"
             }
-        }, {
+        },
+        {
             "id": "CSDUID",
             "label": {
                 "en": "Census Subdivision",
                 "fr": "Sous-division de recensement"
             }
-        }, {
-            "id": "health.idx",
+        },
+        {
+            "id": "prox_idx_health",
             "label": {
                 "en": "Proximity to health facilities",
                 "fr": "Proximité aux établissements de santé"

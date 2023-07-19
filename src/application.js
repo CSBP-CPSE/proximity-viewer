@@ -158,13 +158,11 @@ export default class ProxApp extends Templated {
 		this.menu.Button("maps").popup.Hide();
 		
 		Store.Map = ev.id;
-
-		// TODO : Check if SetStyle counts as a map load, if it does, we need to reset layer visibility and paint
-		// properties instead of setting the style. If it doesn't we're good as is.
-		this.map.SetStyle(ev.map.Style);
 		
 		this.current = ev.map;
 		
+		this.map.SetStyle(this.current.Style);
+
 		this.group.legend.Reload(this.current.Legend, this.current.Title, this.current.Subtitle);
 	}
 		

@@ -2,11 +2,11 @@
 #######################
 node_modules/
 dist/
+scripts/source/
+.idea/
+__pycache__/
+output/
 
 # VIM created files
 #######################
 *.swp
-
-# Other
-#######################
-output

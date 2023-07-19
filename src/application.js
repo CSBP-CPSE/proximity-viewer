@@ -237,24 +237,7 @@ export default class ProxApp extends Templated {
 		};
 
 		this.table.UpdateTable(ev.item);
-
-		// Temporary workaround to handle updating a polygon boundary layer. 
-		// Note: In the future the csd-search layer should be switched from type fill to line 
-		// and the commented-out this.map.UpdateMapLayersWithLegendState method below should be used, instead
-		// of the code block below.
-		let styleExpression = [
-			"case",
-			["==", ["get", this.config.search.field], ev.item.id],
-			'rgba(' + this.config.search.color.join(',') + ')',
-			'rgba(' + [255,255,255,0].join(',') + ')'
-		];
-		this.map.SetPaintProperty('csd-search', 'fill-outline-color', styleExpression);
-
-		// Note: map layer csd-search should be of type line to ensure it only
-		// shows an outline. When this type change is made, the Map 
-		// ApplyLegendStylesToMapLayers method should be used, see below.
-		//this.map.ApplyLegendStylesToMapLayers(["csd-search"], legend);
-
+		this.map.ApplyLegendStylesToMapLayers([this.config.search.layer], legend);
 		this.map.FitBounds(ev.item.extent, { padding:30, animate:false });
 	}
 	

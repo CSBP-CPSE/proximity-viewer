@@ -114,7 +114,7 @@ export default class ProxApp extends Templated {
 	
 	AddMenu() {
 		// Top-left menu below navigation
-		var list = Factory.MapsListControl(this.config.maps, Core.Nls("Maps_Header"));
+		var maps = Factory.MapsListControl(this.config.maps, Core.Nls("Maps_Header"));
 		var bookmarks = Factory.BookmarksControl(this.config.bookmarks, Core.Nls("Bookmarks_Header"), Core.Nls("Bookmarks_Description"));
 		
 		this.menu = Factory.MenuControl();
@@ -122,16 +122,16 @@ export default class ProxApp extends Templated {
 		this.map.AddControl(this.menu, "top-left");
 		
 		this.menu.AddButton("home", "assets/globe.png", Core.Nls("Home_Title"), this.OnHomeClick_Handler.bind(this));
-		this.menu.AddPopupButton("maps", "assets/layers.png", Core.Nls("Maps_Title"), list, this.map.Container);
+		this.menu.AddPopupButton("maps", "assets/layers.png", Core.Nls("Maps_Title"), maps, this.map.Container);
 		this.menu.AddPopupButton("bookmarks", "assets/bookmarks.png", Core.Nls("Bookmarks_Title"), bookmarks, this.map.Container);
 		
 		Dom.AddClasses(this.menu.Button("maps").popup.Node("root"), "prx");
 		Dom.AddClasses(this.menu.Button("bookmarks").popup.Node("root"), "prx");
 		
 		// Commented out to prevent an error occuring that prevents selecting map datasets.
-		// Dom.AddClasses(list.tooltip.Node("root"), "prx");
+		// Dom.AddClasses(maps.tooltip.Node("root"), "prx");
 		
-		list.On("MapSelected", this.OnListSelected_Handler.bind(this));
+		maps.On("MapSelected", this.OnMapSelected_Handler.bind(this));
 		bookmarks.On("BookmarkSelected", this.OnBookmarkSelected_Handler.bind(this));
 	}
 	
@@ -154,7 +154,7 @@ export default class ProxApp extends Templated {
 		this.map.FitBounds(ev.item.extent, { animate:false });
 	}
 		
-	OnListSelected_Handler(ev) {
+	OnMapSelected_Handler(ev) {
 		this.menu.Button("maps").popup.Hide();
 		
 		Store.Map = ev.id;

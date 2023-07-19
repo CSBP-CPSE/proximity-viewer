@@ -1,8 +1,17 @@
 import { Other, Factory, Templated, Core, Util, Dom, Store } from './web-mapping-components/web-mapping-components.js';
 import Table from "./table.js";
 
+/**
+ * Main application class
+ */
 export default class ProxApp extends Templated { 
 	
+	/**
+	 * Prox App class constructor
+	 * @constructor
+	 * @param {object} node reference to dom element that will contain the proximity viewer app
+	 * @param {object} config object containing data taken from various configuration json files
+	 */
 	constructor(node, config) {
 		super(node);
 		
@@ -20,6 +29,14 @@ export default class ProxApp extends Templated {
 		this.AddTable();
 	}
 	
+	/**
+	 * Template for the structure of the application, including;
+	 * - search bar container
+	 * - instruction container
+	 * - map container
+	 * - table container
+	 * - link-symbols-container
+	 */
 	Template() {
 		return "<div class='search-container'>" +
 				  "<span class='wb-inv'>nls(Inv_Search_Instructions)</span>" + 
@@ -42,6 +59,9 @@ export default class ProxApp extends Templated {
 			   "</div>";
 	}
 
+	/**
+	 * Create and add a map with events handling for user interactions.
+	 */
 	AddMap() {
 		let token;
 
@@ -71,6 +91,12 @@ export default class ProxApp extends Templated {
 		}
 	}
 
+	/**
+	 * Create and add the following controls to the map
+	 * - full screen button
+	 * - navigation controls
+	 * - scale bar
+	 */
 	AddBaseControls() {
 		var fullscreen = Factory.FullscreenControl(Core.Nls("FullScreen_Title"));
 		var navigation = Factory.NavigationControl(false, true, Core.Nls("Navigation_ZoomIn_Title"), Core.Nls("Navigation_ZoomOut_Title"));
@@ -81,6 +107,9 @@ export default class ProxApp extends Templated {
 		this.map.AddControl(scale);
 	}
 
+	/**
+	 * Create and add a search bar for searching census sub-divisions
+	 */
 	AddSearch() {
 		this.config.search.items = this.config.search.items.map(i => {
 			return { 
@@ -100,6 +129,10 @@ export default class ProxApp extends Templated {
 		search.On("Change", this.OnSearchChange_Handler.bind(this));
 	}
 
+	/**
+	 * Create a group containing map legend and opacity controls.
+	 * Map legend is defined by legend items in the selected map config doc.
+	 */
 	AddGroup() {
 		// Top-right group for legend, etc.		
 		this.group = {
@@ -112,6 +145,9 @@ export default class ProxApp extends Templated {
 		this.group.opacity.On("OpacitySliderChanged", this.OnOpacitySlider_Changed.bind(this));
 	}
 	
+	/**
+	 * Add a menu to the map with various buttons to control map content
+	 */
 	AddMenu() {
 		// Top-left menu below navigation
 		var maps = Factory.MapsListControl(this.config.maps, Core.Nls("Maps_Header"));
@@ -139,21 +175,41 @@ export default class ProxApp extends Templated {
 		this.table = new Table(this.Node("table"), { summary:this.config.table, currId: 0, currFile: 0, field: this.config.maps.close.Fields[2] });
 	}
 	
+	/**
+	 * OpacitySliderChanged event handler for when the opacity slider updates.
+	 * @param {object} ev - Event object containing details on the opacity slider value
+	 */
 	OnOpacitySlider_Changed(ev) {		
 		Store.Opacity = ev.opacity;
 		this.map.UpdateMapLayersWithLegendState(["pmd-2021-pt1", "pmd-2021-pt2"], this.group.legend, Store.Opacity);
 	}
 	
+	/**
+	 * Event handler for clicking the home menu button, which sets the map
+	 * bounds to a Canadian extent.
+	 * @param {object} ev - mouse event when clicking on the home menu button
+	 */
 	OnHomeClick_Handler(ev) {
 		this.map.FitBounds([[-173.457, 41.846], [-17.324, 75.848]]);
 	}
 	
+	/**
+	 * Event handler for clicking a census metropolitan area listed in the
+	 * bookmarks popup list.
+	 * @param {object} ev - BookmarkSelected event containing the bookmark
+	 * item and extent of the census metropolitan area.
+	 */
 	OnBookmarkSelected_Handler(ev) {
 		this.menu.Button("bookmarks").popup.Hide();
 		
 		this.map.FitBounds(ev.item.extent, { animate:false });
 	}
-		
+	
+	/**
+	 * Event handler for clicking a map item.
+	 * @param {object} ev - MapSelected event containing the selected map id
+	 * and related map configuration.
+	 */
 	OnMapSelected_Handler(ev) {
 		this.menu.Button("maps").popup.Hide();
 		
@@ -165,7 +221,11 @@ export default class ProxApp extends Templated {
 
 		this.group.legend.Reload(this.current.Legend, this.current.Title, this.current.Subtitle);
 	}
-		
+	
+	/**
+	 * Event handler which updates the map, when map styling changes on the map
+	 * @param {object} ev - StyleChanged event object.
+	 */
 	OnMapStyleChanged_Handler(ev) {		
 		this.map.SetClickableMap();
 
@@ -174,15 +234,31 @@ export default class ProxApp extends Templated {
 		this.map.UpdateMapLayersWithLegendState(["pmd-2021-pt1", "pmd-2021-pt2"], this.group.legend, Store.Opacity);
 	}
 	
+	/**
+	 * Event handler for when the map is panned, which updates the local
+	 * storage of the lat/long values with the new map's center point values.
+	 * @param {object} ev - MoveEnd event object.
+	 */
 	OnMapMoveEnd_Handler(ev) {		
 		Store.Lat = this.map.Center.lat;
 		Store.Lng = this.map.Center.lng;
 	}
-	
+
+	/**
+	 * Event handler for when the map is zoomed, which updates the locally
+	 * stored zoom value for the map.
+	 * @param {object} ev - ZoomEnd event object.
+	 */
 	OnMapZoomEnd_Handler(ev) { 		
 		Store.Zoom = this.map.Zoom;
 	}
 	
+	/**
+	 * Event handler for when the map is clicked, which queries map features at
+	 * the click location and displays the feature details in a popup.
+	 * stored zoom value for the map.
+	 * @param {object} ev - Click event object.
+	 */
 	OnMapClick_Handler(ev) {
 		var features = this.map.QueryRenderedFeatures(ev.point, ["pmd-2021-pt1", "pmd-2021-pt2", "csd-search-2021"]);
 				
@@ -222,6 +298,13 @@ export default class ProxApp extends Templated {
 		this.map.InfoPopup(ev.lngLat, html);
 	}
 	
+	/**
+	 * Update table with search items, add a boundary line for the census
+	 * subdivision extent, and update map bounds with the extent of the
+	 * searched census sub-division.
+	 * Assumption : Search will always be by CSD
+	 * @param {object} ev - Change event object, containing the search item details
+	 */
 	OnSearchChange_Handler(ev) {
 		var legend = {
 			config: [

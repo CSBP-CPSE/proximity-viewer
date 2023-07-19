@@ -141,7 +141,7 @@ export default class ProxApp extends Templated {
 	
 	OnOpacitySlider_Changed(ev) {		
 		Store.Opacity = ev.opacity;
-		this.map.UpdateMapLayersWithLegendState(["db"], this.group.legend, Store.Opacity);
+		this.map.UpdateMapLayersWithLegendState(["pmd-2021-pt1", "pmd-2021-pt2"], this.group.legend, Store.Opacity);
 	}
 	
 	OnHomeClick_Handler(ev) {
@@ -172,8 +172,8 @@ export default class ProxApp extends Templated {
 		this.map.SetClickableMap();
 
 		// Update styling colour and opacity of layers
-		this.map.ApplyLegendStylesToMapLayers(["db"], this.group.legend);
-		this.map.UpdateMapLayersWithLegendState(["db"], this.group.legend, Store.Opacity);
+		this.map.ApplyLegendStylesToMapLayers(["pmd-2021-pt1", "pmd-2021-pt2"], this.group.legend);
+		this.map.UpdateMapLayersWithLegendState(["pmd-2021-pt1", "pmd-2021-pt2"], this.group.legend, Store.Opacity);
 	}
 	
 	OnMapMoveEnd_Handler(ev) {		
@@ -186,17 +186,18 @@ export default class ProxApp extends Templated {
 	}
 	
 	OnMapClick_Handler(ev) {
-		var features = this.map.QueryRenderedFeatures(ev.point, ["db", "csd-search"]);
+		var features = this.map.QueryRenderedFeatures(ev.point, ["pmd-2021-pt1", "pmd-2021-pt2", "csd-search-2021"]);
 				
-		var db = null;
+		var pmd = null;
 		var csd = null;
 				
 		features.forEach(f => {
-			if (f.layer.id == "db") db = f;
-			if (f.layer.id == "csd-search") csd = f;
+			if (f.layer.id == "pmd-2021-pt1") pmd = f;
+			if (f.layer.id == "pmd-2021-pt2") pmd = f;
+			if (f.layer.id == "csd-search-2021") csd = f;
 		});
 		
-		if (!db || !csd) return;
+		if (!pmd || !csd) return;
 		
 		var item = null;
 				
@@ -213,12 +214,12 @@ export default class ProxApp extends Templated {
 		
 		this.table.UpdateTable(item);
 		
-		db.properties.DBUID = this.FormatDB(db.properties.DBUID);
-		db.properties.CSDUID = this.FormatDB(db.properties.CSDUID);
+		pmd.properties.DBUID = this.FormatDB(pmd.properties.DBUID);
+		pmd.properties.CSDUID = this.FormatDB(pmd.properties.CSDUID);
 		
-		db.properties.CSDUID = `${csd.properties.name} (${db.properties.CSDUID})`;
+		pmd.properties.CSDUID = `${csd.properties.name} (${pmd.properties.CSDUID})`;
 		
-		var html = Other.HTMLize(db.properties, this.current.Fields, Core.Nls("Map_Not_Available"));
+		var html = Other.HTMLize(pmd.properties, this.current.Fields, Core.Nls("Map_Not_Available"));
 		
 		this.map.InfoPopup(ev.lngLat, html);
 	}

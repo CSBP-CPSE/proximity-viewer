@@ -172,7 +172,10 @@ export default class ProxApp extends Templated {
 	}
 	
 	AddTable() {
-		this.table = new Table(this.Node("table"), { summary:this.config.table, currId: 0, currFile: 0, field: this.config.maps.close.Fields[2] });
+		this.table = new Table(this.Node("table"), {
+			summary:this.config.table,
+			field: this.config.maps.close.Fields[2]
+		});
 	}
 	
 	/**

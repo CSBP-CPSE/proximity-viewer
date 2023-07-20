@@ -1,4 +1,4 @@
-import { Other, Factory, Templated, Core, Util, Dom, Store } from './web-mapping-components/web-mapping-components.js';
+import { Other, Factory, Templated, Core, Net, Util, Dom, Store } from './web-mapping-components/web-mapping-components.js';
 import Table from "./table.js";
 
 /**
@@ -172,9 +172,11 @@ export default class ProxApp extends Templated {
 	}
 	
 	AddTable() {
-		this.table = new Table(this.Node("table"), {
-			summary:this.config.table,
-			field: this.config.maps.close.Fields[2]
+		Dom.Empty(this.Node("table"));
+
+		Net.JSON(this.current.TableUrl).then(ev => {
+			this.current.UpdateTable(ev.result);
+			this.table = new Table(this.Node("table"), this.current.Table);
 		});
 	}
 	

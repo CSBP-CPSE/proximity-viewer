@@ -1,0 +1,83 @@
+{
+    "id" : "PMD",
+	"source" : "./source/PMD/PMD-en.csv",
+	"title": {
+        "en": "Detailed table of dissemination blocks (DB) in {0}",
+        "fr": "Tableau détaillé des îlot de diffusion (ID) dans {0}"
+    },
+    "description": {
+        "en": "Dissemination blocks contained in the selected census subdivision.",
+        "fr": "Les blocs de diffusion contenus dans la sous-division de recensement sélectionnée."
+    },
+    "fields": [
+        {
+            "id": "DBUID",
+            "en": "Dissemination block ID",
+            "fr": "ïlot de diffusion ID",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_emp",
+            "en": "Employment",
+            "fr": "Emploi",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_pharma",
+            "en": "Pharmacy",
+            "fr": "Pharmacie",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_childcare",
+            "en": "Child care",
+            "fr": "Service de garde",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_health",
+            "en": "Health care",
+            "fr": "Soins de santé",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_grocery",
+            "en": "Grocery store",
+            "fr": "Épicerie",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_educpri",
+            "en": "Primary education",
+            "fr": "Éducation primaire",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_educsec",
+            "en": "Secondary education",
+            "fr": "Éducation secondaire",
+	        "type": "text"
+        },
+        {
+            "id": "prox_idx_lib",
+            "en": "Library",
+            "fr": "Bibliothèque",
+	        "type": "text"
+        }, {
+            "id": "prox_idx_parks",
+            "en": "Park",
+            "fr": "Parc",
+	        "type": "text"
+        }, {
+            "id": "prox_idx_transit",
+            "en": "Public transit",
+            "fr": "Transport en commun",
+	        "type": "text"
+        }, {
+            "id": "amenity_dense",
+            "en": "Amenity density",
+            "fr": "Densité de commodités",
+	        "type": "text"
+        }
+    ]
+}

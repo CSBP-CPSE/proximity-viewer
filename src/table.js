@@ -90,9 +90,13 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 						value = field.lookup[Number(value)][Core.locale];
 					}
 				}
-				
-				else if (i == 0) value = `${value.substr(0, 2)} ${value.substr(2, 2)} ${value.substr(4, 4)} ${value.substr(8, 3)}`;
-				
+
+				// Update the format of the DBUID field value
+				if (field.id == "DBUID") {
+					value = String(value)
+					value = `${value.substr(0, 2)} ${value.substr(2, 2)} ${value.substr(4, 4)} ${value.substr(8, 3)}`;
+				}
+
 				Dom.Create("td", { innerHTML:value, className:"table-cell" }, row);
 			});
 		});

@@ -268,7 +268,8 @@ export default class ProxApp extends Templated {
 		var features = this.map.QueryRenderedFeatures(ev.point, ["pmd-2021-pt1", "pmd-2021-pt2"]);
 		var pmd = null;
 		var item = null;
-		
+		var DECIMALPLACES = 4;
+
 		// Check if selected feature belongs to layers pmd-2021-pt1 or pmd-2021-pt2
 		features.forEach(f => {
 			if (f.layer.id == "pmd-2021-pt1" || f.layer.id == "pmd-2021-pt2") {
@@ -295,14 +296,20 @@ export default class ProxApp extends Templated {
 		pmd.properties.CSDUID = this.FormatDB(pmd.properties.CSDUID);
 		pmd.properties.CSDUID = `${item.name} (${pmd.properties.CSDUID})`;
 
-		// Check if field values need to be classified by lookup
+		// Check if field values need to be classified by lookup or rounded to 4 decimal places
 		for (let i = 0; i < this.current.Fields.length; i += 1) {
 			let field = this.current.Fields[i];
+			let field_value;
 			if (Object.prototype.hasOwnProperty.call(field, 'lookup')) {
 				if (field.lookup) {
-					let field_value = pmd.properties[field.id];
-					if (!isNaN(Number(field_value))){
+					field_value = pmd.properties[field.id];
+					if (!isNaN(Number(field_value))) {
 						pmd.properties[field.id] = field.lookup[Number(field_value)][Core.locale];
+					}					
+				} else {
+					field_value = pmd.properties[field.id];
+					if (!isNaN(Number(field_value))) {
+						pmd.properties[field.id] = Number(field_value).toFixed(DECIMALPLACES);
 					}
 				}
 			}

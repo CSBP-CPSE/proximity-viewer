@@ -265,33 +265,35 @@ export default class ProxApp extends Templated {
 	 * @param {object} ev - Click event object.
 	 */
 	OnMapClick_Handler(ev) {
-		var features = this.map.QueryRenderedFeatures(ev.point, ["pmd-2021-pt1", "pmd-2021-pt2", "csd-search-2021"]);
-				
+		var features = this.map.QueryRenderedFeatures(ev.point, ["pmd-2021-pt1", "pmd-2021-pt2"]);
 		var pmd = null;
-		var csd = null;
-				
-		features.forEach(f => {
-			if (f.layer.id == "pmd-2021-pt1") pmd = f;
-			if (f.layer.id == "pmd-2021-pt2") pmd = f;
-			if (f.layer.id == "csd-search-2021") csd = f;
-		});
-		
-		if (!pmd || !csd) return;
-		
 		var item = null;
-				
-		this.config.search.items.forEach(i => {
-			if (i.id == csd.properties.uid) item = i;
+		
+		// Check if selected feature belongs to layers pmd-2021-pt1 or pmd-2021-pt2
+		features.forEach(f => {
+			if (f.layer.id == "pmd-2021-pt1" || f.layer.id == "pmd-2021-pt2") {
+				pmd = f;
+			}
 		});
 		
+		// If no pmd feature selected, return false
+		if (!pmd) return;
+		
+		// Get related CSD item details
+		this.config.search.items.forEach(i => {
+			if (i.id == pmd.properties.CSDUID) item = i;
+		});
+		
+		// If no CSD item available, return false
 		if (!item) return;
 		
+		// Update the table with records related to the CSD 
 		this.table.UpdateTable(item);
 		
+		// Format content displayed in the selected feature pop-up
 		pmd.properties.DBUID = this.FormatDB(pmd.properties.DBUID);
 		pmd.properties.CSDUID = this.FormatDB(pmd.properties.CSDUID);
-		
-		pmd.properties.CSDUID = `${csd.properties.name} (${pmd.properties.CSDUID})`;
+		pmd.properties.CSDUID = `${item.name} (${pmd.properties.CSDUID})`;
 		
 		var html = Other.HTMLize(pmd.properties, this.current.Fields, Core.Nls("Map_Not_Available"));
 		

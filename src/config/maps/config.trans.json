@@ -36,7 +36,7 @@
                 "en": "GTFS data not available",
                 "fr": "Données GTFS non-disponibles"
             },
-            "value": ["==", ["get", "GTFS"], 0]
+            "value": ["==", ["get", "transit_na"], 0]
         },
         {
             "color": [240, 240, 240],

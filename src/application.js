@@ -157,9 +157,9 @@ export default class ProxApp extends Templated {
 		
 		this.map.AddControl(this.menu, "top-left");
 		
-		this.menu.AddButton("home", "assets/globe.png", Core.Nls("Home_Title"), this.OnHomeClick_Handler.bind(this));
-		this.menu.AddPopupButton("maps", "assets/layers.png", Core.Nls("Maps_Title"), maps, this.map.Container);
-		this.menu.AddPopupButton("bookmarks", "assets/bookmarks.png", Core.Nls("Bookmarks_Title"), bookmarks, this.map.Container);
+		this.menu.AddButton("home", Core.root + "assets/globe.png", Core.Nls("Home_Title"), this.OnHomeClick_Handler.bind(this));
+		this.menu.AddPopupButton("maps", Core.root + "assets/layers.png", Core.Nls("Maps_Title"), maps, this.map.Container);
+		this.menu.AddPopupButton("bookmarks", Core.root + "assets/bookmarks.png", Core.Nls("Bookmarks_Title"), bookmarks, this.map.Container);
 		
 		Dom.AddClasses(this.menu.Button("maps").popup.Node("root"), "prx");
 		Dom.AddClasses(this.menu.Button("bookmarks").popup.Node("root"), "prx");

@@ -7,8 +7,11 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 	constructor(container, options) {	
 		super(container, options);
 		
+		this.path = options.path;
 		this.summary = options.summary;
 		this.fields = options.fields;
+		this.title = options.title;
+
 		this.current = {
 			item : null,
 			page : 1,
@@ -64,8 +67,6 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 
 	//Update the table content with the correct data of the DBU
 	Populate(item, data) {
-		this.Node("title").innerHTML = Core.Nls("Table_Title", [item.label]);
-		
 		Dom.Empty(this.Node('body'));
 
 		data.shift();
@@ -105,10 +106,12 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		this.current.page = page || 1;
 		this.current.item = item;
 		this.current.max = this.summary[item.id] || 1;
-
+		
+		this.Node("title").innerHTML = Util.Format(this.title, [item.label]);
+		
 		// Get CSV file for selected DB. Extension is json because of weird server configuration. Content is csv.		
-		var file = `data/${this.current.item.id}_${this.current.page}.json`;
-		var url = this.GetDataFileUrl(file);	
+		var file = `${this.path}\\${this.current.item.id}_${this.current.page}.json`;
+		var url = this.GetDataFileUrl(file);
 		
 		return Net.Request(url).then(ev => {
 			var data = Util.ParseCsv(ev.result);

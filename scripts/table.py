@@ -10,6 +10,7 @@ CSDUID = "CSDUID"
 INDEX = "DBUID"
 LAT = "lat"
 LONG = "lon"
+TRUC_COLS = ['prox_idx_emp', 'prox_idx_pharma', 'prox_idx_childcare', 'prox_idx_health', 'prox_idx_grocery', 'prox_idx_educpri', 'prox_idx_educsec', 'prox_idx_lib', 'prox_idx_parks', 'prox_idx_transit', 'amenity_dense']
 
 
 def BuildDf(iFile):
@@ -131,6 +132,24 @@ df = BuildDf(config["source"])
 csduid_df = df[CSDUID]
 csduid_df = pd.to_numeric(csduid_df, downcast='integer')
 df[CSDUID] = csduid_df
+
+# Truncate proximity column values to 4 decimal places
+# Column value are a mix of floating point numbers and text
+for col_name in TRUC_COLS:
+    print(f"Truncating values in column {col_name} ... ")
+    col = df[col_name]
+    for i in range(len(col)):
+        try:
+            # Make sure cell value is a float
+            floatValue = float(col[i])
+            # Truncate float to 4 decimal places
+            floatValue = float(f'{floatValue:.4f}')
+            # Cast value back to strings
+            df.loc[i, col_name] = str(floatValue)
+        except:
+            # Can't convert cell value to float
+            pass
+
 
 # Update column order of df to match fields order in config
 df = UpdateDFColOrder(df, config["fields"])

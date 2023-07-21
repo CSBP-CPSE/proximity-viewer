@@ -1,6 +1,7 @@
 {
     "id": "pharm",
     "style": "mapbox://styles/deil-leid/clk8gqtqh034401no769y34p8",
+    "table": "config/config.table.json",
     "layers": [
         {
             "id": "pmd-2021-pt1"

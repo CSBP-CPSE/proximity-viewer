@@ -286,11 +286,6 @@ export default class ProxApp extends Templated {
 		
 		if (!item) return;
 		
-		// ie11 doesn't support find
-		var item = this.config.search.items.filter(function (i) {
-          return i.id === csd.properties.uid;
-        })[0];
-		
 		this.table.UpdateTable(item);
 		
 		pmd.properties.DBUID = this.FormatDB(pmd.properties.DBUID);

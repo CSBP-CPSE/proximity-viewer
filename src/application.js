@@ -329,13 +329,14 @@ export default class ProxApp extends Templated {
 	}
 	
 	FormatDB(dbuid) {
+		dbuid = String(dbuid)
 		var csd = this.FormatCSD(dbuid);
 		
 		return `${csd}${dbuid.substr(7, 1)} ${dbuid.substr(8, 3)}`;
 	}
-	// CSD 35 06 008 and DB 35 06 0700 029
 
 	FormatCSD(csduid) {
+		csduid = String(csduid)
 		return `${csduid.substr(0, 2)} ${csduid.substr(2, 2)} ${csduid.substr(4, 3)}`;
 	}
 }

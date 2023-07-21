@@ -77,6 +77,20 @@
             "id": "amenity_dense",
             "en": "Amenity density",
             "fr": "Densité de commodités",
+            "lookup": {
+                "0": {
+                    "en": "Low",
+                    "fr": "Basse"
+                },
+                "1": {
+                    "en": "Medium",
+                    "fr": "Moyenne"
+                },
+                "2": {
+                    "en": "High",
+                    "fr": "Haute"
+                }
+            },
 	        "type": "text"
         }
     ]

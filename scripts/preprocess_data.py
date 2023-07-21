@@ -27,7 +27,7 @@ db_gdf = db_gdf[db_required_cols]
 pmd_required_cols = ["PRUID", "CSDUID", "DBUID", "prox_idx_emp", "prox_idx_pharma",
                      "prox_idx_childcare", "prox_idx_health", "prox_idx_grocery",
                      "prox_idx_educpri", "prox_idx_educsec", "prox_idx_lib", "prox_idx_parks",
-                     "prox_idx_transit", "amenity_dense"]
+                     "prox_idx_transit", "amenity_dense", "transit_na"]
 pmd_df = pmd_df[pmd_required_cols]
 
 # Update column type to allow attribute match and join

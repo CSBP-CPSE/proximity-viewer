@@ -65,8 +65,12 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		return url.join("/");
 	}
 
-	//Update the table content with the correct data of the DBU
-	Populate(item, data) {
+	/**
+	 * Populate table with data
+	 * 
+	 * @param {object} data the data which will be added to the table
+	 */
+	Populate(data) {
 		Dom.Empty(this.Node('body'));
 
 		data.shift();
@@ -95,12 +99,11 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 	}
 	
 	/**
-	* Update the table with the correct DBUID data 
-	*
-	* Parameters :
-	* item : the item that was used in the search bar
-	* Return : none
-	*/
+	 * Update the table with the correct DBUID data
+	 *
+	 * @param {object} item the item that was used in the search bar
+	 * @param {number} page the current page number.
+	 */
 	UpdateTable(item, page) {	
 		// Set current DB
 		this.current.page = page || 1;
@@ -116,7 +119,8 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		return Net.Request(url).then(ev => {
 			var data = Util.ParseCsv(ev.result);
 			
-			this.Populate(item, data);
+			// Populate table with data
+			this.Populate(data);
 			
 			// Update table UI
 			this.Node('current').innerHTML = Core.Nls("Table_Current_Page", [this.current.page, this.current.max]);
@@ -129,17 +133,30 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		}, this.OnAsyncFailure);
 	}
 
+	// Disable buttons if current page exceeds the min or max page numbers
 	ToggleButtons() {
 		this.Node('prev').disabled = (this.current.page <= 1);
 		this.Node('next').disabled = (this.current.page >= this.current.max);
 	}
 
+	/**
+	 * Handler for clicking the table previous page button
+	 * - update current page value
+	 * - update table content
+	 * @param {object} ev mouse click event
+	 */
 	OnButtonPrev_Handler(ev) {
 		this.current.page--;
 		
 		this.UpdateTable(this.current.item, this.current.page);
 	}
 
+	/**
+	 * Handler for clicking the table next page button
+	 * - update current page value
+	 * - update table content
+	 * @param {object} ev mouse click event
+	 */
 	OnButtonNext_Handler(ev) {
 		this.current.page++;
 		

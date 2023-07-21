@@ -294,6 +294,19 @@ export default class ProxApp extends Templated {
 		pmd.properties.DBUID = this.FormatDB(pmd.properties.DBUID);
 		pmd.properties.CSDUID = this.FormatDB(pmd.properties.CSDUID);
 		pmd.properties.CSDUID = `${item.name} (${pmd.properties.CSDUID})`;
+
+		// Check if field values need to be classified by lookup
+		for (let i = 0; i < this.current.Fields.length; i += 1) {
+			let field = this.current.Fields[i];
+			if (Object.prototype.hasOwnProperty.call(field, 'lookup')) {
+				if (field.lookup) {
+					let field_value = pmd.properties[field.id];
+					if (!isNaN(Number(field_value))){
+						pmd.properties[field.id] = field.lookup[Number(field_value)][Core.locale];
+					}
+				}
+			}
+		}
 		
 		var html = Other.HTMLize(pmd.properties, this.current.Fields, Core.Nls("Map_Not_Available"));
 		

@@ -8,10 +8,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		super(container, options);
 		
 		this.summary = options.summary;
-		
-		// For last column, replace by label. Super ugly.
-		this.field = options.field;
-		
+		this.fields = options.fields;
 		this.current = {
 			item : null,
 			page : 1,
@@ -20,6 +17,9 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 
 		this.Node('prev').addEventListener('click', this.OnButtonPrev_Handler.bind(this));
 		this.Node('next').addEventListener('click', this.OnButtonNext_Handler.bind(this));
+
+		// Add table header columns
+		this.fields.forEach(f => this.AddHeader(f));
 	}
 
 	Template() {
@@ -32,20 +32,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 					 "<summary>nls(Table_Summary)</summary>" +
 				     "<table>" +
 				        "<thead>" + 
-				           "<tr>" + 
-						      "<th>nls(Table_Field_DBUID)</th>" + 
-						      "<th>nls(Table_Field_empl.idx)</th>" + 
-						      "<th>nls(Table_Field_pharm.idx)</th>" + 
-						      "<th>nls(Table_Field_child.idx)</th>" + 
-						      "<th>nls(Table_Field_health.idx)</th>" + 
-						      "<th>nls(Table_Field_groc.idx)</th>" + 
-						      "<th>nls(Table_Field_edupri.idx)</th>" + 
-						      "<th>nls(Table_Field_edusec.idx)</th>" + 
-						      "<th>nls(Table_Field_lib.idx)</th>" + 
-						      "<th>nls(Table_Field_parks.idx)</th>" + 
-						      "<th>nls(Table_Field_trans.idx)</th>" + 
-						      "<th>nls(Table_Field_close)</th>" + 
-						   "</tr>" + 
+				           "<tr handle='header'></tr>" + 
 				        "</thead>" +
 				        "<tbody handle='body'></tbody>" + 
 				     "</table>" + 
@@ -56,6 +43,14 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 				     "</div>" + 
 			      "</div>" + 
 			   "</div>"
+	}
+
+	/**
+	 * Add a table header element to the table
+	 * @param {object} f table field
+	 */
+	AddHeader(f) {
+		Dom.Create("th", { innerHTML:f[Core.locale], className:f.type }, this.Node("header"));
 	}
 
 	GetDataFileUrl(file) {
@@ -82,8 +77,14 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 			
 			rData.forEach((cData, i) => {
 				var value = cData;
-				
-				if (i == 11) value = this.field.lookup[value][Core.locale];
+				var field = this.fields[i]
+
+				// Update values for fields which have their own classification lookup
+				if (Object.prototype.hasOwnProperty.call(field, "lookup")) {
+					if (!isNaN(Number(value))) {
+						value = field.lookup[Number(value)][Core.locale];
+					}
+				}
 				
 				else if (i == 0) value = `${value.substr(0, 2)} ${value.substr(2, 2)} ${value.substr(4, 4)} ${value.substr(8, 3)}`;
 				

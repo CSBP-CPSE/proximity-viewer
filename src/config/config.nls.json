@@ -134,55 +134,7 @@
 	"Table_Summary" : {
 		"en" : "Dissemination blocks contained in the selected census subdivision",
 		"fr" : "Les blocs de diffusion contenus dans la sous-division de recensement sélectionnée."
-	},
-	"Table_Field_DBUID" : {
-		"en" : "Dissemination block ID",
-		"fr" : "ïlot de diffusion ID"
-	},
-	"Table_Field_pharm.idx" : {
-		"en" : "Pharmacy",
-		"fr" : "Pharmacie"
-	},
-	"Table_Field_empl.idx" : {
-		"en" : "Employment",
-		"fr" : "Emploi"
-	},
-	"Table_Field_child.idx" : {
-		"en" : "Child care",
-		"fr" : "Service de garde"
-	},
-	"Table_Field_health.idx" : {
-		"en" : "Health care",
-		"fr" : "Soins de santé"
-	},
-	"Table_Field_edupri.idx" : {
-		"en" : "Primary education",
-		"fr" : "Éducation primaire"
-	},
-	"Table_Field_edusec.idx" : {
-		"en" : "Secondary education",
-		"fr" : "Éducation secondaire"
-	},
-	"Table_Field_lib.idx" : {
-		"en" : "Library",
-		"fr" : "Bibliothèque"
-	},
-	"Table_Field_groc.idx" : {
-		"en" : "Grocery store",
-		"fr" : "Épicerie"
-	},
-	"Table_Field_parks.idx" : {
-		"en" : "Park",
-		"fr" : "Parc"
-	},
-	"Table_Field_trans.idx" : {
-		"en" : "Public transit",
-		"fr" : "Transport en commun"
-	},
-	"Table_Field_close" : {
-		"en": "Amenity density",
-		"fr": "Densité de commodités"
-	},
+	},	
 	"Table_Field_suppressed" : {
 		"en" : "Suppressed",
 		"fr" : "Supprimé"

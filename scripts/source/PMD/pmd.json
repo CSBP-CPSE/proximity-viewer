@@ -1,5 +1,5 @@
 {
-    "id" : "PMD",
+    "id" : "pmd",
 	"source" : "./source/PMD/PMD-en.csv",
 	"title": {
         "en": "Detailed table of dissemination blocks (DB) in {0}",

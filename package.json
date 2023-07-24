@@ -10,10 +10,12 @@
 	"devDependencies": {
 		"@babel/preset-env": "^7.22.7",
 		"@rollup/plugin-babel": "^6.0.3",
+		"eslint": "^8.45.0",
 		"rollup": "^3.26.2"
 	},
 	"scripts": {
-		"build": "rollup -c ./config/proximity-viewer.rollup.js"
+		"build": "rollup -c ./config/proximity-viewer.rollup.js",
+		"lint": "eslint ./src/"
 	},
 	"repository": {
 		"type": "git",

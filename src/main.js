@@ -14,7 +14,7 @@ Net.JSON(`${Core.root}config/config.nls.json`).then(value => {
 	Promise.all([p1]).then(Start);
 });
 
-function Start(results) {		
+function Start(results) {
 	var defs = results[0].result.map(m => Net.JSON(`${Core.root}${m}`));
 	
 	var config = {}
@@ -22,7 +22,7 @@ function Start(results) {
 	var p1 = Promise.all(defs).then(values => {
 		config.maps = {};
 		
-		values.forEach(v => config.maps[v.result.id] = Configuration.FromJSON(v.result));
+		values.forEach(v => config.maps[v.result.id] = Configuration.FromJSON(v.result));
 	});
 	
 	var p2 = Net.JSON(`${Core.root}config/config.bookmarks.json`).then(value => {
@@ -43,6 +43,6 @@ function Start(results) {
 		
 	Promise.all([p1, p2, p3, p4, p5]).then(results => {
 		var node = Dom.Node(document.body, "#app-container");
-		var app = new Application(node, config);
+		new Application(node, config);
 	});
 }

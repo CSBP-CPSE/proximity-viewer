@@ -49,39 +49,39 @@ export default class Configuration {
 	}
 		
 	// Get for transformed properties
-	get Legend() {		
-		return this.legend && this.legend.map(l => { 
-			return { 
-				color : l.color, 
-				label : l.label && l.label[Core.locale], 
-				value : l.value 
-			} 
+	get Legend() {
+		return this.legend && this.legend.map(l => {
+			return {
+				color : l.color,
+				label : l.label && l.label[Core.locale],
+				value : l.value
+			}
 		});
 	}
 	
-	get TOC() {		
-		return this.toc && this.toc.map(t => { 
-			return { 
+	get TOC() {
+		return this.toc && this.toc.map(t => {
+			return {
 				id : t.id,
 				label : t.label && t.label[Core.locale]
-			} 
+			}
 		});
 	}
 	
-	get Fields() {		
-		return this.fields && this.fields.map(f => { 
-			return { 
+	get Fields() {
+		return this.fields && this.fields.map(f => {
+			return {
 				id : f.id,
 				label : f.label && f.label[Core.locale],
 				polish : f.polish || null,
 				lookup : f.lookup || null
-			} 
+			}
 		});
 	}
 	
 	constructor() {
 		this.id = null;
-		this.style = null;		
+		this.style = null;
 		this.tableUrl = null;
 		this.title = null;
 		this.banner = null;
@@ -89,7 +89,7 @@ export default class Configuration {
 		this.description = null;
 		this.legend = null;
 		this.toc = null;
-		this.fields = null;		
+		this.fields = null;
 		this.table = null;
 	}
 		

@@ -4,7 +4,7 @@ import Table from "./table.js";
 /**
  * Main application class
  */
-export default class ProxApp extends Templated { 
+export default class ProxApp extends Templated {
 	
 	/**
 	 * Prox App class constructor
@@ -21,9 +21,9 @@ export default class ProxApp extends Templated {
 
 		if (!this.current) this.current = Util.FirstProperty(this.config.maps);
 		
-		this.AddMap();	
-		this.AddSearch();	
-		this.AddBaseControls();		
+		this.AddMap();
+		this.AddSearch();
+		this.AddBaseControls();
 		this.AddGroup();
 		this.AddMenu();
 		this.AddTable();
@@ -39,24 +39,24 @@ export default class ProxApp extends Templated {
 	 */
 	Template() {
 		return "<div class='search-container'>" +
-				  "<span class='wb-inv'>nls(Inv_Search_Instructions)</span>" + 
-				  "<label class='search-label'>nls(App_Search_Label)" +
-				     "<div handle='search' class='search'></div>" +
-			      "</label>" +
-				  "<div class='inv-container'>" +
-					"<a href='#prx-table' class='wb-inv wb-show-onfocus wb-sl'>nls(Inv_Skip_Link)</a>" + 
-				  "</div>" +
-			   "</div>" +
-			   "<div class='instructions'>nls(App_Instructions)</div>" + 
-               "<div class='map-container'>" +
-                  "<div handle='map' class='map'></div>" +
-               "</div>" +
-			   "<div class='table-container'>" +
-				  "<div handle='table' class='table'></div>" +
-			   "</div>" +
-			   "<div class='link-symbols-container'>" +
-				  "<a href='nls(STS_Link)' class='link-symbols' target='_blank' title='nls(STS_Title)'>nls(STS_Label)</a>" +
-			   "</div>";
+					"<span class='wb-inv'>nls(Inv_Search_Instructions)</span>" +
+					"<label class='search-label'>nls(App_Search_Label)" +
+						"<div handle='search' class='search'></div>" +
+					"</label>" +
+					"<div class='inv-container'>" +
+						"<a href='#prx-table' class='wb-inv wb-show-onfocus wb-sl'>nls(Inv_Skip_Link)</a>" +
+					"</div>" +
+				"</div>" +
+				"<div class='instructions'>nls(App_Instructions)</div>" +
+				"<div class='map-container'>" +
+					"<div handle='map' class='map'></div>" +
+				"</div>" +
+				"<div class='table-container'>" +
+					"<div handle='table' class='table'></div>" +
+				"</div>" +
+				"<div class='link-symbols-container'>" +
+					"<a href='nls(STS_Link)' class='link-symbols' target='_blank' title='nls(STS_Title)'>nls(STS_Label)</a>" +
+				"</div>";
 	}
 
 	/**
@@ -73,7 +73,7 @@ export default class ProxApp extends Templated {
 
 			} else {
 				throw 'Mapbox access token must be provided in config.credentials.json to generate a map';
-			}	
+			}
 
 			this.map = Factory.Map(this.Node("map"), token, this.current.Style, [Store.Lng, Store.Lat], Store.Zoom);
 
@@ -99,7 +99,9 @@ export default class ProxApp extends Templated {
 	 */
 	AddBaseControls() {
 		var fullscreen = Factory.FullscreenControl(Core.Nls("FullScreen_Title"));
-		var navigation = Factory.NavigationControl(false, true, Core.Nls("Navigation_ZoomIn_Title"), Core.Nls("Navigation_ZoomOut_Title"));
+		var navigation = Factory.NavigationControl(false, true,
+			Core.Nls("Navigation_ZoomIn_Title"),
+			Core.Nls("Navigation_ZoomOut_Title"));
 		var scale = Factory.ScaleControl("metric");
 		
 		this.map.AddControl(fullscreen, "top-left");
@@ -112,17 +114,19 @@ export default class ProxApp extends Templated {
 	 */
 	AddSearch() {
 		this.config.search.items = this.config.search.items.map(i => {
-			return { 
-				id : i[0], 
+			return {
+				id : i[0],
 				name : i[1],
-				label : `${i[1]} (${this.FormatCSD(i[0])})`, 
-				extent : [[i[2], i[3]], [i[4], i[5]]] 
+				label : `${i[1]} (${this.FormatCSD(i[0])})`,
+				extent : [[i[2], i[3]], [i[4], i[5]]]
 			}
 		});
 		
 		
 		// Add top-left search bar
-		var search = Factory.SearchControl(this.config.search.items, Core.Nls("Search_Placeholder"), Core.Nls("Search_Title"));
+		var search = Factory.SearchControl(this.config.search.items,
+			Core.Nls("Search_Placeholder"),
+			Core.Nls("Search_Title"));
 		
 		search.Place(this.Node("search"));
 		
@@ -134,7 +138,7 @@ export default class ProxApp extends Templated {
 	 * Map legend is defined by legend items in the selected map config doc.
 	 */
 	AddGroup() {
-		// Top-right group for legend, etc.		
+		// Top-right group for legend, etc.
 		this.group = {
 			legend : Factory.LegendControl(this.current.Legend, this.current.Title, this.current.Subtitle),
 			opacity : Factory.OpacityControl(Store.Opacity)
@@ -151,15 +155,28 @@ export default class ProxApp extends Templated {
 	AddMenu() {
 		// Top-left menu below navigation
 		var maps = Factory.MapsListControl(this.config.maps, Core.Nls("Maps_Header"));
-		var bookmarks = Factory.BookmarksControl(this.config.bookmarks, Core.Nls("Bookmarks_Header"), Core.Nls("Bookmarks_Description"));
+		var bookmarks = Factory.BookmarksControl(this.config.bookmarks,
+			Core.Nls("Bookmarks_Header"),
+			Core.Nls("Bookmarks_Description"));
 		
 		this.menu = Factory.MenuControl();
 		
 		this.map.AddControl(this.menu, "top-left");
 		
-		this.menu.AddButton("home", Core.root + "assets/globe.png", Core.Nls("Home_Title"), this.OnHomeClick_Handler.bind(this));
-		this.menu.AddPopupButton("maps", Core.root + "assets/layers.png", Core.Nls("Maps_Title"), maps, this.map.Container);
-		this.menu.AddPopupButton("bookmarks", Core.root + "assets/bookmarks.png", Core.Nls("Bookmarks_Title"), bookmarks, this.map.Container);
+		this.menu.AddButton("home",
+			Core.root + "assets/globe.png",
+			Core.Nls("Home_Title"),
+			this.OnHomeClick_Handler.bind(this));
+		this.menu.AddPopupButton("maps",
+			Core.root + "assets/layers.png",
+			Core.Nls("Maps_Title"),
+			maps,
+			this.map.Container);
+		this.menu.AddPopupButton("bookmarks",
+			Core.root + "assets/bookmarks.png",
+			Core.Nls("Bookmarks_Title"),
+			bookmarks,
+			this.map.Container);
 		
 		Dom.AddClasses(this.menu.Button("maps").popup.Node("root"), "prx");
 		Dom.AddClasses(this.menu.Button("bookmarks").popup.Node("root"), "prx");
@@ -184,7 +201,7 @@ export default class ProxApp extends Templated {
 	 * OpacitySliderChanged event handler for when the opacity slider updates.
 	 * @param {object} ev - Event object containing details on the opacity slider value
 	 */
-	OnOpacitySlider_Changed(ev) {		
+	OnOpacitySlider_Changed(ev) {
 		Store.Opacity = ev.opacity;
 		this.map.UpdateMapLayersWithLegendState(["pmd-2021-pt1", "pmd-2021-pt2"], this.group.legend, Store.Opacity);
 	}
@@ -231,7 +248,7 @@ export default class ProxApp extends Templated {
 	 * Event handler which updates the map, when map styling changes on the map
 	 * @param {object} ev - StyleChanged event object.
 	 */
-	OnMapStyleChanged_Handler(ev) {		
+	OnMapStyleChanged_Handler(ev) {
 		this.map.SetClickableMap();
 
 		// Update styling colour and opacity of layers
@@ -244,7 +261,7 @@ export default class ProxApp extends Templated {
 	 * storage of the lat/long values with the new map's center point values.
 	 * @param {object} ev - MoveEnd event object.
 	 */
-	OnMapMoveEnd_Handler(ev) {		
+	OnMapMoveEnd_Handler(ev) {
 		Store.Lat = this.map.Center.lat;
 		Store.Lng = this.map.Center.lng;
 	}
@@ -254,7 +271,7 @@ export default class ProxApp extends Templated {
 	 * stored zoom value for the map.
 	 * @param {object} ev - ZoomEnd event object.
 	 */
-	OnMapZoomEnd_Handler(ev) { 		
+	OnMapZoomEnd_Handler(ev) {
 		Store.Zoom = this.map.Zoom;
 	}
 	
@@ -288,7 +305,7 @@ export default class ProxApp extends Templated {
 		// If no CSD item available, return false
 		if (!item) return;
 		
-		// Update the table with records related to the CSD 
+		// Update the table with records related to the CSD
 		this.table.UpdateTable(item);
 		
 		// Format content displayed in the selected feature pop-up
@@ -305,7 +322,7 @@ export default class ProxApp extends Templated {
 					field_value = pmd.properties[field.id];
 					if (!isNaN(Number(field_value))) {
 						pmd.properties[field.id] = field.lookup[Number(field_value)][Core.locale];
-					}					
+					}
 				} else {
 					field_value = pmd.properties[field.id];
 					if (!isNaN(Number(field_value))) {
@@ -333,7 +350,7 @@ export default class ProxApp extends Templated {
 				{
 					color : this.config.search.color,
 					value : ["==", ["get", this.config.search.field], ev.item.id]
-				}, 
+				},
 				{
 					color : [255, 255, 255, 0]
 				}

@@ -4,7 +4,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 
 	set caption(value) { this.Node('caption').innerHTML = value; }
 
-	constructor(container, options) {	
+	constructor(container, options) {
 		super(container, options);
 		
 		this.path = options.path;
@@ -27,25 +27,23 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 
 	Template() {
 		return "<div class='table-widget'>" +
-				  "<h2 handle='title'>nls(Table_Title_Temp)</h2>" +
-				  
-			      "<div id='prx-table' handle='message' class='table-message'>nls(Table_Message)</div>"+
-				  
-			      "<div handle='table' class='table-container hidden'>" + 
-					 "<summary>nls(Table_Summary)</summary>" +
-				     "<table>" +
-				        "<thead>" + 
-				           "<tr handle='header'></tr>" + 
-				        "</thead>" +
-				        "<tbody handle='body'></tbody>" + 
-				     "</table>" + 
-				     "<div class='navigation'>" + 
-					    "<button handle='prev' title='nls(Table_Previous_Button)' disabled><img src='assets/arrow-left.png'></button>"+
-					    "<span handle='current' class='current'></span>"+ 
-					    "<button handle='next' title='nls(Table_Next_Button)' disabled><img src='assets/arrow-right.png'></button>"+
-				     "</div>" + 
-			      "</div>" + 
-			   "</div>"
+					"<h2 handle='title'>nls(Table_Title_Temp)</h2>" +
+					"<div id='prx-table' handle='message' class='table-message'>nls(Table_Message)</div>" +
+					"<div handle='table' class='table-container hidden'>" +
+						"<summary>nls(Table_Summary)</summary>" +
+						"<table>" +
+							"<thead>" +
+								"<tr handle='header'></tr>" +
+							"</thead>" +
+							"<tbody handle='body'></tbody>" +
+						"</table>" +
+						"<div class='navigation'>" +
+							"<button handle='prev' title='nls(Table_Previous_Button)' disabled><img src='assets/arrow-left.png'></button>"  +
+							"<span handle='current' class='current'></span>" +
+							"<button handle='next' title='nls(Table_Next_Button)' disabled><img src='assets/arrow-right.png'></button>"+
+						"</div>" +
+					"</div>" +
+				"</div>"
 	}
 
 	/**
@@ -67,7 +65,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 
 	/**
 	 * Populate table with data
-	 * 
+	 *
 	 * @param {object} data the data which will be added to the table
 	 */
 	Populate(data) {
@@ -108,7 +106,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 	 * @param {object} item the item that was used in the search bar
 	 * @param {number} page the current page number.
 	 */
-	UpdateTable(item, page) {	
+	UpdateTable(item, page) {
 		// Set current DB
 		this.current.page = page || 1;
 		this.current.item = item;
@@ -116,7 +114,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		
 		this.Node("title").innerHTML = Util.Format(this.title, [item.label]);
 		
-		// Get CSV file for selected DB. Extension is json because of weird server configuration. Content is csv.		
+		// Get CSV file for selected DB. Extension is json because of weird server configuration. Content is csv.
 		var file = `${this.path}\\${this.current.item.id}_${this.current.page}.json`;
 		var url = this.GetDataFileUrl(file);
 		

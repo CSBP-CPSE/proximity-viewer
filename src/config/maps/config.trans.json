@@ -122,7 +122,7 @@
             "fixed": 4
         },
         {
-            "id": "GTFS",
+            "id": "transit_na",
             "label": {
                 "en": "GTFS available",
                 "fr": "GTFS disponible"

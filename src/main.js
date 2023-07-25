@@ -1,5 +1,4 @@
 import { Core, Net, Dom } from './web-mapping-components/web-mapping-components.js';
-
 import Configuration from "./configuration.js";
 import Application from "./application.js";
 
@@ -32,16 +31,12 @@ function Start(results) {
 	var p3 = Net.JSON(`${Core.root}config/config.search.json`).then(value => {
 		config.search = value.result;
 	});
-	
-	var p4 = Net.JSON(`${Core.root}config/config.table.json`).then(value => {
-		config.table = value.result;
-	});
 
-	var p5 = Net.JSON(`${Core.root}config/config.credentials.json`).then(value => {
+	var p4 = Net.JSON(`${Core.root}config/config.credentials.json`).then(value => {
 		config.credentials = value.result;
 	});
 		
-	Promise.all([p1, p2, p3, p4, p5]).then(results => {
+	Promise.all([p1, p2, p3, p4]).then(results => {
 		var node = Dom.Node(document.body, "#app-container");
 		new Application(node, config);
 	});

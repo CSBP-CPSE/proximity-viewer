@@ -115,7 +115,7 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 		this.Node("title").innerHTML = Util.Format(this.title, [item.label]);
 		
 		// Get CSV file for selected DB. Extension is json because of weird server configuration. Content is csv.
-		var file = `${this.path}\\${this.current.item.id}_${this.current.page}.json`;
+		var file = `${Core.root}${this.path}\\${this.current.item.id}_${this.current.page}.json`;
 		var url = this.GetDataFileUrl(file);
 		
 		return Net.Request(url).then(ev => {

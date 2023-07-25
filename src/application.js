@@ -191,7 +191,7 @@ export default class ProxApp extends Templated {
 	AddTable() {
 		Dom.Empty(this.Node("table"));
 
-		Net.JSON(this.current.TableUrl).then(ev => {
+		Net.JSON(`${Core.root}${this.current.TableUrl}`).then(ev => {
 			this.current.UpdateTable(ev.result);
 			this.table = new Table(this.Node("table"), this.current.Table);
 		});

@@ -38,9 +38,13 @@ export default Core.Templatable("Basic.Components.Table", class Table extends Te
 							"<tbody handle='body'></tbody>" +
 						"</table>" +
 						"<div class='navigation'>" +
-							"<button handle='prev' title='nls(Table_Previous_Button)' disabled><img src='assets/arrow-left.png'></button>"  +
+							"<button handle='prev' title='nls(Table_Previous_Button)' disabled>" +
+								`<img src='${Core.root}assets/arrow-left.png'>` +
+							"</button>" +
 							"<span handle='current' class='current'></span>" +
-							"<button handle='next' title='nls(Table_Next_Button)' disabled><img src='assets/arrow-right.png'></button>"+
+							"<button handle='next' title='nls(Table_Next_Button)' disabled>" +
+								`<img src='${Core.root}assets/arrow-right.png'>` +
+							"</button>" +
 						"</div>" +
 					"</div>" +
 				"</div>"

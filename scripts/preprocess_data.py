@@ -8,8 +8,9 @@ import pandas as pd
 import geopandas as gpd
 from pathlib import Path, PurePath
 
-db_data_path = "./source/DB/ldb_000b21a_e.shp"
-pmd_data_path = "./source/PMD/PMD-en.csv"
+DB_DATA_PATH = "./source/DB/ldb_000b21a_e.shp"
+PMD_DATA_PATH = "./source/PMD/PMD-en.csv"
+SIMPLIFICATION = 10
 
 # Create output dir if it doesn't exist
 cPath = PurePath("./output")
@@ -17,8 +18,8 @@ Path(cPath).mkdir(parents=True, exist_ok=True)
 
 # Load input data
 print("Loading input data ...")
-db_gdf = gpd.read_file(db_data_path)
-pmd_df = pd.read_csv(pmd_data_path)
+db_gdf = gpd.read_file(DB_DATA_PATH)
+pmd_df = pd.read_csv(PMD_DATA_PATH)
 
 # Drop all columns except those required
 print("Dropping columns not required in datasets...")
@@ -27,7 +28,7 @@ db_gdf = db_gdf[db_required_cols]
 pmd_required_cols = ["PRUID", "CSDUID", "DBUID", "prox_idx_emp", "prox_idx_pharma",
                      "prox_idx_childcare", "prox_idx_health", "prox_idx_grocery",
                      "prox_idx_educpri", "prox_idx_educsec", "prox_idx_lib", "prox_idx_parks",
-                     "prox_idx_transit", "amenity_dense", "transit_na"]
+                     "prox_idx_transit", "amenity_dense"]
 pmd_df = pmd_df[pmd_required_cols]
 
 # Update column type to allow attribute match and join
@@ -39,7 +40,7 @@ db_gdf = db_gdf.merge(pmd_df, on="DBUID", how="left")
 
 # Simplify geometries with a tolerance of 10 m
 print("Simplify geometries ...")
-db_gdf['geometry'] = db_gdf['geometry'].simplify(10).buffer(0)
+db_gdf['geometry'] = db_gdf['geometry'].simplify(SIMPLIFICATION).buffer(0)
 
 # Ensure geometries are valid
 print("Ensuring geometries are valid ...")

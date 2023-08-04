@@ -16,8 +16,8 @@
 		"fr": "Saisir l'identifiant ou le nom de la subdivision de recensement (SDR):"
 	},
 	"App_Instructions": {
-		"en": "This map shows the proximity measures by dissemination block (DB) for the selected indicator. Use the <img alt='Change indicator' title='Change indicator' src='assets/layers.png'> button to change indicator. The search bar can be used to find and select a census subdivision (CSD). You can click on a dissemination block (DB) in the map to show more information.",
-		"fr": "Cette carte affiche les mesures de proximité par îlot de diffusion (ID) pour l'indicateur sélectionné. Utilisez le bouton <img alt=\"Changer d'indicateur\" title=\"Changer d'indicateur\" src='assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une sous-division de recensement (SDR). Vous pouvez cliquer sur un îlot de diffusion (ID) dans la carte pour obtenir plus d'information."
+		"en": "This map shows the proximity measures by dissemination block (DB) for the selected indicator. Use the <img alt='Change indicator' title='Change indicator' src='./2020011/assets/layers.png'> button to change indicator. The search bar can be used to find and select a census subdivision (CSD). You can click on a dissemination block (DB) in the map to show more information.",
+		"fr": "Cette carte affiche les mesures de proximité par îlot de diffusion (ID) pour l'indicateur sélectionné. Utilisez le bouton <img alt=\"Changer d'indicateur\" src='./2020011/assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une sous-division de recensement (SDR). Vous pouvez cliquer sur un îlot de diffusion (ID) dans la carte pour obtenir plus d'information."
 	},
     "Toc_Instruction": {
         "en": "Turn layers on or off",

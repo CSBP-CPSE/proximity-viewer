@@ -35,14 +35,6 @@
             "value": ["==", ["get", "amenity_dense"], ".."]
         },
         {
-            "color": [100, 100, 100],
-            "label": {
-                "en": "F too unreliable to be published",
-                "fr": "F trop peu fiable pour être publié"
-            },
-            "value": ["==", ["get", "amenity_dense"], "F"]
-        },
-        {
             "color": [84, 179, 10],
             "label": {
                 "en": "High density",

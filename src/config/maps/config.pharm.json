@@ -39,14 +39,6 @@
             "value": ["==", ["get", "prox_idx_pharma"], ".."]
         },
         {
-            "color": [100, 100, 100],
-            "label": {
-                "en": "F too unreliable to be published",
-                "fr": "F trop peu fiable pour être publié"
-            },
-            "value": ["==", ["get", "prox_idx_pharma"], "F"]
-        },
-        {
             "color": [215, 48, 39],
             "label": {
                 "en": "From 0.000 to 0.018",

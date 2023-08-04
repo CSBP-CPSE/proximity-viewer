@@ -31,28 +31,12 @@
     },
     "legend": [
         {
-            "color": [110, 50, 100],
-            "label": {
-                "en": "GTFS data not available",
-                "fr": "Données GTFS non-disponibles"
-            },
-            "value": ["==", ["get", "transit_na"], 0]
-        },
-        {
             "color": [240, 240, 240],
             "label": {
                 "en": ".. not available for a specific reference period",
                 "fr": ".. indisponible pour une période de référence précise"
             },
             "value": ["==", ["get", "prox_idx_transit"], ".."]
-        },
-        {
-            "color": [100, 100, 100],
-            "label": {
-                "en": "F too unreliable to be published",
-                "fr": "F trop peu fiable pour être publié"
-            },
-            "value": ["==", ["get", "prox_idx_transit"], "F"]
         },
         {
             "color": [215, 48, 39],
@@ -120,24 +104,6 @@
                 "fr": "Proximité aux voyages de transport en commun"
             },
             "fixed": 4
-        },
-        {
-            "id": "transit_na",
-            "label": {
-                "en": "GTFS available",
-                "fr": "GTFS disponible"
-            },
-            "fixed": 4,
-            "lookup": {
-                "0": {
-                    "en": "no",
-                    "fr": "non"
-                },
-                "1": {
-                    "en": "yes",
-                    "fr": "oui"
-                }
-            }
         }
     ]
 }

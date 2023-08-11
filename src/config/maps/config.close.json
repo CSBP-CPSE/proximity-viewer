@@ -40,7 +40,7 @@
                 "en": "High density",
                 "fr": "Haute densité"
             },
-            "value": ["==", ["get", "amenity_dense"], "2"]
+            "value": ["==", ["to-number", ["get", "amenity_dense"]], 2]
         },
         {
             "color": [217, 239, 139],
@@ -48,7 +48,7 @@
                 "en": "Medium density",
                 "fr": "Moyenne densité"
             },
-            "value": ["==", ["get", "amenity_dense"], "1"]
+            "value": ["==", ["to-number", ["get", "amenity_dense"]], 1]
         },
         {
             "color": [255, 255, 255],
@@ -56,7 +56,7 @@
                 "en": "Low density",
                 "fr": "Faible densité"
             },
-            "value": ["==", ["get", "amenity_dense"], "0"]
+            "value": ["==", ["to-number", ["get", "amenity_dense"]], 0]
         },
         {
             "color": [255, 255, 255]

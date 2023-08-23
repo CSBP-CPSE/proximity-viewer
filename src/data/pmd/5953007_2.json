@@ -1,0 +1,4 @@
+DBUID,prox_idx_emp,prox_idx_pharma,prox_idx_childcare,prox_idx_health,prox_idx_grocery,prox_idx_educpri,prox_idx_educsec,prox_idx_lib,prox_idx_parks,prox_idx_transit,amenity_dense
+59530261028,0.0014,..,0.01,0.0008,..,0.0299,0.0162,..,0.0203,..,0.0
+59530261029,0.001,..,0.0027,0.0006,..,0.0146,0.0254,..,..,..,0.0
+59530261030,0.0022,0.0237,0.0127,0.001,0.0185,0.0393,0.0439,0.0186,0.0258,..,0.0

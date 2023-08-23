@@ -1,0 +1,5 @@
+DBUID,prox_idx_emp,prox_idx_pharma,prox_idx_childcare,prox_idx_health,prox_idx_grocery,prox_idx_educpri,prox_idx_educsec,prox_idx_lib,prox_idx_parks,prox_idx_transit,amenity_dense
+59170703060,0.0001,..,..,..,..,..,..,..,..,..,0.0
+59170703061,0.0,..,..,..,..,..,..,..,..,..,0.0
+59170703063,..,..,..,..,..,..,..,..,0.0018,..,0.0
+59170703064,0.0,..,..,0.0001,..,..,..,..,0.001,..,0.0

@@ -87,21 +87,21 @@
             "id": "DBUID",
             "label": {
                 "en": "Dissemination block",
-                "fr": "Bloc de diffusion"
+                "fr": "Îlot de diffusion"
             }
         },
         {
             "id": "CSDUID",
             "label": {
                 "en": "Census Subdivision",
-                "fr": "Sous-division de recensement"
+                "fr": "Subdivision de recensement"
             }
         },
         {
             "id": "prox_idx_parks",
             "label": {
                 "en": "Proximity to parks",
-                "fr": "Proximité aux parks"
+                "fr": "Proximité aux parcs"
             },
             "fixed": 4
         }

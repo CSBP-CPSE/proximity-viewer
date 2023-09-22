@@ -3,11 +3,11 @@
 	"source" : "./source/PMD/PMD-en.csv",
 	"title": {
         "en": "Detailed table of dissemination blocks (DB) in {0}",
-        "fr": "Tableau détaillé des îlot de diffusion (ID) dans {0}"
+        "fr": "Tableau détaillé des îlots de diffusion (ID) dans {0}"
     },
     "description": {
         "en": "Dissemination blocks contained in the selected census subdivision.",
-        "fr": "Les blocs de diffusion contenus dans la sous-division de recensement sélectionnée."
+        "fr": "Les blocs de diffusion contenus dans la subdivision de recensement sélectionnée."
     },
     "fields": [
         {

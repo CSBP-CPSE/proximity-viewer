@@ -87,14 +87,14 @@
             "id": "DBUID",
             "label": {
                 "en": "Dissemination block",
-                "fr": "Bloc de diffusion"
+                "fr": "Îlot de diffusion"
             }
         },
         {
             "id": "CSDUID",
             "label": {
                 "en": "Census Subdivision",
-                "fr": "Sous-division de recensement"
+                "fr": "Subdivision de recensement"
             }
         },
         {

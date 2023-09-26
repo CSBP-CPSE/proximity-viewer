@@ -5,18 +5,17 @@
 	"type": "module",
 	"main": "rollup.config.js",
 	"dependencies": {
-		"install": "^0.13.0",
-		"npm": "^6.14.13",
-		"rollup-plugin-node-resolve": "^5.2.0"
+		"npm": "^9.8.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.14.2",
-		"@babel/preset-env": "^7.14.2",
-		"rollup": "^1.32.1",
-		"rollup-plugin-babel": "^4.4.0"
+		"@babel/preset-env": "^7.22.7",
+		"@rollup/plugin-babel": "^6.0.3",
+		"eslint": "^8.45.0",
+		"rollup": "^3.26.2"
 	},
 	"scripts": {
-		"build": "rollup -c ./config/proximity-viewer.rollup.js"
+		"build": "rollup -c ./config/proximity-viewer.rollup.js",
+		"lint": "eslint ./src/"
 	},
 	"repository": {
 		"type": "git",

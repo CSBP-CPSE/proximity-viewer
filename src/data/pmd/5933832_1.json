@@ -1,0 +1,4 @@
+DBUID,prox_idx_emp,prox_idx_pharma,prox_idx_childcare,prox_idx_health,prox_idx_grocery,prox_idx_educpri,prox_idx_educsec,prox_idx_lib,prox_idx_parks,prox_idx_transit,amenity_dense
+59331593003,0.0002,..,..,0.0007,..,..,..,..,..,..,0.0
+59331593004,0.0005,0.0278,..,0.0013,0.0121,0.0403,0.0392,0.0538,0.0386,..,0.0
+59331593005,0.0006,0.0299,..,0.0013,0.0129,0.0432,0.0421,0.0577,0.041,..,0.0

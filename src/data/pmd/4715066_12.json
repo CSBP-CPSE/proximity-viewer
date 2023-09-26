@@ -1,0 +1,4 @@
+DBUID,prox_idx_emp,prox_idx_pharma,prox_idx_childcare,prox_idx_health,prox_idx_grocery,prox_idx_educpri,prox_idx_educsec,prox_idx_lib,prox_idx_parks,prox_idx_transit,amenity_dense
+47150428009,0.0098,0.0408,0.0468,0.0235,0.0201,..,0.1165,..,0.0279,..,0.0
+47150428010,0.008,..,0.0305,0.0148,..,..,0.0596,..,0.0258,..,0.0
+47150428011,0.0091,0.0163,0.0282,0.0295,0.005,..,0.0544,..,0.0134,..,0.0

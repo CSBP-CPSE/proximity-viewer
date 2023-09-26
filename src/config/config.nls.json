@@ -16,8 +16,8 @@
 		"fr": "Saisir l'identifiant ou le nom de la subdivision de recensement (SDR):"
 	},
 	"App_Instructions": {
-		"en": "This map shows the proximity measures by dissemination block (DB) for the selected indicator. Use the <img alt='Change indicator' title='Change indicator' src='assets/layers.png'> button to change indicator. The search bar can be used to find and select a census subdivision (CSD). You can click on a dissemination block (DB) in the map to show more information.",
-		"fr": "Cette carte affiche les mesures de proximité par îlot de diffusion (ID) pour l'indicateur sélectionné. Utilisez le bouton <img alt=\"Changer d'indicateur\" title=\"Changer d'indicateur\" src='assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une sous-division de recensement (SDR). Vous pouvez cliquer sur un îlot de diffusion (ID) dans la carte pour obtenir plus d'information."
+		"en": "This map shows the proximity measures by dissemination block (DB) for the selected indicator. Use the <img alt='Change indicator' title='Change indicator' src='./2020011/assets/layers.png'> button to change indicator. The search bar can be used to find and select a census subdivision (CSD). You can click on a dissemination block (DB) in the map to show more information.",
+		"fr": "Cette carte affiche les mesures de proximité par îlot de diffusion (ID) pour l'indicateur sélectionné. Utilisez le bouton <img alt=\"Changer d'indicateur\" src='./2020011/assets/layers.png'> pour changer d'indicateur. La barre de recherche peut être utilisée pour trouver et sélectionner une subdivision de recensement (SDR). Vous pouvez cliquer sur un îlot de diffusion (ID) dans la carte pour obtenir plus d'information."
 	},
     "Toc_Instruction": {
         "en": "Turn layers on or off",
@@ -105,7 +105,7 @@
     },
     "Search_Placeholder": {
         "en": "Enter CSD name or ID ...",
-        "fr": "Saisir le nom ou l'identifiant du DSR..."
+        "fr": "Saisir le nom ou l'identifiant de la SDR..."
     },
     "Search_Title": {
         "en": "Results will show after three characters are entered.",
@@ -133,56 +133,8 @@
 	},
 	"Table_Summary" : {
 		"en" : "Dissemination blocks contained in the selected census subdivision",
-		"fr" : "Les blocs de diffusion contenus dans la sous-division de recensement sélectionnée."
-	},
-	"Table_Field_DBUID" : {
-		"en" : "Dissemination block ID",
-		"fr" : "ïlot de diffusion ID"
-	},
-	"Table_Field_pharm.idx" : {
-		"en" : "Pharmacy",
-		"fr" : "Pharmacie"
-	},
-	"Table_Field_empl.idx" : {
-		"en" : "Employment",
-		"fr" : "Emploi"
-	},
-	"Table_Field_child.idx" : {
-		"en" : "Child care",
-		"fr" : "Service de garde"
-	},
-	"Table_Field_health.idx" : {
-		"en" : "Health care",
-		"fr" : "Soins de santé"
-	},
-	"Table_Field_edupri.idx" : {
-		"en" : "Primary education",
-		"fr" : "Éducation primaire"
-	},
-	"Table_Field_edusec.idx" : {
-		"en" : "Secondary education",
-		"fr" : "Éducation secondaire"
-	},
-	"Table_Field_lib.idx" : {
-		"en" : "Library",
-		"fr" : "Bibliothèque"
-	},
-	"Table_Field_groc.idx" : {
-		"en" : "Grocery store",
-		"fr" : "Épicerie"
-	},
-	"Table_Field_parks.idx" : {
-		"en" : "Park",
-		"fr" : "Parc"
-	},
-	"Table_Field_trans.idx" : {
-		"en" : "Public transit",
-		"fr" : "Transport en commun"
-	},
-	"Table_Field_close" : {
-		"en": "Amenity density",
-		"fr": "Densité de commodités"
-	},
+		"fr" : "Les îlots de diffusion contenus dans la subdivision de recensement sélectionnée"
+	},	
 	"Table_Field_suppressed" : {
 		"en" : "Suppressed",
 		"fr" : "Supprimé"
@@ -201,7 +153,7 @@
 	},
 	"Table_Message" : {
 		"en" : "Please select a census subdivision (CSD) using the search bar to show dissemination block (DB) level data for that census subdivision (CSD).",
-		"fr" : "Veuillez sélectionner une sous-division de recensement (SDR) en utilisant la barre de recherche pour afficher les données au niveau des îlots de diffusion (ID) pour cette sous-division de recensement (SDR)."
+		"fr" : "Veuillez sélectionner une subdivision de recensement (SDR) en utilisant la barre de recherche pour afficher les données au niveau des îlots de diffusion (ID) pour cette subdivision de recensement (SDR)."
 	},
 	"STS_Link" : {
 		"en" : "http://www.statcan.gc.ca/eng/concepts/definitions/guide-symbol",

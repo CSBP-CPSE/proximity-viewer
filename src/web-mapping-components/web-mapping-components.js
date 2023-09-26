@@ -12,15 +12,15 @@
 class Util {
 	
 	/**
-	* Merges an object into another object. 
+	* Merges an object into another object.
 	*
-	* @param {object} a - the object that will receive the properties 
+	* @param {object} a - the object that will receive the properties
 	* @param {object} b - the object to merge into object A
 	* @returns the modified Object
 	*/
-	static Mixin(a, b) {				
+	static Mixin(a, b) {
 		for (var key in b) {
-			if (b.hasOwnProperty(key)) a[key] = b[key];
+			if (Object.prototype.hasOwnProperty.call(b,key)) a[key] = b[key];
 		}
 
 		// TODO : Why did I use arguments[0] instead of a?
@@ -28,7 +28,7 @@ class Util {
 	}
 	
 	/**
-	* Debounces a function. The function will be executed after a timeout 
+	* Debounces a function. The function will be executed after a timeout
 	* unless the function is called again in which case, the timeout will
 	* reset
 	*
@@ -44,19 +44,19 @@ class Util {
 			function delayed () {
 				delegate.apply(this, arguments);
 				
-				timeout = null; 
+				timeout = null;
 			}
-	 
+
 			if (timeout) clearTimeout(timeout);
-	 
-			timeout = setTimeout(delayed.bind(this), threshold || 100); 
+
+			timeout = setTimeout(delayed.bind(this), threshold || 100);
 		};
 	}
 	
 	/**
 	* Formats a String using substitute strings
 	*
-	* Example: 
+	* Example:
 	* Input: Format("Hello world! My name is {0} {1}", ["Foo", "Bar"])
 	* Output: "Hello world! My name is Foo Bar"
 	*
@@ -79,7 +79,7 @@ class Util {
 	
 	/**
 	 * Gets the value of the first property of a provided object
-	 * 
+	 *
 	 * @param {object} obj - object to get first property from
 	 * @returns the value of the first object
 	 */
@@ -97,18 +97,19 @@ class Util {
 	/**
 	 * ParseCsv takes a string containing csv data, and parses it to generate an array
 	 * containing each row of the csv.
-	 * 
+	 *
 	 * Example:
-	 * 
+	 *
 	 * Util.ParseCsv("name,age\nfoo,22\nbar,24") -> [["name","age"],["foo","22"],["bar","24"]]
-	 * 
+	 *
 	 * @param {string} csv - string containing csv data
 	 * @returns {array} a list containing each row of csv data
 	 */
-	static ParseCsv(csv) {		
+	static ParseCsv(csv) {
+		var e, e1, e2;
 		var s = 0;
 		var i = 0;
-		
+
 		var lines = [[]];
 
 		// Replace CRLF line breaks with LF if they exist
@@ -119,38 +120,41 @@ class Util {
 		while (s < csv.length) {
 			if (csv[s] == '"') {
 				s++;
-				
-				var e = csv.indexOf('"', s);
+
+				e = csv.indexOf('"', s);
 				
 				lines[i].push(csv.substr(s, e - s));
-				
+
 				e++;
+				e2 = csv.indexOf('\n', s);
 			}
 			else {
-				var e1 = csv.indexOf(',', s);
-				var e2 = csv.indexOf('\n', s);
-								
-				var e = (e1 > -1 && e1 < e2) ? e1 : e2;							
-								
+				e1 = csv.indexOf(',', s);
+				e2 = csv.indexOf('\n', s);
+
+				e = (e1 > -1 && e1 < e2) ? e1 : e2;
+
 				lines[i].push(csv.substr(s, e - s));
-					
-				if (e == e2) {					
-					lines.push([]);
-					
-					i++;
-				}
 			}
+
+			// Add next list to the lines and increment the index when the end
+			// character is a new line character.
+			if (e == e2) {
+				lines.push([]);
 				
+				i++;
+			}
+
 			s = e + 1;
 		}
-		
+
 		return lines;
 	}
-	
+
 	/**
 	 * Sets the disabled property to true or false for a provided selection
 	 * of nodes if they are of a focusable type.
-	 * 
+	 *
 	 * @param {array} nodes - A list of DOM selections.
 	 * @param {boolean} disabled - true or false.
 	 */
@@ -229,17 +233,17 @@ class Core {
 	}
 		
 	/**
-	* A convenience function to get a deffered object for asynchronous processing. 
+	* A convenience function to get a deffered object for asynchronous processing.
 	* Removes one level of nesting when working with promises
 	*
 	* Parameters :
 	*	none
 	* Return : Object, an object with a Resolve and Reject function
 	*
-	* { 
-	*	promise: the promise object associated to the asynchronous process, 
-	*	Resolve: a function to resolve the promise, 
-	*	Reject: a function to reject the promise 
+	* {
+	*	promise: the promise object associated to the asynchronous process,
+	*	Resolve: a function to resolve the promise,
+	*	Reject: a function to reject the promise
 	* }
 	*/
 	static Defer() {
@@ -254,13 +258,13 @@ class Core {
 	}
 	
 	/**
-	* Get or set a templated class definition, this is required to nest Templated UI 
+	* Get or set a templated class definition, this is required to nest Templated UI
 	* components within other Templated UI components.
 	*
 	* Parameters :
 	*	id : String, the id of the templated class definition to get or set
-	*	definition : Class, when specified, the class definition to set 
-	* Return : Class, the class definition created  
+	*	definition : Class, when specified, the class definition to set
+	* Return : Class, the class definition created
 	*/
 	static Templatable(id, definition) {
 		if (definition) {
@@ -349,13 +353,13 @@ class Dom {
 	/**
 	* Create an Element from a namespace
 	*
-	* Valid Namespaces are : 
+	* Valid Namespaces are:
 	*	HTML : http://www.w3.org/1999/xhtml
 	*	SVG  : http://www.w3.org/2000/svg
 	*	XBL  : http://www.mozilla.org/xbl
 	*	XUL  : http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul
 	*
-	* @param {string} ns - the URI namespace containing the Element to create 
+	* @param {string} ns - the URI namespace containing the Element to create
 	* @param {string} tagName - the type of Element to be created (rect, path, etc.)
 	* @param {object} options - a dictionary type object containing the options to assign to the created Element
 	* @param {HTML Element} pNode - the parent Element where the created Element will be apended
@@ -378,7 +382,7 @@ class Dom {
 	* @param {HTML Element} pNode - the parent Element where the Element will be apended
 	*/
 	static Place(elem, pNode) {
-		if (!!pNode) pNode.appendChild(elem);
+		if (pNode) pNode.appendChild(elem);
 	}
 
 	/**
@@ -405,7 +409,7 @@ class Dom {
 			if (c1.indexOf(c) == -1) c1.push(c);
 		});
 		
-		elem.className = c1.join(" "); 
+		elem.className = c1.join(" ");
 	}
 
 	/**
@@ -414,7 +418,7 @@ class Dom {
 	* @param {HTML Element} elem - the Element to modify
 	* @param {string} elemClass - the class to be removed from the Element
 	*/
-	static RemoveClass(elem, elemClass) {				
+	static RemoveClass(elem, elemClass) {
 		var c1 = elem.className.split(" ");
 		var c2 = elemClass.split(" ");
 		
@@ -439,7 +443,7 @@ class Dom {
 	* @param {string} elemClass - set the class of the Element
 	*/
 	static SetClass(elem, elemClass) {
-		elem.className = elemClass; 
+		elem.className = elemClass;
 	}
 
 	/**
@@ -486,9 +490,9 @@ class Dom {
 	*
 	* @param {HTML Element} elem - the Element to retrieve the size
 	* @returns {object} An object literal containing the size of the Element
-	* { 
-	*	w: width of the Element, 
-	*	h: height of the Element 
+	* {
+	*	w: width of the Element,
+	*	h: height of the Element
 	* }
 	*/
 	static Size(elem) {
@@ -501,8 +505,8 @@ class Dom {
 		var pT = +(style.getPropertyValue("padding-top").slice(0, -2));
 		var pB = +(style.getPropertyValue("padding-bottom").slice(0, -2));
 		
-		var w = w - pL - pR;
-		var h = h - pT - pB;
+		w = w - pL - pR;
+		h = h - pT - pB;
 		
 		// Use smallest width as width and height for square grid that fits in container
 		// var s = w < h ? w : h;
@@ -568,7 +572,7 @@ class Net {
 	}
 	
 	/**
-	 * Request a JSON file 
+	 * Request a JSON file
 	 * @param {string} url reference to a json file
 	 * @returns a promise to the json file being requested
 	 */
@@ -587,7 +591,7 @@ class Net {
 	*	name : String, the name of the parameter to retrieve from the URL
 	* Return : String, the value of the parameter from the URL, an empty string if not found
 	*/
-	static GetUrlParameter (name) {				
+	static GetUrlParameter (name) {
 		name = name.replace(/[\[\]]/g, '\\$&');
 		
 		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -606,7 +610,7 @@ class Net {
 	*
 	* Parameters :
 	*	name : String, the name of the file to download
-	*	content : 
+	*	content :
 	* Return : none
 	*/
 	static Download(name, content) {
@@ -648,11 +652,11 @@ class Net {
 }
 
 /**
- * The Store class contains various utility methods used to store lode-viewer map 
+ * The Store class contains various utility methods used to store lode-viewer map
  * properties in localStorage.
  * @class
  */
-class Store { 
+class Store {
 	
 	/**
 	 * Get the lode-map value from localStorage
@@ -664,7 +668,7 @@ class Store {
 
 	/**
 	 * Set the lode-map value in localStorage
-	 * @param {string} value - map name (e.g. odhf, odcaf) 
+	 * @param {string} value - map name (e.g. odhf, odcaf)
 	 */
 	static set Map(value) {
 		localStorage.setItem("lode-map", value);
@@ -722,7 +726,7 @@ class Store {
 	 * Get the lode-opacity vector opacity level from localStorage
 	 * @returns {number} - opacity value
 	 */
-	 static get Opacity() {
+	static get Opacity() {
 		// default opacity is set to 75%
 		let opacity = 0.75;
 		let storedOpacity = localStorage.getItem("lode-opacity");
@@ -775,13 +779,29 @@ class Store {
 		let currentSearchItem = JSON.stringify(value);
 		sessionStorage.setItem("search-item", currentSearchItem);
 	}
+
+	/**
+	 * Get the year from localStorage
+	 * @returns {string} - year
+	 */
+	static get Year() {
+		return localStorage.getItem("year");
+	}
+	
+	/**
+	 * Set the year in localStorage
+	 * @param {string} value - year
+	 */
+	static set Year(value) {
+		localStorage.setItem("year", value);
+	}
 }
 
 /**
  * Evented class
  * @class
  */
-class Evented { 
+class Evented {
 
 	constructor() {
 		this.listeners = {};
@@ -813,20 +833,21 @@ class Evented {
 	
 	dispatchEvent(event){
 		if (!(event.type in this.listeners)) return;
-
+		
+		var i;
 		var stack = this.listeners[event.type];
 
-		for (var i = 0; i < stack.length; i++) {
+		for (i = 0; i < stack.length; i++) {
 			stack[i].callback.call(this, event);
 		}
 		
-		for (var i = stack.length - 1; i >= 0; i--) {
-			if (!!stack[i].once) this.removeEventListener(event.type, stack[i].callback);
+		for (i = stack.length - 1; i >= 0; i--) {
+			if (stack[i].once) this.removeEventListener(event.type, stack[i].callback);
 		}
 	}
 	
 	Emit(type, data) {
-		// Let base event properties be overwritten by whatever was provided.	
+		// Let base event properties be overwritten by whatever was provided.
 		var event = { bubbles:true, cancelable:true };
 	
 		Util.Mixin(event, data);
@@ -855,7 +876,7 @@ class Evented {
  * Templated class
  * @class
  */
-class Templated extends Evented { 
+class Templated extends Evented {
 
 	constructor(container, options) {
 		super();
@@ -889,13 +910,13 @@ class Templated extends Evented {
 		this.template = Dom.Create("div", { innerHTML:html });
 	}
 	
-	SetNamedNodes() {		
+	SetNamedNodes() {
 		var named = this.template.querySelectorAll("[handle]");
 		
 		this.nodes = {};
 		
 		// Can't use Array ForEach here since named is a NodeList, not an array
-		for (var i = 0; i < named.length; i++) { 
+		for (var i = 0; i < named.length; i++) {
 			var name = Dom.GetAttribute(named[i], "handle");
 			
 			this.nodes[name] = named[i];
@@ -931,7 +952,7 @@ class Templated extends Evented {
 	}
 	
 	Template() {
-		return null;		
+		return null;
 	}
 
 	Replace(str, expr, delegate) {
@@ -956,12 +977,12 @@ class Templated extends Evented {
  * Popup class
  * @class
  */
-class Popup extends Templated { 
+class Popup extends Templated {
 	
 	get CloseBtnTitle() {
 		let label = {
 			en: "Close overlay (escape key)",
-			fr: "Fermer la fenêtre superposée (touche d\'échappement)"
+			fr: "Fermer la fenêtre superposée (touche d'échappement)"
 		};
 
 		return label[Core.locale] || ""
@@ -975,7 +996,7 @@ class Popup extends Templated {
 	
 	get Content() { return this.content; }
 	
-	constructor(classes, container) {	
+	constructor(classes, container) {
 		super(container || document.body);
 				
 		this.onBody_KeyUp_Bound = this.onBody_KeyUp.bind(this);
@@ -1033,15 +1054,14 @@ class Popup extends Templated {
 	
 	Template() {
 		return "<div handle='root' class='popup'>" +
-				  "<div class='popup-container'>" +
-					  "<div class='popup-header'>" +
-						  "<div class='popup-title' handle='title'></div>" +
-						  `<button title="${this.CloseBtnTitle}" class="close" handle="close">×</button>` +
-					  "</div>" +
-					
-					  "<div class='popup-body' handle='body'></div>" +
-				  "</div>" +
-			  "</div>";
+					"<div class='popup-container'>" +
+						"<div class='popup-header'>" +
+							"<div class='popup-title' handle='title'></div>" +
+							`<button title="${this.CloseBtnTitle}" class="close" handle="close">×</button>` +
+						"</div>" +
+						"<div class='popup-body' handle='body'></div>" +
+					"</div>" +
+				"</div>";
 	}
 }
 
@@ -1055,10 +1075,10 @@ class Tooltip extends Templated  {
 		return this.Node("root").getBoundingClientRect();
 	}
 	
-	constructor(node, classes) {	
-		super(node || document.body);		
+	constructor(node, classes) {
+		super(node || document.body);
 
-		if (classes) Dom.AddClasses(this.Node("root"), classes);		
+		if (classes) Dom.AddClasses(this.Node("root"), classes);
 	}
 	
 	Template() {
@@ -1111,7 +1131,7 @@ class Tooltip extends Templated  {
  */
 var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead extends Templated {
 	
-	/** 
+	/**
 	 * Set the placeholder text for the search input
 	 * @param {string} value Placeholder text
 	 */
@@ -1138,7 +1158,7 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
 			
 			li.addEventListener("mousedown", this.onLiClick_Handler.bind(this, item));
 			
-			return item; 
+			return item;
 		});
 	}
 	
@@ -1166,12 +1186,12 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
 		this._curr = null;
 		this._temp = null;
 		
-		this.Node("input").addEventListener("input", function(ev) { this.OnInputInput_Handler(ev); }.bind(this));	
+		this.Node("input").addEventListener("input", function(ev) { this.OnInputInput_Handler(ev); }.bind(this));
 
 		// this.Node("input").addEventListener("click", this.OnInputClick_Handler.bind(this));
-		this.Node("input").addEventListener("keydown", function(ev) { this.OnInputKeyDown_Handler(ev); }.bind(this));		
-		this.Node("input").addEventListener("blur", function(ev) { this.OnInputBlur_Handler(ev); }.bind(this));		
-		this.Node("input").addEventListener("focusin", function(ev) { this.OnInputClick_Handler(ev); }.bind(this));		
+		this.Node("input").addEventListener("keydown", function(ev) { this.OnInputKeyDown_Handler(ev); }.bind(this));
+		this.Node("input").addEventListener("blur", function(ev) { this.OnInputBlur_Handler(ev); }.bind(this));
+		this.Node("input").addEventListener("focusin", function(ev) { this.OnInputClick_Handler(ev); }.bind(this));
 		// this.Node("input").addEventListener("focusout", this.OnInputBlur_Handler.bind(this));
 		
 		if (!options) return;
@@ -1241,7 +1261,7 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
 		
 		this.Empty();
 		
-		// Fill in typeahead suggestions 
+		// Fill in typeahead suggestions
 		this.Fill(ev.target.value);
 		
 		this.UpdateClass();
@@ -1255,7 +1275,7 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
 		// If input is less than 3 character in length, do nothing
 		if (ev.target.value.length < 3) return;
 		
-		// Fill in typeahead suggestions 
+		// Fill in typeahead suggestions
 		this.Fill(ev.target.value);
 		
 		this.UpdateClass();
@@ -1275,7 +1295,7 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
 		if (ev.shiftKey == true &&  ev.keyCode == 38)  this.nodes.Input.select();
 		
 		// up or down key : cycle through dropdown
-		else if (ev.keyCode == 40 || ev.keyCode == 38 ) {	
+		else if (ev.keyCode == 40 || ev.keyCode == 38 ) {
 			this._temp = this._temp || this._filt[this._filt.length - 1];
 			
 			Dom.SetClass(this._temp.node, "");
@@ -1297,7 +1317,7 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
 			// if a filtered list is being shown, select the first item
 			else if (this._filt.length > 0) this.onLiClick_Handler(this._filt[0]);
 
-			// nothing is selected (don't think this can happen		    	
+			// nothing is selected (don't think this can happen
 			else {
 				this.OnInputClick_Handler({ target:this.Node("input") });
 			}
@@ -1347,9 +1367,9 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
 	// Create a html template for the typeahead component
 	Template() {
 		return "<div handle='root' class='typeahead collapsed'>" +
-				 "<input handle='input' type='text' class='input'>" + 
-			     "<ul handle='list' class='list'></ul>" +
-			   "</div>";
+					"<input handle='input' type='text' class='input'>" +
+					"<ul handle='list' class='list'></ul>" +
+				"</div>";
 	}
 });
 
@@ -1357,9 +1377,9 @@ var typeahead = Core.Templatable("Basic.Components.Typeahead", class Typeahead e
  * Control class
  * @class
  */
-class Control extends Templated { 
+class Control extends Templated {
 	
-	constructor(options) {	
+	constructor(options) {
 		super(null, options);
 		
 		if (!this.template) throw new Error("MapBox controls cannot be empty");
@@ -1386,9 +1406,9 @@ class Control extends Templated {
  * Bookmarks class
  * @class
  */
-class Bookmarks extends Control { 
+class Bookmarks extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -1417,13 +1437,16 @@ class Bookmarks extends Control {
 	}
 	
 	AddBookmark(item) {
-		var li = Dom.Create('li', { className:"bookmarks-list-item", innerHTML:item.label, tabIndex:0 }, this.Node("ul"));
+		var li = Dom.Create('li', {
+			className:"bookmarks-list-item",
+			innerHTML:item.label,
+			tabIndex:0 }, this.Node("ul"));
 		
 		li.addEventListener("keydown", this.OnLiKeydown_Handler.bind(this, item));
 		li.addEventListener("click", this.OnLiClick_Handler.bind(this, item));
 	}
 	
-	OnLiKeydown_Handler(item, ev) {		
+	OnLiKeydown_Handler(item, ev) {
 		if (ev.keyCode != 13) return;
 		
 		ev.preventDefault();
@@ -1431,19 +1454,19 @@ class Bookmarks extends Control {
 		this.Emit("BookmarkSelected", { item:item });
 	}
 	
-	OnLiClick_Handler(item, ev) {		
+	OnLiClick_Handler(item, ev) {
 		this.Emit("BookmarkSelected", { item:item });
 	}
 	
 	Template() {
-		return "<div handle='root' class='bookmarks'>" + 
-				  "<div class='bookmarks-header-container'>" + 
-					 `<img class='bookmarks-header-icon' src='${Core.root}assets/bookmarks.png'></img>` +
-					 "<h2 handle='bookmarks-header' class='bookmarks-header'>Bookmarks</h2>" +
-				  "</div>" +
-				  "<ul handle='ul' class='bookmarks-list'></ul>" + 
-				  "<div handle='description' class='bookmarks-description'></div>" +
-			   "</div>"
+		return "<div handle='root' class='bookmarks'>" +
+					"<div class='bookmarks-header-container'>" +
+						`<img class='bookmarks-header-icon' src='${Core.root}assets/bookmarks.png'></img>` +
+						"<h2 handle='bookmarks-header' class='bookmarks-header'>Bookmarks</h2>" +
+					"</div>" +
+					"<ul handle='ul' class='bookmarks-list'></ul>" +
+					"<div handle='description' class='bookmarks-description'></div>" +
+				"</div>"
 	}
 }
 
@@ -1451,9 +1474,9 @@ class Bookmarks extends Control {
  * Download class
  * @class
  */
-class Download extends Control { 
+class Download extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 
 		// If a custom label is provided, update menu label
@@ -1463,13 +1486,13 @@ class Download extends Control {
 		
 		this._container = this.Node('root');
 
-		if (options.link) this.Node('link').setAttribute('href', options.link); 
+		if (options.link) this.Node('link').setAttribute('href', options.link);
 	}
 	
-	Template() {        
+	Template() {
 		return "<div handle='root' class='download mapboxgl-ctrl'>" +
-					"<div class='control-label'>" + 
-						"<a handle='link' target='_blank' class='link'>Download data</a>" + 
+					"<div class='control-label'>" +
+						"<a handle='link' target='_blank' class='link'>Download data</a>" +
 					"</div>" +
 				"</div>";
 	}
@@ -1479,13 +1502,13 @@ class Download extends Control {
  * Fullscreen class
  * @class
  */
-class Fullscreen extends Evented { 
+class Fullscreen extends Evented {
 	
 	set title(value) { this._fs._controlContainer.firstChild.title = value; }
 	
 	get fullscreen() { return this._fs._fullscreen; }
 	
-	constructor(options) {	
+	constructor(options) {
 		super();
 		
 		this._fs = new maplibregl.FullscreenControl();
@@ -1493,13 +1516,13 @@ class Fullscreen extends Evented {
 		this.options = options;
 	}
 			
-	onFullscreenClick_Handler(ev) {		
+	onFullscreenClick_Handler(ev) {
 		if (!this.fullscreen) this.Emit("enterFullscreen", {});
 		
 		else this.Emit("exitFullscreen", {});
 	}
 	
-	onAdd(map) {		
+	onAdd(map) {
 		this._container = this._fs.onAdd(map);
 		
 		this._fs._controlContainer.firstChild.addEventListener("click", this.onFullscreenClick_Handler.bind(this));
@@ -1525,9 +1548,9 @@ class Fullscreen extends Evented {
  * Group class
  * @class
  */
-class Group extends Control { 
+class Group extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 
 		this._container = this.Node('root');
@@ -1543,13 +1566,14 @@ class Group extends Control {
 	/**
 	 * Add a control to the group
 	 * @param {string} id The control id being added
-	 * @param {object} control The control for 
+	 * @param {object} control The control being added to the group
 	 */
 	AddControl(id, control) {
-		if (this.controls.hasOwnProperty(id)) throw new Error("Control already exists in the group");
+		if (Object.prototype.hasOwnProperty.call(this.controls, id)) {
+			throw new Error("Control already exists in the group");
+		}
 		
 		this.controls[id] = control;
-		
 		Dom.Place(control._container, this.Node("root"));
 	}
 	
@@ -1563,9 +1587,9 @@ class Group extends Control {
  * Collapsable Group class
  * @class
  */
-class CollapsableGroup extends Control { 
+class CollapsableGroup extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this.controls = {};
@@ -1580,16 +1604,18 @@ class CollapsableGroup extends Control {
 		// Add controls to collapsable group
 		for (var id in options.controls) {
 			this.AddControl(id, options.controls[id]);
-		}	
+		}
 	}
 
 	/**
 	 * Add a control to the collapsable group
 	 * @param {string} id The control id being added
-	 * @param {object} control The control for 
+	 * @param {object} control The control being added to the group
 	 */
 	AddControl(id, control) {
-		if (this.controls.hasOwnProperty(id)) throw new Error("Control already exists in the collapsable group");
+		if (Object.prototype.hasOwnProperty.call(this.controls, id)) {
+			throw new Error("Control already exists in the collapsable group");
+		}
 		
 		this.controls[id] = control;
 		
@@ -1608,9 +1634,9 @@ class CollapsableGroup extends Control {
  * LabelsToggle class
  * @class
  */
-class LabelsToggle extends Control { 
+class LabelsToggle extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this.map = options.map;
@@ -1641,9 +1667,9 @@ class LabelsToggle extends Control {
 
 	/**
 	 * Get a list of label layers.
-	 * 
-	 * Note: Label layers in Mapbox use the layer type 'symbol', and have the 
-	 * property 'text-field' defined. 
+	 *
+	 * Note: Label layers in Mapbox use the layer type 'symbol', and have the
+	 * property 'text-field' defined.
 	 * @returns {array} List of layer ids for label layers
 	 */
 	getLabelLayers() {
@@ -1688,13 +1714,13 @@ class LabelsToggle extends Control {
 	 * HTML Template for Labels Toggle Control
 	 * @returns {string} Template representing a labels toggle control
 	 */
-	 Template() {
-		return "<div handle='root' class='labels-toggle mapboxgl-ctrl'>" + 
-					"<div class='labels-toggle-container'>" + 
+	Template() {
+		return "<div handle='root' class='labels-toggle mapboxgl-ctrl'>" +
+					"<div class='labels-toggle-container'>" +
 						"<label handle='labels-toggle-label' class='labels-toggle-label'>Labels</label>" +
 						"<input type='checkbox' checked aria-label='Labels' handle='labels-toggle-checkbox' name='labels-toggle-checkbox' class='labels-toggle-checkbox'></input>" +
 					"</div>" +
-			   "</div>"
+				"</div>"
 	}
 }
 
@@ -1704,7 +1730,7 @@ let n = 0;
  * Legend class
  * @class
  */
-class Legend extends Control { 
+class Legend extends Control {
 		
 	constructor(options) {
 		super(options);
@@ -1786,7 +1812,12 @@ class Legend extends Control {
 			}
 
 		} else {
-			chkBox = Dom.Create("input", { id:id, title: item.title, className: "legend-tickbox", type:"checkbox", checked:true }, div);
+			chkBox = Dom.Create("input", {
+				id:id,
+				title: item.title,
+				className: "legend-tickbox",
+				type:"checkbox",
+				checked:true }, div);
 			svg = Dom.CreateSVG("svg", { width:15, height:15 }, div);
 			icn = Dom.CreateSVG("rect", { width:15, height:15 }, svg);
 			lbl = Dom.Create("label", { innerHTML:item.label }, div);
@@ -1807,7 +1838,7 @@ class Legend extends Control {
 
 	/**
 	 * Gets the style data from provided legend item
-	 * @param {object} legendItem - Object containing the style information 
+	 * @param {object} legendItem - Object containing the style information
 	 * @retruns - An object containing the legendItem color and value if available
 	 */
 	static GetStylingFromLegendItem(legendItem) {
@@ -1852,14 +1883,14 @@ class Legend extends Control {
 		}
 
 		return styleCollection;
-	}	
+	}
 
 	OnCheckbox_Checked(ev) {
 		this.Emit("LegendChange", { state:this.chkBoxesState });
 	}
 
 	// Template for legend widget
-	Template() {        
+	Template() {
 		return "<div handle='root' class='legend mapboxgl-ctrl'>" +
 					"<h2 handle='banner' class='control-label legend-banner'></h2>" +
 						"<div>" +
@@ -1875,9 +1906,9 @@ class Legend extends Control {
  * Mapslist class
  * @class
  */
-class MapsList extends Control { 
-		
-	constructor(options) {	
+class MapsList extends Control {
+
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -1889,19 +1920,47 @@ class MapsList extends Control {
 
 		//this.tooltip = new Tooltip();
 		
-		for (var id in options.maps) this.AddMapItem(id, options.maps[id]);
+		// Update the Maps List
+		this.updateMapsList(options.maps);
+	}
+
+	/**
+	 * Set the list of map options
+	 * @param {object} val The collection of map configurations used to generate menu list items
+	 */
+	set mapoptions(val) {
+		if (typeof val === 'object' && val != null && Object.keys(val).length) {
+			this.options.maps = val;
+
+			Dom.Empty(this.Node('maps-ul'));
+			this.updateMapsList(val);
+		}
+   }
+
+	/**
+	 * Update the list of maps in the control
+	 * @param maps a list of map configurations
+	 */
+	updateMapsList(maps) {
+		for (var id in maps) {
+			this.AddMapItem(String(id), maps[id]);
+		}
 	}
 
 	AddMapItem(id, map) {
-		var li = Dom.Create('li', { className:"maps-list-item", innerHTML:map.title, tabIndex:0 }, this.Node("ul"));
+		var li = Dom.Create('li', {
+			className:"maps-list-item",
+			innerHTML:String(map.title),
+			tabIndex:0 }, this.Node("maps-ul"));
 		
 		//li.addEventListener("mousemove", this.OnLiMouseMove_Handler.bind(this, id, map));
 		//li.addEventListener("mouseleave", this.OnLiMouseLeave_Handler.bind(this, id, map));
 		li.addEventListener("click", this.OnLiClick_Handler.bind(this, id, map));
 		li.addEventListener("keydown", this.OnLiKeydown_Handler.bind(this, id, map));
 	}
+
 	/*
-	OnLiMouseMove_Handler(id, map, ev) {	
+	OnLiMouseMove_Handler(id, map, ev) {
 		this.tooltip.Node("content").innerHTML = map.description;
 		this.tooltip.Show(ev.pageX - window.scrollX + 20, ev.pageY - window.scrollY);
 	}
@@ -1910,7 +1969,8 @@ class MapsList extends Control {
 		this.tooltip.Hide();
 	}
 	*/
-	OnLiKeydown_Handler(id, map, ev) {		
+
+	OnLiKeydown_Handler(id, map, ev) {
 		// prevent default event on specifically handled keys
 		if (ev.keyCode != 13) return;
 		
@@ -1919,19 +1979,19 @@ class MapsList extends Control {
 		this.Emit("MapSelected", { id:id, map:map });
 	}
 	
-	OnLiClick_Handler(id, map, ev) {		
+	OnLiClick_Handler(id, map, ev) {
 		this.Emit("MapSelected", { id:id, map:map });
 	}
 	
 	Template() {
-		return "<div handle='root' class='maps'>" + 
-				  "<div class='maps-header-container'>" + 
-					 `<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
-					 "<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
-				  "</div>" +
-				  "<ul handle='ul' class='maps-list'></ul>" + 
-				  // "<div handle='description' class='maps-description'></div>" +
-			   "</div>"
+		return "<div handle='root' class='maps'>" +
+					"<div class='maps-header-container'>" +
+						`<img class='maps-header-icon' src='${Core.root}assets/layers.png'></img>` +
+						"<h2 handle='maps-header' class='maps-header'>Maps</h2>" +
+					"</div>" +
+					"<ul handle='maps-ul' class='maps-list'></ul>" +
+					// "<div handle='description' class='maps-description'></div>" +
+				"</div>"
 	}
 }
 
@@ -1939,9 +1999,9 @@ class MapsList extends Control {
  * MapsMenu Control class
  * @class
  */
-class MapsMenu extends Control { 
+class MapsMenu extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -1978,6 +2038,20 @@ class MapsMenu extends Control {
 	}
 
 	/**
+	 * Set maps menu map options
+	 * @param {object} val The collection of map configurations used to generate menu options
+	 */
+	set mapoptions(val) {
+		if (typeof val === 'object' && val != null && Object.keys(val).length) {
+			this.maps = val;
+			this.options.maps = val;
+
+			Dom.Empty(this.Node('maps-menu'));
+			this.updateMapsMenu(val);
+		}
+   }
+
+	/**
 	 * Update the maps menu with a collection of maps as select menu options.
 	 * @param {object} maps a collection of maps
 	 * Example of basic maps object structure:
@@ -1986,7 +2060,7 @@ class MapsMenu extends Control {
 	 * 			id: "mapa",
 	 * 			title: "Map A",
 	 * 			style: "mapbox://styles/<user-name>/<map-style-id>",
-	 * 			...	
+	 * 			...
 	 * 		},
 	 * 		"mapb": {
 	 * 			id: "mapb",
@@ -2010,15 +2084,15 @@ class MapsMenu extends Control {
 			let map = maps[mapKey];
 
 			let opt = Dom.Create('option', {
-				value: map.id,
-				innerHTML: map.title
+				value: String(map.id),
+				innerHTML: String(map.title)
 			}, this.Node('maps-menu'));
 			opt.setAttribute('handle', 'maps-menu-option');
 		}
 	}
 
 	/**
-	 * Handle maps menu selection changes and emit required map selection details 
+	 * Handle maps menu selection changes and emit required map selection details
 	 * @param {Event} ev
 	 */
 	onMapsMenuSelectorChange_Handler(ev) {
@@ -2026,7 +2100,7 @@ class MapsMenu extends Control {
 
 		// Emit change event for maps menu
 		this.Emit('MapsMenuControlChanged', {
-			id: mapsMenuSelection, 
+			id: mapsMenuSelection,
 			map: this.maps[mapsMenuSelection]
 		});
 	}
@@ -2036,12 +2110,12 @@ class MapsMenu extends Control {
 	 * @returns {string} Template representing a maps menu control
 	 */
 	Template() {
-		return "<div handle='root' class='maps-menu mapboxgl-ctrl'>" + 
-					"<div class='maps-menu-container'>" + 
+		return "<div handle='root' class='maps-menu mapboxgl-ctrl'>" +
+					"<div class='maps-menu-container'>" +
 						"<label handle='maps-menu-label' class='maps-menu-label'>Maps</label>" +
 						"<select aria-label='Maps' handle='maps-menu' name='maps-menu' class='maps-menu'></select>" +
 					"</div>" +
-			   "</div>"
+				"</div>"
 	}
 }
 
@@ -2049,9 +2123,9 @@ class MapsMenu extends Control {
  * Menu class
  * @class
  */
-class Menu extends Control { 
+class Menu extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
@@ -2063,8 +2137,12 @@ class Menu extends Control {
 		if (this.buttons[id]) throw new Error("Button already exists in menu.");
 		
 		var root = this.Node("root");
-		var btn = Dom.Create("button", { "title":title, "aria-label":title, "type":"button", "className":"mapboxgl-ctrl-icon" }, root);
-		var img = Dom.Create("img", { "alt":title, "src":icon }, btn);
+		var btn = Dom.Create("button", {
+			"title":title,
+			"aria-label":title,
+			"type":"button",
+			"className":"mapboxgl-ctrl-icon" }, root);
+		Dom.Create("img", { "alt":title, "src":icon }, btn);
 		
 		btn.addEventListener("click", hClick);
 		
@@ -2104,13 +2182,13 @@ class Menu extends Control {
  * Navigation class
  * @class
  */
-class Navigation extends Evented { 
+class Navigation extends Evented {
 	
 	set titleIn(value) { this._n._zoomInButton.title = value; }
 	
 	set titleOut(value) { this._n._zoomOutButton.title = value; }
 		
-	constructor(options) {	
+	constructor(options) {
 		super();
 		
 		this._n = new maplibregl.NavigationControl({ showCompass:options.showCompass, showZoom:options.showZoom });
@@ -2118,20 +2196,20 @@ class Navigation extends Evented {
 		this.options = options;
 	}
 			
-	onFullscreenClick_Handler(ev) {		
+	onFullscreenClick_Handler(ev) {
 		if (!this.fullscreen) this.Emit("enterFullscreen", {});
 		
 		else this.Emit("exitFullscreen", {});
 	}
 	
-	onAdd(map) {		
+	onAdd(map) {
 		this._container = this._n.onAdd(map);
 		
 		this._n._zoomInButton.removeAttribute("aria-label");
 		this._n._zoomOutButton.removeAttribute("aria-label");
 		
-		this.titleIn = this.options.titleIn; 
-		this.titleOut = this.options.titleOut; 
+		this.titleIn = this.options.titleIn;
+		this.titleOut = this.options.titleOut;
 		
         this._map = map;
 		
@@ -2151,8 +2229,8 @@ class Navigation extends Evented {
  * Opacity class
  * @class
  */
-class Opacity extends Control { 
-		
+class Opacity extends Control {
+	
 	set label(value) {
 		Dom.Node(this._container, ".control-label").innerHTML = value;
 	}
@@ -2161,14 +2239,14 @@ class Opacity extends Control {
 		this.Node("slider").title = value;
 	}
 	
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this._container = this.Node('root');
         
 		this.opacity = (this.options.opacity == undefined) ? 0.75 : this.options.opacity;
 		
-		this.Node("slider").value = this.opacity * 100;		
+		this.Node("slider").value = this.opacity * 100;
 		this.Node('slider').addEventListener("change", this.onSliderChange_Handler.bind(this));
 	}
 	
@@ -2178,11 +2256,11 @@ class Opacity extends Control {
 		this.Emit("OpacitySliderChanged", { opacity:this.opacity });
 	}
 	
-	Template() {        
+	Template() {
 		return "<div handle='root' class='opacity mapboxgl-ctrl'>" +
-				  "<label class='control-label'>Opacity</label>" +
-				  "<input handle='slider' type='range' min='0' max='100' value='100' class='slider'>" +
-			   "</div>";
+					"<label class='control-label'>Opacity</label>" +
+					"<input handle='slider' type='range' min='0' max='100' value='100' class='slider'>" +
+				"</div>";
 	}
 }
 
@@ -2247,18 +2325,18 @@ class Search extends Control {
 
 	/**
 	 * Itemize the search items for the search control
-	 * @param {array} items 
+	 * @param {array} items
 	 * @returns {array} list of sorted items
 	 */
-	Itemize(items) {		
+	Itemize(items) {
 		return items.sort((a, b) => { return a.label > b.label ? 1 : -1 });
 	}
 
 	/**
 	 * Event handler for typeahead focusin events
-	 * @param {object} ev typeahead focusin change event 
+	 * @param {object} ev typeahead focusin change event
 	 */
-	 onTypeaheadFocusin_Handler(ev) {
+	onTypeaheadFocusin_Handler(ev) {
 		if (ev.target && ev.target.nodes && ev.target.nodes.input && ev.target.nodes.input.value) {
 			// Clear search input
 			ev.target.nodes.input.value = "";
@@ -2286,8 +2364,8 @@ class Search extends Control {
 	 */
 	Template() {
 		return "<div handle='root' class='search-control mapboxgl-ctrl'>" +
-				  "<div handle='typeahead' widget='Basic.Components.Typeahead'></div>" +
-			   "</div>";
+					"<div handle='typeahead' widget='Basic.Components.Typeahead'></div>" +
+				"</div>";
 	}
 }
 
@@ -2295,9 +2373,9 @@ class Search extends Control {
  * Table of Contents (TOC) class
  * @class
  */
-class Toc extends Control { 
+class Toc extends Control {
 		
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 
 		// If a custom label is provided, update TOC label
@@ -2328,17 +2406,17 @@ class Toc extends Control {
 	}
 
 	/**
-	 * Checks if the provided layered ID is a TOC radio button items 
+	 * Checks if the provided layered ID is a TOC radio button items
 	 * @param {string} layerId id of the TOC item
 	 * @returns {boolean}
 	 */
 	HasLayer(layerId) {
-		return this.radios.hasOwnProperty(layerId);
+		return Object.prototype.hasOwnProperty.call(this.radios, layerId);
 	}
 
 	/**
 	 * Generate the radio button options for the TOC Control
-	 * @param {array} toc list of toc items 
+	 * @param {array} toc list of toc items
 	 */
 	Reload(toc) {
 		Dom.Empty(this.Node("toc"));
@@ -2368,7 +2446,7 @@ class Toc extends Control {
 	/**
 	 * Event handler for change events in TOC control
 	 * @param {object} item toc item details
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		id: 1,
 	 * 		label: "Item Label",
@@ -2388,7 +2466,7 @@ class Toc extends Control {
 	/**
 	 * Add a radio button for TOC control item to the TOC control.
 	 * @param {object} item toc item details
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		id: 1,
 	 * 		label: "Item Label",
@@ -2412,7 +2490,7 @@ class Toc extends Control {
 	}
 	
 	// Create a HTML template for the TOC control
-	Template() {        
+	Template() {
 		return "<div handle='root' class='toc mapboxgl-ctrl'>" +
 					"<div id='toc-label' handle='toc-label' class='control-label'>Table of Contents</div>" +
 					"<div handle='toc' class='legend-container toc-container'></div>" +
@@ -2423,11 +2501,11 @@ class Toc extends Control {
 /**
  * Theme control class
  * @class
- * 
+ *
  */
-class Theme extends Control { 
+class Theme extends Control {
 
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 
 		// If a custom label is provided, update groups label
@@ -2456,7 +2534,7 @@ class Theme extends Control {
 
 	/**
 	 * Update theme selection menu
-	 * @param {object} themes 
+	 * @param {object} themes
 	 */
 	updateThemeControl(themes) {
 		let themeGroups;
@@ -2466,7 +2544,7 @@ class Theme extends Control {
 		this.Node('themes').value = this.currentTheme;
 
 		// Update themes
-		this.themes = themes; 
+		this.themes = themes;
 
 		// Get theme groups defined in config
 		themeGroups = this.getThemeGroups(this.themes);
@@ -2493,26 +2571,35 @@ class Theme extends Control {
 		let i, group;
 		let group_menu_node = 'theme-groups';
 
-		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
-			// Empty theme groups selection menu before adding items
-			Dom.Empty(this.Node(group_menu_node));
+		// Empty theme groups selection menu before adding items
+		Dom.Empty(this.Node(group_menu_node));
 
-			// Add group items if they're defined
-			if (Array.isArray(groups) && groups.length) {
-				// Add items to group menu
-				for (i = 0; i < groups.length; i += 1) {
-					group = groups[i];
-					this.addGroupItem(group, group_menu_node);
-				}
-			
-				// Set initial value to first group datalist option
-				let firstGroupItem = groups[0];
-				this.Node('theme-groups').value = firstGroupItem[Core.locale];
-
-				// Updated current theme group selection
-				this.currentThemeGroup = this.Node('theme-groups').value;
+		// Add group items if they're defined
+		if (Array.isArray(groups) && groups.length) {
+			// Add items to group menu
+			for (i = 0; i < groups.length; i += 1) {
+				group = groups[i];
+				this.addGroupItem(group, group_menu_node);
 			}
 		}
+
+		// Re-set current theme group selection to previous selection if
+		// current selection after group menu options is updated
+		if (this.currentThemeGroup && this.Node('theme-groups').value != this.currentThemeGroup) {
+			this.Node('theme-groups').value = this.currentThemeGroup;
+		}
+
+		// Update group selection to first item if current theme selection
+		// is not in group.
+		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
+			// Set initial value to first group datalist option
+			let firstGroupItem = groups[0];
+			this.Node('theme-groups').value = firstGroupItem[Core.locale];
+
+			// Updated current theme group selection
+			this.currentThemeGroup = this.Node('theme-groups').value;
+		}
+
 		// Dispatch a change event to trigger a group selection change
 		this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
@@ -2576,7 +2663,7 @@ class Theme extends Control {
 	addGroupItem(item, node) {
 		if (item) {
 			let opt = Dom.Create("option", {
-				value: item[Core.locale], 
+				value: item[Core.locale],
 				innerHTML: item[Core.locale]
 			}, this.Node(node));
 			opt.setAttribute('handle', 'theme-option');
@@ -2613,7 +2700,7 @@ class Theme extends Control {
 			let theme = themes[i];
 			if (theme) {
 				if (theme.group && theme.items && Array.isArray(theme.items)) {
-					if (theme.group[Core.locale] === groupId){ 
+					if (theme.group[Core.locale] === groupId) {
 						groupThemes = theme.items;
 						break;
 					}
@@ -2653,7 +2740,7 @@ class Theme extends Control {
 	 * Checks if the currently selected theme is within the list of theme items
 	 * @param {array} themes list of themes
 	 * @param {string} currentTheme the name of the currently selected theme
-	 * @returns {boolean} 
+	 * @returns {boolean}
 	 */
 	isValidTheme(themes, currentTheme) {
 		let theme, i;
@@ -2662,7 +2749,7 @@ class Theme extends Control {
 		if (themes && Array.isArray(themes)) {
 			for (i = 0; i < themes.length; i += 1) {
 				theme = themes[i];
-				if (theme && theme.label 
+				if (theme && theme.label
 					&& (theme.label[Core.locale] === currentTheme
 					|| theme.id === currentTheme)) {
 					validTheme = true;
@@ -2678,7 +2765,7 @@ class Theme extends Control {
 	 * Checks if the currently selected theme group is within the list of group items
 	 * @param {array} groups list of groups of themes
 	 * @param {string} currentThemeGroup the name of the currently selected group
-	 * @returns {boolean} 
+	 * @returns {boolean}
 	 */
 	isValidGroup(groups, currentThemeGroup) {
 		let group, i;
@@ -2746,11 +2833,11 @@ class Theme extends Control {
 /**
  * Theme Datalist control class
  * @class
- * 
+ *
  */
-class ThemeDatalist extends Theme { 
+class ThemeDatalist extends Theme {
 
-	constructor(options) {	
+	constructor(options) {
 		super(options);
 		
 		this.themes = options.themes;
@@ -2774,26 +2861,35 @@ class ThemeDatalist extends Theme {
 		let i, group;
 		let group_menu_node = 'theme-groups-list';
 
-		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
-			// Empty theme groups selection menu before adding items
-			Dom.Empty(this.Node(group_menu_node));
+		// Empty theme groups selection menu before adding items
+		Dom.Empty(this.Node(group_menu_node));
 
-			// Add group items if they're defined
-			if (Array.isArray(groups) && groups.length) {
-				// Add items to group menu
-				for (i = 0; i < groups.length; i += 1) {
-					group = groups[i];
-					this.addGroupItem(group, group_menu_node);
-				}
-
-				// Set initial value to first group datalist option
-				let firstGroupItem = groups[0];
-				this.Node('theme-groups').value = firstGroupItem[Core.locale];
-
-				// Updated current theme group selection
-				this.currentThemeGroup = this.Node('theme-groups').value;
+		// Add group items if they're defined
+		if (Array.isArray(groups) && groups.length) {
+			// Add items to group menu
+			for (i = 0; i < groups.length; i += 1) {
+				group = groups[i];
+				this.addGroupItem(group, group_menu_node);
 			}
 		}
+
+		// Re-set current theme group selection to previous selection if
+		// current selection after group menu options is updated
+		if (this.currentThemeGroup && this.Node('theme-groups').value != this.currentThemeGroup) {
+			this.Node('theme-groups').value = this.currentThemeGroup;
+		}
+
+		// Update group selection to first item if current theme selection
+		// is not in group.
+		if (!this.isValidGroup(groups, this.currentThemeGroup)) {
+			// Set initial value to first group datalist option
+			let firstGroupItem = groups[0];
+			this.Node('theme-groups').value = firstGroupItem[Core.locale];
+
+			// Updated current theme group selection
+			this.currentThemeGroup = this.Node('theme-groups').value;
+		}
+
 		// Dispatch a change event to trigger a group selection change
 		this.Node("theme-groups").dispatchEvent(new Event('change', { 'bubbles': true }));
 	}
@@ -2804,10 +2900,10 @@ class ThemeDatalist extends Theme {
 	 * @param {string} node A string representing the node which will have the option added to.
 	 * @returns Dom element representing select menu option.
 	 */
-	 addThemeItem(item, node) {
+	addThemeItem(item, node) {
 		if (item && item.id && item.label) {
 			let opt = Dom.Create("option", {
-				value: item.label[Core.locale], 
+				value: item.label[Core.locale],
 				innerHTML: item.label[Core.locale]
 			}, this.Node(node));
 			opt.dataset.themeid = item.id;
@@ -2861,6 +2957,7 @@ class ThemeDatalist extends Theme {
 				this.Node('theme-groups').blur();
 			}
 		}
+
 		// Get themes by the theme group selection Id
 		themes = this.getThemesByGroup(this.themes, this.currentThemeGroup);
 
@@ -2915,6 +3012,7 @@ class ThemeDatalist extends Theme {
 				this.Node('themes').blur();
 			}
 		}
+
 		// Get theme by the selection Id
 		let selection = this.getThemeById(this.themes, selectionId);
 
@@ -2954,22 +3052,107 @@ class ThemeDatalist extends Theme {
 					"<input aria-label='Themes' handle='themes' list='themes-list' name='themes'>" +
 					"<datalist handle='themes-list' id='themes-list' class='themes'></datalist>" +
 				"</div>"+
-		   "</div>";
+			"</div>";
 	
 		return template;
 	}
 }
 
 /**
- * The OSM style object represents a predefined map style using OpenStreetMap 
- * Raster Tile layers and the Open Font Glyphs which packages free fonts 
- * (required for symbol labelling). 
- * 
+ * YearsMenu Control class
+ * @class
+ */
+class YearsMenu extends Control {
+		
+	constructor(options) {
+		super(options);
+		
+		this._container = this.Node('root');
+		this.years = options.years;
+
+		// If a custom label is provided, update menu label
+		if (options.label && typeof(options.label) === 'string') {
+			this.Node('years-menu-label').innerHTML = options.label;
+			Dom.SetAttribute(this.Node('years-menu'), 'aria-label', options.label);
+		}
+
+		// Update the Years Select Menu
+		this.updateYearsMenu(this.years);
+
+		// Add event listeners for change events on years menu
+		this.Node('years-menu').addEventListener('change', this.onYearsMenuSelectorChange_Handler.bind(this));
+	}
+
+	/**
+	 * Select years menu value getter
+	 * @returns {string} The value of the years-menu select element
+	 */
+	get value() {
+		return this.Node('years-menu').value;
+	}
+
+	/**
+	 * Select years menu value setter
+	 * @param {string} val The value the years-menu select element should be set to
+	 */
+	set value(val) {
+		let menu = this.Node('years-menu');
+		menu.value = val;
+	}
+
+	/**
+	 * Update the years menu with a collection of years as select menu options.
+	 * @param {array} years a collection of years. e.g [2016, 2021]
+	 */
+	updateYearsMenu(years) {
+		for (let i = 0; i < years.length; i += 1) {
+			let year = String(years[i]);
+
+			let opt = Dom.Create('option', {
+				value: year,
+				innerHTML: year
+			}, this.Node('years-menu'));
+			opt.setAttribute('handle', 'years-menu-option');
+		}
+	}
+
+	/**
+	 * Handle years menu selection changes and emit required year selection details
+	 * @param {Event} ev
+	 */
+	onYearsMenuSelectorChange_Handler(ev) {
+		let yearsMenuSelection = this.Node('years-menu').value;
+
+		// Emit change event for years menu
+		this.Emit('YearsMenuControlChanged', {
+			id: yearsMenuSelection
+		});
+	}
+
+	/**
+	 * HTML Template for Years Menu Control
+	 * @returns {string} Template representing a years menu control
+	 */
+	Template() {
+		return "<div handle='root' class='years-menu mapboxgl-ctrl'>" +
+					"<div class='years-menu-container'>" +
+						"<label handle='years-menu-label' class='years-menu-label'>Year</label> " +
+						"<select aria-label='Years' handle='years-menu' name='years-menu' class='years-menu'></select>" +
+					"</div>" +
+				"</div>"
+	}
+}
+
+/**
+ * The OSM style object represents a predefined map style using OpenStreetMap
+ * Raster Tile layers and the Open Font Glyphs which packages free fonts
+ * (required for symbol labelling).
+ *
  * OSM: https://www.openstreetmap.org/
- * OSM Licence: OpenStreetMap® is open data, licensed under the Open Data 
- * Commons Open Database License (ODbL) by the OpenStreetMap Foundation (OSMF). 
+ * OSM Licence: OpenStreetMap® is open data, licensed under the Open Data
+ * Commons Open Database License (ODbL) by the OpenStreetMap Foundation (OSMF).
  * https://www.openstreetmap.org/copyright
- * 
+ *
  * Open Font Glyphs: https://github.com/openmaptiles/fonts
  * Open Font Glyphs Licence: All fonts packaged in Open Font Glyphs is licensed
  * under Open File Licence (OFL) or Apache.
@@ -2996,15 +3179,15 @@ const OSM = {
 
 /**
  * expression.js
- * 
+ *
  * A collection of functions for generating mapbox expressions used for styling.
- * For additional information on mapbox expressions, see the mapbox documentation 
+ * For additional information on mapbox expressions, see the mapbox documentation
  * at, https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/
  */
 
 /**
  * Converts a list of rgb numbers into an rgb or rgba string
- * @param {array} colourList 
+ * @param {array} colourList
  * @returns {string} rgb or rgba string
  * Examples:
  *   [50,150,250] -> "rgb(50,150,250)"
@@ -3026,7 +3209,7 @@ function colourListToRGBString(colourList) {
 }
 
 /**
- * 
+ *
  * Generate a list of opacity values for each legend item based on;
  * the checkbox state, and if the legend item has the property opacity
  * set to a predefined opacity value in the map config file.
@@ -3044,7 +3227,7 @@ function generateLegendOpacityValues(legend, storedOpacity) {
 			if (chkBox && chkBox.checkbox && !chkBox.checkbox.checked) {
 				legendOpacities.push(0);
 			} else if (chkBox && chkBox.item && chkBox.item.opacity && typeof(chkBox.item.opacity) === 'number') {
-				// Ensure that opacity value is between 1 and 0. 
+				// Ensure that opacity value is between 1 and 0.
 				if (chkBox.item.opacity > 1) {
 					chkBox.item.opacity = 1;
 				} else if (chkBox.item.opacity < 0) {
@@ -3066,14 +3249,14 @@ function generateLegendOpacityValues(legend, storedOpacity) {
  * @param {object} legend - object containing the legend details stored in
  * the map config file.
  * @retruns A style expression using legend style data.
- * 
- * Example: 
- * ["case", 
- * ["==", ["get","type"],"Hospital"], 
- * "rgba(255,25,167,1)", 
- * ["==", ["get","type"],"School"], 
+ *
+ * Example:
+ * ["case",
+ * ["==", ["get","type"],"Hospital"],
+ * "rgba(255,25,167,1)",
+ * ["==", ["get","type"],"School"],
  * "rgba(50,128,229,1)",
- * "rgba(255,214,10,1)"] 
+ * "rgba(255,214,10,1)"]
  */
 function generateColourExpression(legend) {
 	var styleColor, i, styleItem, defaultColour, legendStyles, expression;
@@ -3098,7 +3281,7 @@ function generateColourExpression(legend) {
 				// Add style case and color
 				if (styleItem.value && styleColor) {
 					// Add mapbox expression value is defined, add it to cases list
-					expression.push(styleItem.value);						
+					expression.push(styleItem.value);
 
 					// Add colour to cases list
 					expression.push(styleColor);
@@ -3109,9 +3292,9 @@ function generateColourExpression(legend) {
 		}
 
 		// Add default colour as last item in colour cases
-		// This is required by mapbox to in sure errors 
+		// This is required by mapbox to in sure errors
 		// don't occur when the last item in the legend config
-		// is not the default colour (i.e. the one without a 
+		// is not the default colour (i.e. the one without a
 		// a defined mapbox expression value)
 		expression.push(defaultColour);
 
@@ -3132,14 +3315,14 @@ function generateColourExpression(legend) {
  * the map config file.
  * @param {number} opacity an opacity value between 0 and 1
  * @retruns An style expression using opacity values.
- * 
- * Example: 
- * ["case", 
- * ["==", ["get","type"],"Hospital"], 
- * 0, 
- * ["==", ["get","type"],"School"], 
+ *
+ * Example:
+ * ["case",
+ * ["==", ["get","type"],"Hospital"],
+ * 0,
+ * ["==", ["get","type"],"School"],
  * 1,
- * 1] 
+ * 1]
  */
 function generateOpacityExpression(legend, opacity) {
 	var styleOpacity, i, styleItem, defaultOpacity, legendStyles, expression, legendOpacities ;
@@ -3162,7 +3345,7 @@ function generateOpacityExpression(legend, opacity) {
 			// Add style case and color
 			if (styleItem.value && styleOpacity >= 0 && styleOpacity <= 1) {
 				// Add mapbox expression value is defined, add it to cases list
-				expression.push(styleItem.value);						
+				expression.push(styleItem.value);
 
 				// Add opacity to cases list
 				expression.push(styleOpacity);
@@ -3175,15 +3358,15 @@ function generateOpacityExpression(legend, opacity) {
 			}
 		}
 
-		// Add default colour as last item in expression 
-		// This is required by mapbox to in sure errors 
+		// Add default colour as last item in expression
+		// This is required by mapbox to in sure errors
 		// don't occur when the last item in the legend config
-		// is not the default colour (i.e. the one without a 
+		// is not the default colour (i.e. the one without a
 		// a defined mapbox expression value)
 		expression.push(defaultOpacity);
 
 	} else if (Array.isArray(legendStyles) && legendStyles.length == 1 && legendOpacities.length == 1) {
-		// If legend only includes 1 item, set style expression to the only legend opacity value 
+		// If legend only includes 1 item, set style expression to the only legend opacity value
 		expression = legendOpacities[0];
 	}
 	
@@ -3235,16 +3418,16 @@ class Map extends Evented {
 	 * Set the mapbox access token
 	 * @param {string} value map box access token
 	 */
-	static set Token(value) { 
-		maplibregl.accessToken = value; 
+	static set Token(value) {
+		maplibregl.accessToken = value;
 	}
 	
 	/**
 	 * Get the access token
 	 * @returns {string} mapbox access token
 	 */
-	static get Token() { 
-		return maplibregl.accessToken; 
+	static get Token() {
+		return maplibregl.accessToken;
 	}
 	
 	/**
@@ -3276,7 +3459,7 @@ class Map extends Evented {
 	/**
 	 * Get the current map zoom level
 	 * @returns {number} map zoom level (between 0-22)
-	 */ 
+	 */
 	get Zoom() {
 		return this.map.getZoom();
 	}
@@ -3310,7 +3493,7 @@ class Map extends Evented {
 
 		this.click = this.OnLayerClick_Handler.bind(this);
 		
-		this.map = new maplibregl.Map(options); 
+		this.map = new maplibregl.Map(options);
 		
 		this.map.once('styledata', this.OnceStyleData_Handler.bind(this));
 		
@@ -3336,9 +3519,9 @@ class Map extends Evented {
 	/**
 	 * Set the map bounds for the map.
 	 * @param {array} bounds - An array containing coordinate pairs for the map bounds.
-	 * @param {object} options - object containing options when fitting the map bounds 
+	 * @param {object} options - object containing options when fitting the map bounds.
 	 */
-	FitBounds(bounds, options) {		
+	FitBounds(bounds, options) {
 		this.map.fitBounds(bounds, options);
 	}
 
@@ -3353,8 +3536,8 @@ class Map extends Evented {
 
 	/**
 	 * Set the maximum zoom level for the map. If the value is null/undefined,
-	 * the max zoom level is reset to 22. 
-	 * @param {number} zoomLevel A numeric value between 0 and 22. 
+	 * the max zoom level is reset to 22.
+	 * @param {number} zoomLevel A numeric value between 0 and 22.
 	 */
 	SetMaxZoom(zoomLevel) {
 		this.map.setMaxZoom(zoomLevel);
@@ -3384,7 +3567,7 @@ class Map extends Evented {
 		this.map.setStyle(style);
 	}
 	
-	SetClickableMap(layers) {				
+	SetClickableMap(layers) {
 		this.map.on('click', this.click);
 	}
 
@@ -3400,7 +3583,7 @@ class Map extends Evented {
 		this.map.addControl(control, location);
 	}
 	
-	InfoPopup(lngLat, html) {	
+	InfoPopup(lngLat, html) {
 		var popup = new maplibregl.Popup({ closeOnClick: true })
 			.setLngLat(lngLat)
 			.setHTML(html)
@@ -3412,7 +3595,7 @@ class Map extends Evented {
 	}
 	
 	SetClickableLayers(layers) {
-		layers.forEach(l => this.map.off('click', l, this.click)); 
+		layers.forEach(l => this.map.off('click', l, this.click));
 		
 		this.layers = layers;
 		
@@ -3468,14 +3651,14 @@ class Map extends Evented {
 	
 	/**
 	 * Get a specified layer
-	 * @param {string} layerId map layer id. 
+	 * @param {string} layerId map layer id.
 	 */
 	GetLayer(layerId) {
 		return this.map.getLayer(layerId) || null;
 	}
 
 	/**
-	 * Retrieves the layer type 
+	 * Retrieves the layer type
 	 * @param {string} layerId - id of the map layer
 	 */
 	GetLayerType(layerId) {
@@ -3551,7 +3734,7 @@ class Map extends Evented {
 	
 	/**
 	 * Show a specified layer
-	 * @param {string} layerId map layer id. 
+	 * @param {string} layerId map layer id.
 	 */
 	ShowLayer(layerId) {
 		this.SetLayoutProperty(layerId, 'visibility', 'visible');
@@ -3559,7 +3742,7 @@ class Map extends Evented {
 	
 	/**
 	 * Hides a specified layer
-	 * @param {string} layerId map layer id. 
+	 * @param {string} layerId map layer id.
 	 */
 	HideLayer(layerId) {
 		this.SetLayoutProperty(layerId, 'visibility', 'none');
@@ -3615,7 +3798,7 @@ class Map extends Evented {
 	UpdateMapLayersWithLegendState(layerIDs, legend, storedOpacity) {
 		let opacity;
 
-		// Define opacity based on provided storedOpacity value; 
+		// Define opacity based on provided storedOpacity value.
 		if (storedOpacity >= 0 && storedOpacity <= 1) {
 			opacity = storedOpacity;
 		} else {
@@ -3630,7 +3813,8 @@ class Map extends Evented {
 		var opacityExpression = generateOpacityExpression(legend, opacity);
 		var symbolOpacityExpression = generateSymbolOpacityExpression(opacityExpression);
 
-		if ((opacityExpression || opacityExpression === 0) && (symbolOpacityExpression || symbolOpacityExpression === 0)) {
+		if ((opacityExpression || opacityExpression === 0)
+		&& (symbolOpacityExpression || symbolOpacityExpression === 0)) {
 			for (var i = 0; i < layerIDs.length; i += 1) {
 				// Get Layer Colour Property
 				let currentLayerID = layerIDs[i];
@@ -3650,7 +3834,7 @@ class Map extends Evented {
 						}
 
 					} else {
-						// Set opacity of feature labels based on opacity values. 
+						// Set opacity of feature labels based on opacity values.
 						// if opacity = 0 for a layer, then the labels are also set to 0.
 						this.SetPaintProperty(currentLayerID, 'text-opacity', symbolOpacityExpression);
 					}
@@ -3666,7 +3850,7 @@ class Map extends Evented {
 	 * Add layers for clustering the data.
 	 * @param {object} definedOpts - an object containing all of the cluster options
 	 * {
-	 * 		source: data-source-id, 
+	 * 		source: data-source-id,
 	 * 		id: cluster-layer-id,
 	 * 		filter: mapbox-expression,
 	 * 		circle_paint: object containing the paint properties for the cluster circle,
@@ -3706,7 +3890,7 @@ class Map extends Evented {
 			id: clusterLayerId,
 			type: 'circle',
 			source: options.source,
-			filter: options.filter, 
+			filter: options.filter,
 			paint: options.circle_paint
 		});
 
@@ -3717,7 +3901,7 @@ class Map extends Evented {
 			source: options.source,
 			filter: options.filter,
 			layout: options.label_layout,
-			paint: options.label_paint 
+			paint: options.label_paint
 		});
 	}
 
@@ -3857,7 +4041,7 @@ class Factory {
 	}
 
 	/**
-	 * Theme map control 
+	 * Theme map control
 	 * @param {array} themes a list of themes
 	 * @param {string} groups_label the groups label
 	 * @param {string} themes_label the themes label
@@ -3865,24 +4049,24 @@ class Factory {
 	 */
 	static ThemeControl(themes, groups_label, themes_label) {
 		return new Theme(
-			{ 
+			{
 				themes:themes,
-				groups_label:groups_label, 
+				groups_label:groups_label,
 				themes_label:themes_label
 			}
 		);
 	}
 	
 	/**
-	 * Theme Datalist map control 
+	 * Theme Datalist map control
 	 * @param {array} themes a list of themes
 	 * @param {string} groups_label the groups label
 	 * @param {string} themes_label the themes label
 	 * @returns an instantiated Theme control object
 	 */
-	 static ThemeDatalistControl(themes, groups_label, themes_label) {
+	static ThemeDatalistControl(themes, groups_label, themes_label) {
 		return new ThemeDatalist(
-			{ 
+			{
 				themes:themes,
 				groups_label:groups_label,
 				themes_label:themes_label
@@ -3931,12 +4115,22 @@ class Factory {
 	
 	/**
 	 * Builds a Maps Menu Control
-	 * @param {object} maps A collection of keys containing the details on each map 
+	 * @param {object} maps A collection of keys containing the details on each map
 	 * @param {string} label The label to be shown next to the maps select menu
 	 * @returns MapsMenu object
 	 */
 	static MapsMenuControl(maps, label) {
 		return new MapsMenu({ maps:maps, label:label });
+	}
+		
+	/**
+	 * Builds a Years Menu Control
+	 * @param {array} years A list of years
+	 * @param {string} label The label to be shown next to the years select menu
+	 * @returns YearsMenu object
+	 */
+	static YearsMenuControl(years, label) {
+		return new YearsMenu({ years:years, label:label });
 	}
 	
 	/**
@@ -3945,7 +4139,7 @@ class Factory {
 	 * locations.
 	 * @param {array} items List of bookmarked location, which includes the
 	 * bookmarked location's extent and a label.
-	 * Example: 
+	 * Example:
 	 * [
 	 * 		{
 	 * 			extent: [[-75, 50],[-74, 52]],
@@ -3956,7 +4150,7 @@ class Factory {
 	 * 			extent: [[20, 35],[22,36]],
 	 * 			label: "Location N"
 	 * 		}
-	 * ] 
+	 * ]
 	 * @param {string} label The label text to be shown as the header of the bookmarks control
 	 * @param {string} description The description text to be shown at the bottom of the bookmarks control
 	 * @returns {object} Bookmarks control object
@@ -3984,8 +4178,8 @@ class Factory {
 	 * 		...
 	 * ]
 	 * @param {string} placeholder The placeholder text shown in the search
-	 * input field. 
-	 * @param {string} title The title text that's shown when hovering over 
+	 * input field.
+	 * @param {string} title The title text that's shown when hovering over
 	 * the control.
 	 * @returns {object} Search control object
 	 */
@@ -3996,7 +4190,7 @@ class Factory {
 	/**
 	 * Creates a container, which contains a collection of map controls.
 	 * @param {object} controls A collection of map controls
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		opacity: Factory.OpacityControl(1),
 	 * 		...
@@ -4010,7 +4204,7 @@ class Factory {
 	/**
 	 * Creates a collapsable group container that contains a collection of controls.
 	 * @param {object} controls A collection of map controls
-	 * Example: 
+	 * Example:
 	 * {
 	 * 		opacity: Factory.OpacityControl(1),
 	 * 		...
@@ -4018,10 +4212,10 @@ class Factory {
 	 * @param {string} summaryLabel Text label for collapsable group
 	 * @returns {object} Collapsable group control object
 	 */
-	 static CollapsableGroup(controls, summaryLabel) {
+	static CollapsableGroup(controls, summaryLabel) {
 		return new CollapsableGroup(
 			{
-				controls: controls, 
+				controls: controls,
 				summary: summaryLabel
 			}
 		);
@@ -4067,7 +4261,7 @@ class Other {
 			var inner = Core.Nls("Gen_Label_Field", [label, json[f.id]]);
 			
             html += `<li tabIndex=0><label>${inner}</label></li>`;
-		}); 
+		});
         
 		return `<ul class='popup-inner'>${html}</ul>`;
     }
@@ -4091,4 +4285,4 @@ class Other {
 	}
 }
 
-export { Bookmarks, CollapsableGroup, Control, Core, Dom, Download, Evented, Factory, Fullscreen, Group, LabelsToggle, Legend, Map, MapsList, MapsMenu, Menu, Navigation, Net, Opacity, Other, Popup, Search, Store, Templated, Theme, ThemeDatalist, Toc, Tooltip, typeahead as Typeahead, Util };
+export { Bookmarks, CollapsableGroup, Control, Core, Dom, Download, Evented, Factory, Fullscreen, Group, LabelsToggle, Legend, Map, MapsList, MapsMenu, Menu, Navigation, Net, Opacity, Other, Popup, Search, Store, Templated, Theme, ThemeDatalist, Toc, Tooltip, typeahead as Typeahead, Util, YearsMenu };

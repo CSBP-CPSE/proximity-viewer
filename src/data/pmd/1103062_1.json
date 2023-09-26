@@ -1,0 +1,5 @@
+DBUID,prox_idx_emp,prox_idx_pharma,prox_idx_childcare,prox_idx_health,prox_idx_grocery,prox_idx_educpri,prox_idx_educsec,prox_idx_lib,prox_idx_parks,prox_idx_transit,amenity_dense
+11030080001,0.0002,..,..,..,0.0034,..,..,..,..,..,0.0
+11030080006,0.0001,..,..,..,..,..,..,..,..,..,0.0
+11030080007,0.0001,..,..,..,..,..,..,..,..,..,0.0
+11030080009,0.0002,..,..,..,0.0088,..,..,..,..,..,0.0

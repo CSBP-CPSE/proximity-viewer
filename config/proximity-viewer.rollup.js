@@ -1,4 +1,4 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 
 const banner = 
 `/*
@@ -17,7 +17,8 @@ export default {
     plugins: [
         babel({
             exclude: 'node_modules/**',
-			configFile: './config/babel.config.cjs'
+			configFile: './config/babel.config.cjs',
+            babelHelpers: 'bundled'
         })
     ]
 }

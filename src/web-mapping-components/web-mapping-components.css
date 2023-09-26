@@ -15,9 +15,9 @@ body {
 }
 
 :not(li):focus {
-	box-shadow: 0 0 3px 2px rgba(47, 151, 255) !important;
-	-moz-box-shadow: 0 0 3px 2px rgba(47, 151, 255) !important;
-	-webkit-box-shadow: 0 0 3px 2px rgba(47, 151, 255) !important;
+	box-shadow: 0 0 3px 2px rgb(15, 135, 255) !important;
+	-moz-box-shadow: 0 0 3px 2px rgb(15, 135, 255) !important;
+	-webkit-box-shadow: 0 0 3px 2px rgb(15, 135, 255) !important;
 	outline: none !important;
 }
 
@@ -145,6 +145,7 @@ datalist {
 	height: 2px;
 }
 
+
 /*
 -------------------------------------------------------------------------------
 controls.css style rules
@@ -194,6 +195,7 @@ controls.css style rules
 .mapboxgl-ctrl-group .mapboxgl-ctrl.legend > *,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.opacity,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.maps-menu,
+.mapboxgl-ctrl-group .mapboxgl-ctrl.years-menu,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.labels-toggle,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.theme-selector,
 .mapboxgl-ctrl-group .mapboxgl-ctrl.toc,
@@ -424,6 +426,7 @@ details.mapboxgl-ctrl-collapsable-group summary:hover {
 	margin: 0px 10px 0px 10px;
 }
 
+
 /* 
 -------------------------------------------------------------------------------
 popup.css style rules
@@ -578,6 +581,7 @@ popup.css style rules
     -webkit-box-shadow: 0.5px 0.5px 1px 1px rgba(0, 0, 0, 0.2) !important;
 }
 
+
 /*
 -------------------------------------------------------------------------------
 search.css style rules
@@ -664,6 +668,7 @@ search.css style rules
     overflow-x: hidden;
     max-height: 400px;
 }
+
 
 /* 
 -------------------------------------------------------------------------------
@@ -760,3 +765,4 @@ table.css style rules
   text-decoration: none;
   color: rgb(51,51,51);
 }
+

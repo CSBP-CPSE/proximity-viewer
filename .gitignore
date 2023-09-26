@@ -1,12 +1,19 @@
 # Directories to ignore
 #######################
 node_modules/
+.idea/
+__pycache__/
+output/
 dist/
+scripts/source/CMA
+scripts/source/CSD
+scripts/source/DB
+scripts/source/PMD/*
 
-# VIM created files
+# Files to ignore
 #######################
 *.swp
 
-# Other
+# .gitignore exceptions
 #######################
-output
+!/scripts/source/PMD/pmd.json
